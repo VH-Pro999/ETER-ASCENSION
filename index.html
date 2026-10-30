@@ -661,14 +661,14 @@ function gainXP(n){
 }
 function hurtPlayer(rawDamage,source='enemigo'){if(player.inv>0||gameOver)return false;const damage=Math.max(1,Math.round(rawDamage*(transformed?.52:.70))); player.hp=Math.max(0,player.hp-damage);player.inv=26;burst(player.x,player.y,'#ff637b',12,4);if(source)log('💥 '+source+' te hizo '+damage+' de daño.');if(player.hp<=0){gameOver=true;paused=false;document.body.classList.remove('game-paused','game-transition');document.body.classList.add('game-over');keys={};$('status').textContent='Derrotado';syncPauseButtonVisibility();$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.remove('hidden');log('¡Te vencieron! La aventura terminó.');}return true;}
 function playerDamage(base){return Math.round(base*1.10*(1+Math.max(0,level-1)*.035+Math.min(island,20)*.05));}
-function enemyAttackDamage(base,isBoss=false){const benchmarkLevel=enemyBenchmarkLevel();const scale=1+Math.max(0,benchmarkLevel-1)*.035+Math.min(island,20)*.05;return Math.round(base*.90*scale*(postGame?1.08:1)*(isBoss?1.20:1.05));}
+function enemyAttackDamage(base,isBoss=false){const benchmarkLevel=enemyBenchmarkLevel();const scale=1+Math.max(0,benchmarkLevel-1)*.035+Math.min(island,20)*.05;return Math.round(base*.84*scale*(postGame?1.08:1)*(isBoss?1.20:1.05));}
 const FURY_CHARGE_MULTIPLIER=.24; // Genera carga durante los golpes; el medidor la libera a un máximo de 100% por minuto.
 function addFury(amount){if(!transformed&&transformFrames<=0&&fury<100)furyPending=Math.min(100-fury,furyPending+Math.max(0,amount)*FURY_CHARGE_MULTIPLIER);}
 function enemyContactDamage(e){
  // M1 enemigo reducido un 20%: normal 12, élite 20, jefe 40 como base.
  // El daño sigue escalando con el nivel medio del reino; Rainbow usa el nivel real.
  const benchmarkLevel=enemyBenchmarkLevel();
- const baseDamage=(e.boss?50:e.elite?25:15)*.8*(e.superBoss?1.4:1);
+ const baseDamage=(e.boss?50:e.elite?25:15)*.74*(e.superBoss?1.4:1);
  const islandScale=1+Math.max(0,benchmarkLevel-3)*.0045;
  return Math.max(1,Math.round(baseDamage*islandScale));
 }
