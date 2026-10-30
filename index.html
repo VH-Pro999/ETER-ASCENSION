@@ -465,6 +465,33 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
  .box>.foot{top:max(6px,env(safe-area-inset-top))!important;padding:5px 9px!important;font-size:.62rem!important;max-width:calc(100% - 20px)!important}
 }
 
+
+/* Ajustes finales de contenedores: GAME OVER y paneles sin desbordes en escritorio/móvil. */
+.startScreen,.islandTransition,.pauseScreen,.gameOverScreen,.campaignCompleteScreen{
+ box-sizing:border-box;max-width:100vw;max-height:100dvh;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;
+ padding:clamp(10px,3vw,24px);
+}
+.startCard,.islandTransitionCard,.pauseCard,.gameOverCard,.campaignCompleteCard{
+ box-sizing:border-box;min-width:0;max-width:100%;max-height:calc(100dvh - 24px);
+ overflow-x:hidden;overflow-y:auto;overflow-wrap:anywhere;word-break:normal;
+}
+.gameOverCard{width:min(680px,100%);padding:clamp(16px,4vw,34px);}
+.gameOverMark{display:block;width:max-content;max-width:100%;margin:0 auto;line-height:1;transform-origin:center;}
+.gameOverCard h2{
+ max-width:100%;font-size:clamp(2rem,9.5vw,5.6rem);line-height:1;
+ letter-spacing:clamp(0rem,1vw,.065em);white-space:normal;overflow-wrap:anywhere;word-break:normal;
+}
+.gameOverCard p{max-width:100%;line-height:1.45;overflow-wrap:anywhere;}
+.gameOverCard button{width:min(100%,360px);white-space:normal;overflow-wrap:anywhere;}
+.pauseCard,.islandTransitionCard,.startCard{width:min(480px,100%);}
+.campaignCompleteCard{width:min(720px,100%);}
+@media(max-width:380px){
+ .gameOverCard{padding:15px 12px;}
+ .gameOverCard h2{font-size:clamp(1.8rem,9vw,2.5rem);letter-spacing:0;}
+ .gameOverCard button{padding:11px 12px;font-size:.86rem;}
+}
+
+.hud-spacer{display:none!important;visibility:hidden!important}
 </style>
 </head>
 <body>
@@ -474,7 +501,7 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
  <div class="box"><div class="gameStage"><button id="pauseBtn" type="button" aria-label="Pausar partida" disabled>Ⅱ PAUSA</button><canvas id="game" width="900" height="540" aria-label="Juego de aventura 2D"></canvas>
  <div class="stats">
   <div class="stat"><small>Nivel</small><strong id="level">1</strong><div class="bar"><div class="fill xp" id="xpBar"></div></div><small id="xpText">0 / 1000 XP</small></div>
-  <div class="stat"><small>Monedas</small><strong id="coins">0</strong><small>Enemigos derrotados: <b id="kills">0</b></small></div>
+  <div class="stat hud-spacer" aria-hidden="true"></div>
   <div class="stat"><small>Vida</small><strong id="hpText">120 / 120</strong><div class="bar"><div class="fill hp" id="hpBar"></div></div></div>
   <div class="stat"><small id="furyLabel">Furia dracónica</small><strong id="furyText">0%</strong><div class="bar"><div class="fill fury" id="furyBar"></div></div></div>
  </div><div class="startScreen" id="startScreen"><div class="startCard"><h2>ÉTERDRACO</h2><p>Eres un joven con poderes de dragón que se embarca en una aventura por islas de todo tipo, enfrentando enemigos, élites y jefes. ¿Aceptas el desafío?</p><button id="startBtn">START</button></div></div><div class="islandTransition hidden" id="islandTransition" role="dialog" aria-modal="true" aria-labelledby="transitionTitle"><div class="islandTransitionCard"><div class="eyebrow" id="transitionEyebrow">NUEVO REINO DESCUBIERTO</div><h2 id="transitionTitle">Preparando el viaje...</h2><p id="transitionDescription">Una nueva aventura te espera.</p><button id="goIslandBtn">IR AL SIGUIENTE REINO</button></div></div><div id="pauseScreen" class="pauseScreen hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle"><div class="pauseCard"><div class="pauseIcon">Ⅱ</div><h2 id="pauseTitle">PAUSA</h2><p>La partida está detenida.</p><button id="resumeBtn" type="button">▶ CONTINUAR</button></div></div><div id="gameOverScreen" class="gameOverScreen hidden" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle"><div class="gameOverCard"><div class="gameOverMark">✦</div><p class="gameOverEyebrow">LA AVENTURA SE DETUVO</p><h2 id="gameOverTitle">GAME OVER</h2><p>Los reinos aún esperan tu regreso.</p><button id="reloadBtn" type="button">↻ VOLVER A EMPEZAR</button></div></div><div id="campaignCompleteScreen" class="campaignCompleteScreen hidden" role="dialog" aria-modal="true" aria-labelledby="campaignCompleteTitle"><div class="campaignCompleteCard"><p class="campaignEyebrow">HISTORIA PRINCIPAL COMPLETADA</p><h2 id="campaignCompleteTitle">¡FELICIDADES!</h2><p>Has alcanzado el nivel 100, conquistado los 20 mundos y demostrado que puedes dominar el poder del dragón.</p><div class="campaignDivider"></div><h3>Tu viaje todavía no termina.</h3><p>Continúa en la <strong>Dimensión Rainbow</strong>, un mundo de postgame donde los enemigos, los jefes y tu poder siguen creciendo sin límite.</p><button id="continueInfiniteBtn" type="button">CONTINUAR EN LA DIMENSIÓN RAINBOW</button></div></div></div><div class="foot"><span id="islandLabel">ISLA 1 · PUERTO ROCKET</span><span id="status" class="visuallyHidden">Pulsa START para jugar</span></div>
@@ -491,7 +518,7 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
  <h2 class="wide">AVENTURERO</h2>
 
  <div class="wide"><h2>TRANSFORMACIÓN</h2><div class="stat"><div class="bar"><div class="fill time" id="transformBar" style="width:0%"></div></div><small id="transformText">Carga la furia derrotando enemigos. Forma dragón: 30 segundos.</small></div></div>
- <div class="wide"><h2>MISIÓN DE LA ISLA</h2><div class="quest" id="quest">Cada nivel requiere 1000 XP. Gana el doble de experiencia y activa la forma dracónica durante 30 segundos. Cambias de isla cada 5 niveles.</div></div>
+ <div class="wide"><h2>MISIÓN DE LA ISLA</h2><div class="quest" id="quest">Cada nivel requiere 1000 XP. Derrota enemigos, élites y jefes para ganar experiencia y fortalecer tus poderes dracónicos. Cambias de isla cada 5 niveles.</div></div>
  <div class="wide"><h2>HABILIDADES</h2>
   <div class="ability"><span><b>Hiperrayo</b><br><small>Rayo de energía que apunta al enemigo</small></span><span class="key">Z</span></div>
   <div class="ability"><span><b>Placaje ígneo</b><br><small>Embiste hacia el objetivo y explota al impactar</small></span><span class="key">X</span></div>
@@ -565,7 +592,7 @@ const themes=[
  {grass:'#b66bd1',deep:'#6049a3',sand:'#ffe16b',water:'#4de4ed',sky:'#9c7bff',accent:'#ff65d6',glow:'#ffffff',style:'rainbow'}
 ];
 const MAX_ENEMIES_ON_SCREEN=7, RESPAWN_DELAY_FRAMES=180, EMPTY_SCREEN_REFILL_FRAMES=300, EMPTY_SCREEN_REFILL_STEP=EMPTY_SCREEN_REFILL_FRAMES/MAX_ENEMIES_ON_SCREEN; // 7 enemigos como máximo; reposición normal cada 3 s y recuperación de pantalla vacía en 5 s
-let keys={},player,enemies,particles,level,xp,xpNeed,coins,kills,island,islandKills,fury,transformed,transformFrames,attackCD,cds,frame,gameOver,shake,started=false,furyauraCD=0,spawnCounter=0,spawnClock=0,emptyRefillUntil=-1,emptyRefillNextFrame=0,transitionPending=false,paused=false,postGame=false,campaignCompleteShown=false;
+let keys={},player,enemies,particles,level,xp,xpNeed,island,islandKills,fury,transformed,transformFrames,attackCD,cds,frame,gameOver,shake,started=false,furyauraCD=0,spawnCounter=0,spawnClock=0,emptyRefillUntil=-1,emptyRefillNextFrame=0,transitionPending=false,paused=false,postGame=false,campaignCompleteShown=false;
 let propulsionHitState=new Map(); // Por uso: máximo seis pulsos de daño por enemigo.
 const rand=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function log(s){let e=$('log');e.innerHTML='› '+s+'<br>'+e.innerHTML;if(e.innerHTML.length>1800)e.innerHTML=e.innerHTML.slice(0,1800);}
@@ -576,13 +603,13 @@ function syncPauseButtonVisibility(){
  $('pauseBtn').disabled=!visible;
 }
 function currentTheme(){return themes[Math.min(island,20)];}
-function reset(){document.body.classList.remove('game-started','game-paused','game-transition','game-over','campaign-complete');started=false;paused=false;postGame=false;campaignCompleteShown=false;keys={};transitionPending=false;$('islandTransition').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('startScreen').classList.remove('hidden');$('pauseBtn').disabled=true;$('pauseBtn').style.display='none';$('pauseBtn').textContent='Ⅱ PAUSA';$('game').parentElement.classList.remove('paused');$('status').textContent='Pulsa START para jugar';player={x:W/2,y:H/2,r:14,hp:120,maxHp:120,speed:3.1,dx:1,dy:0,inv:0,soarFrames:0};enemies=[];particles=[];level=1;xp=0;xpNeed=1000;coins=0;kills=0;island=0;islandKills=0;fury=0;transformed=false;transformFrames=0;attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};frame=0;gameOver=false;shake=0;furyauraCD=0;spawnCounter=0;spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState=new Map();for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();$('log').textContent='Un joven descubre el poder de un dragón ancestral y parte a recorrer los reinos.';log('Cada reino ajusta enemigos y jefes al nivel medio del tramo: 3, 8, 13…98. En la Dimensión Rainbow la dificultad sigue tu nivel actual. Daño recibido: 70% en forma normal y 40% en forma dragón. XP: normal 100 · élite 200 · jefe 1000.');syncPauseButtonVisibility();updateUI();}
+function reset(){document.body.classList.remove('game-started','game-paused','game-transition','game-over','campaign-complete');started=false;paused=false;postGame=false;campaignCompleteShown=false;keys={};transitionPending=false;$('islandTransition').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('startScreen').classList.remove('hidden');$('pauseBtn').disabled=true;$('pauseBtn').style.display='none';$('pauseBtn').textContent='Ⅱ PAUSA';$('game').parentElement.classList.remove('paused');$('status').textContent='Pulsa START para jugar';player={x:W/2,y:H/2,r:14,hp:120,maxHp:120,speed:3.1,dx:1,dy:0,inv:0,soarFrames:0};enemies=[];particles=[];level=1;xp=0;xpNeed=1000;island=0;islandKills=0;fury=0;transformed=false;transformFrames=0;attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};frame=0;gameOver=false;shake=0;furyauraCD=0;spawnCounter=0;spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState=new Map();for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();$('log').textContent='Un joven descubre el poder de un dragón ancestral y parte a recorrer los reinos.';log('Cada reino ajusta enemigos y jefes al nivel medio del tramo: 3, 8, 13…98. En la Dimensión Rainbow la dificultad sigue tu nivel actual. Apariciones: normal 69% · élite 24% · jefe violeta 6% · jefe supremo rojo 1%. Daño recibido: 70% en forma normal y 52% en forma dragón. XP: normal 50 · élite 100 · jefe 500 · supremo 1000.');syncPauseButtonVisibility();updateUI();}
 function enemyBenchmarkLevel(){
  // Reinos de campaña: dificultad basada en el nivel medio del tramo (3, 8, 13...98).
  // Dimensión Rainbow: la dificultad sigue el nivel real del jugador.
  return (postGame||island>=20)?Math.max(1,level):island*5+3;
 }
-function spawnEnemy(){if(enemies.length>=MAX_ENEMIES_ON_SCREEN)return;let x,y,tries=0;do{x=rand(35,W-35);y=rand(60,H-35);tries++;}while(Math.hypot(x-player.x,y-player.y)<150&&tries<100);spawnCounter++;const benchmarkLevel=enemyBenchmarkLevel();const rainbow=postGame||level>100||island>=20;const roll=Math.random()*100;const boss=roll<5;const elite=roll>=5&&roll<25;const progression=1+Math.max(0,benchmarkLevel-1)*.01+Math.min(island,20)*.03;let baseHp=boss?1000+benchmarkLevel*28+island*65:elite?220+benchmarkLevel*9+island*16:95+benchmarkLevel*5+island*10;let dimensionMultiplier=rainbow?(boss?1.6:elite?1.35:1.2):1;let hp=Math.round(baseHp*progression*dimensionMultiplier*(boss?1.08:1));let baseSpeed=boss?rand(.72,.95):elite?rand(.96,1.25):rand(.82,1.12);let speed=baseSpeed+Math.min(benchmarkLevel*.006+island*.012,1.2);const variants=boss?['wyrm','titan','oracle']:elite?['sentinel','fang','specter']:['slime','imp','moth','golem'];const variant=variants[Math.floor(rand(0,variants.length))];enemies.push({x,y,r:boss?(rainbow?30:24):elite?18:14,hp,maxHp:hp,speed,hit:0,cd:0,boss,elite,variant,phase:rand(0,6),skillCd:boss?Math.floor(rand(100,190)):0,castFrames:0,attackType:'',targetX:player.x,targetY:player.y});}
+function spawnEnemy(){if(enemies.length>=MAX_ENEMIES_ON_SCREEN)return;let x,y,tries=0;do{x=rand(35,W-35);y=rand(60,H-35);tries++;}while(Math.hypot(x-player.x,y-player.y)<150&&tries<100);spawnCounter++;const benchmarkLevel=enemyBenchmarkLevel();const rainbow=postGame||level>100||island>=20;const roll=Math.random()*100;const superBoss=roll>=99;const boss=superBoss||(roll>=93&&roll<99);const elite=roll>=69&&roll<93; /* 69% normal, 24% élite, 6% jefe violeta y 1% supremo rojo. */const progression=1+Math.max(0,benchmarkLevel-1)*.01+Math.min(island,20)*.03;let baseHp=boss?1000+benchmarkLevel*28+island*65:elite?220+benchmarkLevel*9+island*16:95+benchmarkLevel*5+island*10;let dimensionMultiplier=rainbow?(superBoss?2.05:boss?1.6:elite?1.35:1.2):1;let hp=Math.round(baseHp*progression*dimensionMultiplier*(superBoss?1.45:boss?1.08:1));let baseSpeed=superBoss?rand(.94,1.12):boss?rand(.72,.95):elite?rand(.96,1.25):rand(.82,1.12);let speed=baseSpeed+Math.min(benchmarkLevel*.006+island*.012,1.2);const variants=boss?['wyrm','titan','oracle']:elite?['sentinel','fang','specter']:['slime','imp','moth','golem'];const variant=variants[Math.floor(rand(0,variants.length))];const enemyRadius=superBoss?(rainbow?40:34):boss?(rainbow?30:24):elite?18:14;if(superBoss){const marginX=110,marginY=82;x=clamp(x,marginX,W-marginX);y=clamp(y,marginY,H-marginY);if(Math.hypot(x-player.x,y-player.y)<150){x=player.x<W/2?W-marginX:marginX;y=player.y<H/2?H-marginY:marginY;}}else if(boss){x=clamp(x,58,W-58);y=clamp(y,55,H-55);}enemies.push({x,y,r:enemyRadius,hp,maxHp:hp,speed,hit:0,cd:0,boss,superBoss,elite,variant,phase:rand(0,6),skillCd:superBoss?Math.floor(rand(80,145)):boss?Math.floor(rand(100,190)):elite?Math.floor(rand(240,360)):0,castFrames:0,attackType:'',targetX:player.x,targetY:player.y});}
 function burst(x,y,color,n=14,power=4){for(let i=0;i<n;i++){let a=rand(0,Math.PI*2),s=rand(.7,power);particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:rand(15,35),max:35,color,r:rand(2,5)});}}
 function changeIsland(nextIsland){
  island=nextIsland;islandKills=0;player.x=W/2;player.y=H/2;enemies=[];particles=[];spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;
@@ -623,16 +650,66 @@ function gainXP(n){
   if(level>=100&&!postGame){showCampaignComplete();break;}
  }
 }
-function hurtPlayer(rawDamage,source='enemigo'){if(player.inv>0||gameOver)return false;const damage=Math.max(1,Math.round(rawDamage*(transformed?.40:.70))); player.hp=Math.max(0,player.hp-damage);player.inv=26;burst(player.x,player.y,'#ff637b',12,4);if(source)log('💥 '+source+' te hizo '+damage+' de daño.');if(player.hp<=0){gameOver=true;paused=false;document.body.classList.remove('game-paused','game-transition');document.body.classList.add('game-over');keys={};$('status').textContent='Derrotado';syncPauseButtonVisibility();$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.remove('hidden');log('¡Te vencieron! La aventura terminó.');}return true;}
-function playerDamage(base){return Math.round(base*(1+Math.max(0,level-1)*.035+Math.min(island,20)*.05));}
+function hurtPlayer(rawDamage,source='enemigo'){if(player.inv>0||gameOver)return false;const damage=Math.max(1,Math.round(rawDamage*(transformed?.52:.70))); player.hp=Math.max(0,player.hp-damage);player.inv=26;burst(player.x,player.y,'#ff637b',12,4);if(source)log('💥 '+source+' te hizo '+damage+' de daño.');if(player.hp<=0){gameOver=true;paused=false;document.body.classList.remove('game-paused','game-transition');document.body.classList.add('game-over');keys={};$('status').textContent='Derrotado';syncPauseButtonVisibility();$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.remove('hidden');log('¡Te vencieron! La aventura terminó.');}return true;}
+function playerDamage(base){return Math.round(base*1.10*(1+Math.max(0,level-1)*.035+Math.min(island,20)*.05));}
 function enemyAttackDamage(base,isBoss=false){const benchmarkLevel=enemyBenchmarkLevel();const scale=1+Math.max(0,benchmarkLevel-1)*.035+Math.min(island,20)*.05;return Math.round(base*.90*scale*(postGame?1.08:1)*(isBoss?1.20:1.05));}
-function resolveBossAttack(e){if(!e.boss||gameOver)return;const rainbow=island>=20;const tx=e.targetX,ty=e.targetY;let dx=tx-e.x,dy=ty-e.y,dist=Math.hypot(dx,dy)||1,ux=dx/dist,uy=dy/dist;let raw=e.attackType==='z'?54:e.attackType==='x'?96:e.attackType==='c'?48:30;raw=enemyAttackDamage(raw,true);let hit=false;
- if(e.attackType==='z'){const range=rainbow?620:470,ex=e.x+ux*range,ey=e.y+uy*range;particles.push({beam:true,x:e.x,y:e.y,ex,ey,width:rainbow?40:30,color:rainbow?'#ff5fcf':'#ff8f45',life:20,max:20});const ax=player.x-e.x,ay=player.y-e.y,proj=ax*ux+ay*uy,perp=Math.abs(ax*uy-ay*ux);hit=proj>0&&proj<range&&perp< (rainbow?42:32)+player.r;}
- else if(e.attackType==='x'||e.attackType==='f'){const oldX=e.x,oldY=e.y,travel=Math.min(e.attackType==='x'?(rainbow?230:180):(rainbow?180:130),dist);e.x=clamp(e.x+ux*travel,20,W-20);e.y=clamp(e.y+uy*travel,35,H-20);particles.push({beam:true,x:oldX,y:oldY,ex:e.x,ey:e.y,width:e.attackType==='x'?34:22,color:rainbow?'#ff55dd':'#ffcc69',life:18,max:18});const lineDx=e.x-oldX,lineDy=e.y-oldY,len2=lineDx*lineDx+lineDy*lineDy||1,t=clamp(((player.x-oldX)*lineDx+(player.y-oldY)*lineDy)/len2,0,1);const lineDistance=Math.hypot(player.x-(oldX+t*lineDx),player.y-(oldY+t*lineDy));hit=lineDistance<player.r+(e.attackType==='x'?36:26)||Math.hypot(player.x-e.x,player.y-e.y)<(rainbow?105:82);}
- else {const radius=rainbow?225:170;particles.push({ring:true,x:e.x,y:e.y,radius,color:rainbow?'#ff68d7':'#ff8f45',life:24,max:24});hit=Math.hypot(player.x-e.x,player.y-e.y)<radius;}
+function enemyContactDamage(e){
+ // M1 enemigo reducido un 20%: normal 12, élite 20, jefe 40 como base.
+ // El daño sigue escalando con el nivel medio del reino; Rainbow usa el nivel real.
+ const benchmarkLevel=enemyBenchmarkLevel();
+ const baseDamage=(e.boss?50:e.elite?25:15)*.8*(e.superBoss?1.4:1);
+ const islandScale=1+Math.max(0,benchmarkLevel-3)*.0045;
+ return Math.max(1,Math.round(baseDamage*islandScale));
+}
+function resolveBossAttack(e){if(!e.boss||gameOver)return;const rainbow=island>=20;const tx=e.targetX,ty=e.targetY;let dx=tx-e.x,dy=ty-e.y,dist=Math.hypot(dx,dy)||1,ux=dx/dist,uy=dy/dist;let raw=e.attackType==='z'?54:e.attackType==='x'?72:e.attackType==='c'?48:30;raw=enemyAttackDamage(raw*(e.superBoss?1.4:1),true);let hit=false;
+ if(e.attackType==='z'){const range=(rainbow?620:470)*(e.superBoss?1.28:1),beamWidth=(rainbow?40:30)*(e.superBoss?1.2:1),ex=e.x+ux*range,ey=e.y+uy*range;particles.push({beam:true,x:e.x,y:e.y,ex,ey,width:beamWidth,color:e.superBoss?'#ff3038':'#bd74ff',life:20,max:20});const ax=player.x-e.x,ay=player.y-e.y,proj=ax*ux+ay*uy,perp=Math.abs(ax*uy-ay*ux);hit=proj>0&&proj<range&&perp< (rainbow?42:32)*(e.superBoss?1.2:1)+player.r;}
+ else if(e.attackType==='x'||e.attackType==='f'){const oldX=e.x,oldY=e.y,travel=Math.min((e.attackType==='x'?(rainbow?230:180):(rainbow?180:130))*(e.superBoss?1.28:1),dist);e.x=clamp(e.x+ux*travel,20,W-20);e.y=clamp(e.y+uy*travel,35,H-20);particles.push({beam:true,x:oldX,y:oldY,ex:e.x,ey:e.y,width:(e.attackType==='x'?34:22)*(e.superBoss?1.25:1),color:e.superBoss?'#ff3038':'#bd74ff',life:18,max:18});const lineDx=e.x-oldX,lineDy=e.y-oldY,len2=lineDx*lineDx+lineDy*lineDy||1,t=clamp(((player.x-oldX)*lineDx+(player.y-oldY)*lineDy)/len2,0,1);const lineDistance=Math.hypot(player.x-(oldX+t*lineDx),player.y-(oldY+t*lineDy));hit=lineDistance<player.r+(e.attackType==='x'?36:26)*(e.superBoss?1.25:1)||Math.hypot(player.x-e.x,player.y-e.y)<(rainbow?105:82)*(e.superBoss?1.25:1);}
+ else {const radius=(rainbow?225:170)*(e.superBoss?1.28:1);particles.push({ring:true,x:e.x,y:e.y,radius,color:e.superBoss?'#ff3038':'#bd74ff',life:24,max:24});hit=Math.hypot(player.x-e.x,player.y-e.y)<radius;}
  if(hit)hurtPlayer(raw,'Ataque '+({z:'Z · Cañón',x:'X · Embestida',c:'C · Explosión',f:'F · Acelerón'}[e.attackType]||'del jefe'));else log('✨ Esquivaste el ataque '+e.attackType.toUpperCase()+' del jefe.');}
-function updateBossSkill(e,d){if(!e.boss)return false;if(e.castFrames>0){e.castFrames--;if(e.castFrames===0)resolveBossAttack(e);return true;}e.skillCd=Math.max(0,e.skillCd-1);if(e.skillCd<=0&&d>46&&d<(island>=20?650:510)){e.attackType=['z','x','c','f'][Math.floor(rand(0,4))];e.targetX=player.x;e.targetY=player.y;e.castFrames=32;e.skillCd=Math.floor(rand(island>=20?330:390,island>=20?480:540));return true;}return false;}
-function hurtEnemy(e,dmg,knock=0){e.hp-=dmg;e.hit=8;if(!transformed&&transformFrames<=0)fury=Math.min(100,fury+Math.max(.5,dmg*.05)+(e.boss?.375:0));burst(e.x,e.y,e.boss?'#ff75da':e.elite?'#8dfff0':'#ffb45c',8,3);if(knock){let dx=e.x-player.x,dy=e.y-player.y,l=Math.hypot(dx,dy)||1;e.x+=dx/l*knock;e.y+=dy/l*knock;}if(e.hp<=0){const xpReward=e.boss?1000:e.elite?200:100;coins+=e.boss?35:e.elite?16:8;kills++;islandKills++;if(!transformed&&transformFrames<=0)fury=Math.min(100,fury+(e.boss?8:e.elite?5:3.75));gainXP(xpReward);log((e.boss?'👑 JEFE DERROTADO':e.elite?'💠 ÉLITE DERROTADO':'Enemigo derrotado')+' · +'+xpReward+' XP, +'+(e.boss?35:e.elite?16:8)+' monedas.');burst(e.x,e.y,e.boss?'#e6a4ff':e.elite?'#64e9ee':'#ffd166',e.boss?34:18,5);enemies=enemies.filter(q=>q!==e);if(islandKills>=4){islandKills=0;log('Misión de isla completada: ¡bonificación de furia!');if(!transformed&&transformFrames<=0)fury=Math.min(100,fury+3);coins+=10;}if(enemies.length===0){emptyRefillUntil=frame+EMPTY_SCREEN_REFILL_FRAMES;emptyRefillNextFrame=frame+EMPTY_SCREEN_REFILL_STEP;spawnClock=0;}else if(emptyRefillUntil<0&&spawnClock<=0){spawnClock=RESPAWN_DELAY_FRAMES;}}}
+function updateBossSkill(e,d){if(!e.boss)return false;if(e.castFrames>0){e.castFrames--;if(e.castFrames===0)resolveBossAttack(e);return true;}e.skillCd=Math.max(0,e.skillCd-1);const skillRange=(island>=20?650:510)*(e.superBoss?1.28:1);if(e.skillCd<=0&&d>46&&d<skillRange){e.attackType=['z','x','c','f'][Math.floor(rand(0,4))];e.targetX=player.x;e.targetY=player.y;e.castFrames=e.superBoss?27:32;e.skillCd=Math.floor(rand(island>=20?330:390,island>=20?480:540)*(e.superBoss ? 0.95 : 1));return true;}return false;}
+function resolveEliteAttack(e){
+ if(!e.elite||gameOver)return;
+ const rainbow=postGame||island>=20;
+ let dx=e.targetX-e.x,dy=e.targetY-e.y,dist=Math.hypot(dx,dy)||1,ux=dx/dist,uy=dy/dist;
+ // Élites golpean con ataques inspirados en los jefes, pero con menos daño y alcance.
+ const raw=enemyAttackDamage(e.attackType==='z'?28:e.attackType==='x'?42:30,false);
+ let hit=false;
+ if(e.attackType==='z'){
+  const range=rainbow?360:300,beamWidth=rainbow?28:22;
+  const ax=player.x-e.x,ay=player.y-e.y,proj=ax*ux+ay*uy,perp=Math.abs(ax*uy-ay*ux);
+  particles.push({beam:true,x:e.x,y:e.y,ex:e.x+ux*range,ey:e.y+uy*range,width:beamWidth,color:'#58dcd2',life:18,max:18});
+  hit=proj>0&&proj<range&&perp<beamWidth+player.r;
+ }else if(e.attackType==='x'){
+  const oldX=e.x,oldY=e.y,travel=Math.min(rainbow?135:105,dist);
+  e.x=clamp(e.x+ux*travel,20,W-20);e.y=clamp(e.y+uy*travel,35,H-20);
+  particles.push({beam:true,x:oldX,y:oldY,ex:e.x,ey:e.y,width:22,color:'#6be5d5',life:17,max:17});
+  const lineDx=e.x-oldX,lineDy=e.y-oldY,len2=lineDx*lineDx+lineDy*lineDy||1;
+  const t=clamp(((player.x-oldX)*lineDx+(player.y-oldY)*lineDy)/len2,0,1);
+  const lineDistance=Math.hypot(player.x-(oldX+t*lineDx),player.y-(oldY+t*lineDy));
+  hit=lineDistance<player.r+23||Math.hypot(player.x-e.x,player.y-e.y)<(rainbow?72:62);
+ }else{
+  const radius=rainbow?125:105;
+  particles.push({ring:true,x:e.x,y:e.y,radius,color:'#58dcd2',life:22,max:22});
+  hit=Math.hypot(player.x-e.x,player.y-e.y)<radius;
+ }
+ if(hit)hurtPlayer(raw,'Ataque especial de élite');
+ else log('Esquivaste el ataque especial de un élite.');
+}
+function updateEliteSkill(e,d){
+ if(!e.elite)return false;
+ if(e.castFrames>0){e.castFrames--;if(e.castFrames===0)resolveEliteAttack(e);return true;}
+ e.skillCd=Math.max(0,e.skillCd-1);
+ const rainbow=postGame||island>=20;
+ if(e.skillCd<=0&&d>54&&d<(rainbow?390:330)){
+  e.attackType=d>185?'z':(['x','c'][Math.floor(rand(0,2))]);
+  e.targetX=player.x;e.targetY=player.y;e.castFrames=42;
+  // 10-14 s entre ataques especiales de élite; más espaciados que los de un jefe.
+  e.skillCd=Math.floor(rand(rainbow?660:620,rainbow?840:800));
+  return true;
+ }
+ return false;
+}
+function hurtEnemy(e,dmg,knock=0){e.hp-=dmg;e.hit=8;if(!transformed&&transformFrames<=0)fury=Math.min(100,fury+Math.max(.5,dmg*.05)+(e.boss?.375:0));burst(e.x,e.y,e.superBoss?'#ff3038':e.boss?'#bd74ff':e.elite?'#8dfff0':'#ffb45c',8,3);if(knock){let dx=e.x-player.x,dy=e.y-player.y,l=Math.hypot(dx,dy)||1;e.x+=dx/l*knock;e.y+=dy/l*knock;}if(e.hp<=0){const xpReward=e.superBoss?1000:e.boss?500:e.elite?100:50;islandKills++;if(!transformed&&transformFrames<=0)fury=Math.min(100,fury+(e.boss?8:e.elite?5:3.75));gainXP(xpReward);log((e.superBoss?'JEFE SUPREMO CARMESÍ DERROTADO':e.boss?'JEFE MORADO DERROTADO':e.elite?'ÉLITE DERROTADO':'Enemigo derrotado')+' · +'+xpReward+' XP.');burst(e.x,e.y,e.superBoss?'#ff3038':e.boss?'#bd74ff':e.elite?'#64e9ee':'#ffd166',e.boss?34:18,5);enemies=enemies.filter(q=>q!==e);if(islandKills>=4){islandKills=0;log('Misión de isla completada: ¡bonificación de furia!');if(!transformed&&transformFrames<=0)fury=Math.min(100,fury+3);}if(enemies.length===0){emptyRefillUntil=frame+EMPTY_SCREEN_REFILL_FRAMES;emptyRefillNextFrame=frame+EMPTY_SCREEN_REFILL_STEP;spawnClock=0;}else if(emptyRefillUntil<0&&spawnClock<=0){spawnClock=RESPAWN_DELAY_FRAMES;}}}
 function areaAttack(){
  if(!started||paused||gameOver||transitionPending||attackCD>0)return;
  attackCD=60; // 1 segundo entre golpes (60 FPS)
@@ -735,7 +812,7 @@ function togglePause(force){
  else log('▶ Partida reanudada.');
 }
 function updateUI(){
- $('level').textContent=level;$('coins').textContent=coins;$('kills').textContent=kills;$('xpText').textContent=Math.floor(xp)+' / 1000 XP';$('xpBar').style.width=(xp/1000*100)+'%';$('hpText').textContent=Math.ceil(player.hp)+' / '+player.maxHp;$('hpBar').style.width=(player.hp/player.maxHp*100)+'%';
+ $('level').textContent=level;$('xpText').textContent=Math.floor(xp)+' / 1000 XP';$('xpBar').style.width=(xp/1000*100)+'%';$('hpText').textContent=Math.ceil(player.hp)+' / '+player.maxHp;$('hpBar').style.width=(player.hp/player.maxHp*100)+'%';
  const furyPct=clamp(transformFrames>0?transformFrames/1800*100:fury,0,100);
  if(transformed){$('furyLabel').textContent='Furia dracónica · activa';$('furyText').textContent=Math.ceil(furyPct)+'%';}
  else if(transformFrames>0){$('furyLabel').textContent='Furia guardada';$('furyText').textContent=Math.ceil(furyPct)+'%';}
@@ -744,7 +821,7 @@ function updateUI(){
  $('transformBar').style.width=furyPct+'%';
  $('transformText').textContent=transformed?'TRANSFORMACIÓN ACTIVA · '+Math.ceil(furyPct)+'% de duración restante':('Carga la furia hasta el 100% para transformar. Carga actual: '+Math.floor(fury)+'%. Si cancelas la forma, debes volver al 100% para activarla.');
  cv.parentElement.classList.toggle('fury-ready',!transformed&&fury>=100&&cds.v<=0);cv.parentElement.classList.toggle('fury-active',transformed);
- $('islandLabel').textContent=postGame?'DIMENSIÓN RAINBOW · POSTGAME':(island>=20?'DIMENSIÓN RAINBOW':'ISLA '+(island+1)+' · '+areaName().toUpperCase());$('quest').textContent=postGame?'POSTGAME INFINITO: derrota jefes que escalan sin límite. Sigue subiendo niveles, aumenta tu poder y busca cuánto puedes llegar. XP: normal 100 · élite 200 · jefe 1000.':(island>=20?'Dimensión Rainbow: derrota jefes dimensionales. XP doble: normal 100 · élite 200 · jefe 1000.':'Derrota enemigos: '+islandKills+'/4. Cambias de isla cada 5 niveles; 1000 XP por nivel. XP: normal 100 · élite 200 · jefe 1000.');
+ $('islandLabel').textContent=postGame?'DIMENSIÓN RAINBOW · POSTGAME':(island>=20?'DIMENSIÓN RAINBOW':'ISLA '+(island+1)+' · '+areaName().toUpperCase());$('quest').textContent=postGame?'POSTGAME INFINITO: derrota jefes que escalan sin límite. Sigue subiendo niveles, aumenta tu poder y busca cuánto puedes llegar. XP: normal 50 · élite 100 · jefe 500.':(island>=20?'Dimensión Rainbow: derrota jefes dimensionales. XP: normal 50 · élite 100 · jefe 500.':'Derrota enemigos: '+islandKills+'/4. Cambias de isla cada 5 niveles; 1000 XP por nivel. XP: normal 50 · élite 100 · jefe 500.');
  const cdState={m1:attackCD,z:cds.z,x:cds.x,c:cds.c,f:cds.f,v:cds.v};
  document.querySelectorAll('[data-cd]').forEach(node=>{const key=node.dataset.cd;let label='LISTO',remaining=cdState[key]||0;if(key==='f'&&player.soarFrames>0)label='ACTIVA';else if(key==='v'&&transformed)label='ACTIVA';else if(key==='v'&&remaining>0)label=(Math.ceil(remaining/6)/10).toFixed(1)+' s';else if(key==='v'&&fury>=100)label='LISTA';else if(key==='v')label=Math.floor(fury)+'%';else if(remaining>0)label=(Math.ceil(remaining/6)/10).toFixed(1)+' s';node.textContent=label;node.classList.toggle('cooling',remaining>0&&!(key==='v'&&transformed));});
 }
@@ -765,7 +842,7 @@ if(player.soarFrames>0){
 if(transformed){transformFrames=Math.max(0,transformFrames-1);fury=transformFrames/1800*100;if(transformFrames<=0){transformed=false;fury=0;cds.v=600;log('La forma dragón terminó. La furia volvió a 0% y V tendrá 10 segundos de enfriamiento antes de volver a activarse.');$('status').textContent='Explorando';}}
 // Regeneración natural, sin rellenar la vida al subir de nivel o cambiar de isla.
 player.hp=Math.min(player.maxHp,player.hp+(0.045+Math.min(level*.001,0.075)));if(transformed){player.hp=Math.min(player.maxHp,player.hp+.035);furyauraCD--;if(furyauraCD<=0){furyauraCD=30;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<100){hurtEnemy(e,playerDamage(23),8);burst(e.x,e.y,'#ff6b35',5,3);}}}
-for(const e of [...enemies]){if(!enemies.includes(e))continue;e.phase+=.05;e.hit=Math.max(0,e.hit-1);e.cd=Math.max(0,e.cd-1);let ex=player.x-e.x,ey=player.y-e.y,d=Math.hypot(ex,ey)||1;const casting=updateBossSkill(e,d);if(casting){continue;}if(d>(transformed?48:30)){e.x+=ex/d*e.speed;e.y+=ey/d*e.speed;}else if(e.cd<=0&&player.inv<=0){const benchmarkLevel=enemyBenchmarkLevel();let dmg=e.boss?(25+benchmarkLevel*.55+island*1.0):e.elite?(13+benchmarkLevel*.32+island*.65):(9+benchmarkLevel*.24+island*.45);dmg*=1+Math.min(benchmarkLevel-1,120)*.006+Math.min(island,20)*.012;if(island>=20)dmg*=1.12;dmg*=e.boss?1.35:e.elite?1.25:1.15;dmg*=postGame?1.08:1;hurtPlayer(dmg,e.boss?'Golpe de jefe':e.elite?'Golpe de élite':'Golpe enemigo');e.cd=e.boss?72:e.elite?55:45;}e.x=clamp(e.x,15,W-15);e.y=clamp(e.y,35,H-15);}
+for(const e of [...enemies]){if(!enemies.includes(e))continue;e.phase+=.05;e.hit=Math.max(0,e.hit-1);e.cd=Math.max(0,e.cd-1);let ex=player.x-e.x,ey=player.y-e.y,d=Math.hypot(ex,ey)||1;const casting=updateBossSkill(e,d)||updateEliteSkill(e,d);if(casting){continue;}if(d>(transformed?48:30)){e.x+=ex/d*e.speed;e.y+=ey/d*e.speed;}else if(e.cd<=0&&player.inv<=0){const dmg=enemyContactDamage(e);hurtPlayer(dmg,e.boss?'M1 de jefe':e.elite?'M1 de élite':'M1 enemigo');e.cd=e.boss?72:e.elite?55:45;}e.x=clamp(e.x,15,W-15);e.y=clamp(e.y,35,H-15);}
 // Reposición equilibrada: si queda algún enemigo, reaparece uno cada 3 s.
 // Si la pantalla queda vacía, los siete regresan gradualmente en un máximo de 5 s.
 if(emptyRefillUntil>=0){
@@ -783,21 +860,63 @@ function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();if(type
 function drawEnemySprite(e){
  ctx.save();ctx.translate(e.x,e.y);
  const rainbow=postGame||island>=20;
- const palette=e.boss?(rainbow?['#ff63d7','#7038b5','#ffe36a']:['#bd74ff','#4a326c','#ffcbff']):e.elite?['#43c9c8','#15556a','#baffef']:['#69ce8b','#245b50','#e6ffd1'];
+ const palette=e.boss?(e.superBoss?['#ff3b3b','#641c2b','#ffe0a8']:['#bd74ff','#4a326c','#ffcbff']):e.elite?['#43c9c8','#15556a','#baffef']:['#69ce8b','#245b50','#e6ffd1'];
  const body=e.hit?'#ffffff':palette[0],dark=palette[1],glow=palette[2];
  ctx.fillStyle='rgba(0,0,0,.23)';ctx.beginPath();ctx.ellipse(0,e.r*.86,e.r*1.2,5,0,0,Math.PI*2);ctx.fill();
  if(e.boss){
-  // Silueta de jefe: alas angulares, armadura, cuernos y núcleo brillante.
-  const halo=ctx.createRadialGradient(0,0,4,0,0,e.r*2.25);halo.addColorStop(0,rainbow?'rgba(255,87,220,.28)':'rgba(185,108,255,.25)');halo.addColorStop(1,'rgba(90,48,140,0)');ctx.fillStyle=halo;ctx.beginPath();ctx.arc(0,0,e.r*2.25,0,Math.PI*2);ctx.fill();
-  ctx.fillStyle=dark;ctx.strokeStyle=glow;ctx.lineWidth=2;
-  ctx.beginPath();ctx.moveTo(-e.r*.48,-e.r*.18);ctx.lineTo(-e.r*1.38,-e.r*.84);ctx.lineTo(-e.r*1.06,e.r*.05);ctx.lineTo(-e.r*.48,e.r*.43);ctx.closePath();ctx.fill();ctx.stroke();
-  ctx.beginPath();ctx.moveTo(e.r*.48,-e.r*.18);ctx.lineTo(e.r*1.38,-e.r*.84);ctx.lineTo(e.r*1.06,e.r*.05);ctx.lineTo(e.r*.48,e.r*.43);ctx.closePath();ctx.fill();ctx.stroke();
-  ctx.fillStyle=body;ctx.beginPath();ctx.moveTo(0,-e.r*1.03);ctx.lineTo(e.r*.78,-e.r*.52);ctx.lineTo(e.r*.73,e.r*.36);ctx.lineTo(0,e.r*.96);ctx.lineTo(-e.r*.73,e.r*.36);ctx.lineTo(-e.r*.78,-e.r*.52);ctx.closePath();ctx.fill();ctx.stroke();
-  ctx.fillStyle=glow;ctx.beginPath();ctx.moveTo(-e.r*.44,-e.r*.55);ctx.lineTo(-e.r*.61,-e.r*1.3);ctx.lineTo(-e.r*.12,-e.r*.77);ctx.lineTo(0,-e.r*1.42);ctx.lineTo(e.r*.14,-e.r*.77);ctx.lineTo(e.r*.62,-e.r*1.3);ctx.lineTo(e.r*.43,-e.r*.53);ctx.closePath();ctx.fill();
-  ctx.fillStyle=rainbow?'#fff16a':'#ffdbff';ctx.shadowColor=glow;ctx.shadowBlur=9;ctx.fillRect(-e.r*.44,-e.r*.17,e.r*.25,e.r*.13);ctx.fillRect(e.r*.19,-e.r*.17,e.r*.25,e.r*.13);ctx.shadowBlur=0;
-  ctx.fillStyle=dark;ctx.beginPath();ctx.moveTo(-e.r*.34,e.r*.16);ctx.lineTo(0,e.r*.55);ctx.lineTo(e.r*.34,e.r*.16);ctx.closePath();ctx.fill();
-  if(e.variant==='oracle'){ctx.strokeStyle=glow;ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,e.r*1.45,0,Math.PI*2);ctx.stroke();for(let i=0;i<4;i++){const a=frame*.012+i*Math.PI/2;ctx.fillStyle=glow;ctx.beginPath();ctx.arc(Math.cos(a)*e.r*1.45,Math.sin(a)*e.r*1.45,3.5,0,Math.PI*2);ctx.fill();}}
-  else if(e.variant==='titan'){ctx.fillStyle=dark;ctx.fillRect(-e.r*.94,-e.r*.15,e.r*.38,e.r*.77);ctx.fillRect(e.r*.56,-e.r*.15,e.r*.38,e.r*.77);ctx.fillStyle=glow;for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(-e.r*.8+i*e.r*.3,e.r*.55);ctx.lineTo(-e.r*.65+i*e.r*.3,e.r*.88);ctx.lineTo(-e.r*.5+i*e.r*.3,e.r*.55);ctx.fill();}}
+  if(e.superBoss){
+   // JEFE SUPREMO CARMESÍ: coloso dracónico, más grande y con silueta propia.
+   ctx.save();ctx.scale(1.12,1.12);
+   const aura=ctx.createRadialGradient(0,0,5,0,0,e.r*2.9);
+   aura.addColorStop(0,'rgba(255,35,42,.48)');aura.addColorStop(.48,'rgba(185,12,35,.22)');aura.addColorStop(1,'rgba(70,0,18,0)');
+   ctx.fillStyle=aura;ctx.beginPath();ctx.arc(0,0,e.r*2.9,0,Math.PI*2);ctx.fill();
+   // Cola larga y llameante detrás del cuerpo.
+   ctx.strokeStyle='#631020';ctx.lineWidth=e.r*.34;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(0,e.r*.42);ctx.bezierCurveTo(e.r*.78,e.r*1.1,e.r*1.35,e.r*.82,e.r*1.85,e.r*1.48);ctx.stroke();
+   ctx.strokeStyle='#ff674b';ctx.lineWidth=e.r*.12;ctx.beginPath();ctx.moveTo(0,e.r*.42);ctx.bezierCurveTo(e.r*.78,e.r*1.1,e.r*1.35,e.r*.82,e.r*1.85,e.r*1.48);ctx.stroke();
+   // Alas monumentales de cuatro puntas, diferentes a las del jefe violeta.
+   const wingGrad=ctx.createLinearGradient(0,-e.r,0,e.r*.8);wingGrad.addColorStop(0,'#ff5948');wingGrad.addColorStop(.55,'#9d102b');wingGrad.addColorStop(1,'#3d0d25');
+   ctx.fillStyle=wingGrad;ctx.strokeStyle='#ff9a67';ctx.lineWidth=2.4;
+   for(const side of [-1,1]){
+    ctx.beginPath();ctx.moveTo(side*e.r*.34,-e.r*.28);ctx.lineTo(side*e.r*1.12,-e.r*1.58);ctx.lineTo(side*e.r*1.92,-e.r*1.78);ctx.lineTo(side*e.r*1.63,-e.r*.75);ctx.lineTo(side*e.r*1.42,e.r*.12);ctx.lineTo(side*e.r*.55,e.r*.42);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.strokeStyle='#ffb17a';ctx.lineWidth=1.7;ctx.beginPath();ctx.moveTo(side*e.r*.42,-e.r*.2);ctx.lineTo(side*e.r*1.12,-e.r*1.48);ctx.moveTo(side*e.r*.48,-e.r*.05);ctx.lineTo(side*e.r*1.75,-e.r*.78);ctx.moveTo(side*e.r*.52,e.r*.08);ctx.lineTo(side*e.r*1.48,e.r*.03);ctx.stroke();
+    ctx.strokeStyle='#ff9a67';ctx.lineWidth=2.4;
+   }
+   // Placas de hombros y brazos con garras.
+   ctx.fillStyle='#5b1022';ctx.strokeStyle='#ff755e';ctx.lineWidth=2.2;
+   for(const side of [-1,1]){
+    ctx.beginPath();ctx.moveTo(side*e.r*.48,-e.r*.15);ctx.lineTo(side*e.r*1.14,-e.r*.46);ctx.lineTo(side*e.r*1.28,e.r*.36);ctx.lineTo(side*e.r*.65,e.r*.72);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.fillStyle='#ff6a50';ctx.beginPath();ctx.moveTo(side*e.r*1.02,e.r*.31);ctx.lineTo(side*e.r*1.43,e.r*.48);ctx.lineTo(side*e.r*1.48,e.r*.98);ctx.lineTo(side*e.r*1.17,e.r*.72);ctx.lineTo(side*e.r*.98,e.r*1.05);ctx.closePath();ctx.fill();ctx.fillStyle='#5b1022';
+   }
+   // Armadura central masiva y placas de abdomen.
+   const armor=ctx.createLinearGradient(-e.r*.8,-e.r, e.r*.8,e.r);armor.addColorStop(0,'#ff7661');armor.addColorStop(.35,'#a91630');armor.addColorStop(.72,'#581126');armor.addColorStop(1,'#270b1b');
+   ctx.fillStyle=armor;ctx.strokeStyle='#ffad78';ctx.lineWidth=3;
+   ctx.beginPath();ctx.moveTo(0,-e.r*1.25);ctx.lineTo(e.r*.82,-e.r*.78);ctx.lineTo(e.r*.95,e.r*.18);ctx.lineTo(e.r*.58,e.r*1.12);ctx.lineTo(0,e.r*1.38);ctx.lineTo(-e.r*.58,e.r*1.12);ctx.lineTo(-e.r*.95,e.r*.18);ctx.lineTo(-e.r*.82,-e.r*.78);ctx.closePath();ctx.fill();ctx.stroke();
+   ctx.strokeStyle='#ff8d69';ctx.lineWidth=2;for(let i=0;i<4;i++){const yy=-e.r*.15+i*e.r*.28;ctx.beginPath();ctx.moveTo(-e.r*.48,yy);ctx.quadraticCurveTo(0,yy+e.r*.18,e.r*.48,yy);ctx.stroke();}
+   // Gran núcleo carmesí en el pecho.
+   const core=ctx.createRadialGradient(-e.r*.12,-e.r*.1,2,0,0,e.r*.48);core.addColorStop(0,'#fff6d9');core.addColorStop(.25,'#ffb36b');core.addColorStop(.62,'#ff343d');core.addColorStop(1,'#7a0926');
+   ctx.fillStyle=core;ctx.shadowColor='#ff263e';ctx.shadowBlur=24;ctx.beginPath();ctx.arc(0,e.r*.05,e.r*.39,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+   ctx.strokeStyle='#ffd09a';ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,e.r*.05,e.r*.49,0,Math.PI*2);ctx.stroke();
+   // Cabeza coronada con seis cuernos; silueta distinta de los jefes normales.
+   ctx.fillStyle='#72132b';ctx.strokeStyle='#ff9e72';ctx.lineWidth=2.5;
+   ctx.beginPath();ctx.moveTo(-e.r*.58,-e.r*.74);ctx.lineTo(-e.r*.45,-e.r*1.25);ctx.lineTo(-e.r*.18,-e.r*.98);ctx.lineTo(0,-e.r*1.58);ctx.lineTo(e.r*.18,-e.r*.98);ctx.lineTo(e.r*.45,-e.r*1.25);ctx.lineTo(e.r*.58,-e.r*.74);ctx.lineTo(e.r*.42,-e.r*.3);ctx.lineTo(0,-e.r*.12);ctx.lineTo(-e.r*.42,-e.r*.3);ctx.closePath();ctx.fill();ctx.stroke();
+   ctx.fillStyle='#ffe0ac';ctx.shadowColor='#ff513f';ctx.shadowBlur=11;ctx.beginPath();ctx.moveTo(-e.r*.32,-e.r*.48);ctx.lineTo(-e.r*.6,-e.r*.95);ctx.lineTo(-e.r*.14,-e.r*.7);ctx.moveTo(e.r*.32,-e.r*.48);ctx.lineTo(e.r*.6,-e.r*.95);ctx.lineTo(e.r*.14,-e.r*.7);ctx.fill();ctx.shadowBlur=0;
+   ctx.fillStyle='#fff3d6';ctx.shadowColor='#ff3b3b';ctx.shadowBlur=13;ctx.beginPath();ctx.ellipse(-e.r*.25,-e.r*.69,e.r*.13,e.r*.085,-.12,0,Math.PI*2);ctx.ellipse(e.r*.25,-e.r*.69,e.r*.13,e.r*.085,.12,0,Math.PI*2);ctx.fill();ctx.fillStyle='#3b071b';ctx.beginPath();ctx.ellipse(-e.r*.25,-e.r*.69,e.r*.045,e.r*.075,0,0,Math.PI*2);ctx.ellipse(e.r*.25,-e.r*.69,e.r*.045,e.r*.075,0,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+   // Espinas dorsales que rematan su silueta colosal.
+   ctx.fillStyle='#ff654d';for(let i=0;i<5;i++){const yy=-e.r*.55+i*e.r*.42;ctx.beginPath();ctx.moveTo(-e.r*.22,yy);ctx.lineTo(0,yy-e.r*.42);ctx.lineTo(e.r*.22,yy);ctx.closePath();ctx.fill();}
+   ctx.restore();
+  }else{
+   // Jefes morados: diseño de alas angulares, armadura y núcleo violeta.
+   const halo=ctx.createRadialGradient(0,0,4,0,0,e.r*2.25);halo.addColorStop(0,rainbow?'rgba(255,87,220,.28)':'rgba(185,108,255,.25)');halo.addColorStop(1,'rgba(90,48,140,0)');ctx.fillStyle=halo;ctx.beginPath();ctx.arc(0,0,e.r*2.25,0,Math.PI*2);ctx.fill();
+   ctx.fillStyle=dark;ctx.strokeStyle=glow;ctx.lineWidth=2;
+   ctx.beginPath();ctx.moveTo(-e.r*.48,-e.r*.18);ctx.lineTo(-e.r*1.38,-e.r*.84);ctx.lineTo(-e.r*1.06,e.r*.05);ctx.lineTo(-e.r*.48,e.r*.43);ctx.closePath();ctx.fill();ctx.stroke();
+   ctx.beginPath();ctx.moveTo(e.r*.48,-e.r*.18);ctx.lineTo(e.r*1.38,-e.r*.84);ctx.lineTo(e.r*1.06,e.r*.05);ctx.lineTo(e.r*.48,e.r*.43);ctx.closePath();ctx.fill();ctx.stroke();
+   ctx.fillStyle=body;ctx.beginPath();ctx.moveTo(0,-e.r*1.03);ctx.lineTo(e.r*.78,-e.r*.52);ctx.lineTo(e.r*.73,e.r*.36);ctx.lineTo(0,e.r*.96);ctx.lineTo(-e.r*.73,e.r*.36);ctx.lineTo(-e.r*.78,-e.r*.52);ctx.closePath();ctx.fill();ctx.stroke();
+   ctx.fillStyle=glow;ctx.beginPath();ctx.moveTo(-e.r*.44,-e.r*.55);ctx.lineTo(-e.r*.61,-e.r*1.3);ctx.lineTo(-e.r*.12,-e.r*.77);ctx.lineTo(0,-e.r*1.42);ctx.lineTo(e.r*.14,-e.r*.77);ctx.lineTo(e.r*.62,-e.r*1.3);ctx.lineTo(e.r*.43,-e.r*.53);ctx.closePath();ctx.fill();
+   ctx.fillStyle=rainbow?'#fff16a':'#ffdbff';ctx.shadowColor=glow;ctx.shadowBlur=9;ctx.fillRect(-e.r*.44,-e.r*.17,e.r*.25,e.r*.13);ctx.fillRect(e.r*.19,-e.r*.17,e.r*.25,e.r*.13);ctx.shadowBlur=0;
+   ctx.fillStyle=dark;ctx.beginPath();ctx.moveTo(-e.r*.34,e.r*.16);ctx.lineTo(0,e.r*.55);ctx.lineTo(e.r*.34,e.r*.16);ctx.closePath();ctx.fill();
+   if(e.variant==='oracle'){ctx.strokeStyle=glow;ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,e.r*1.45,0,Math.PI*2);ctx.stroke();for(let i=0;i<4;i++){const a=frame*.012+i*Math.PI/2;ctx.fillStyle=glow;ctx.beginPath();ctx.arc(Math.cos(a)*e.r*1.45,Math.sin(a)*e.r*1.45,3.5,0,Math.PI*2);ctx.fill();}}
+   else if(e.variant==='titan'){ctx.fillStyle=dark;ctx.fillRect(-e.r*.94,-e.r*.15,e.r*.38,e.r*.77);ctx.fillRect(e.r*.56,-e.r*.15,e.r*.38,e.r*.77);ctx.fillStyle=glow;for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(-e.r*.8+i*e.r*.3,e.r*.55);ctx.lineTo(-e.r*.65+i*e.r*.3,e.r*.88);ctx.lineTo(-e.r*.5+i*e.r*.3,e.r*.55);ctx.fill();}}
+  }
  }else if(e.elite){
   // Élites blindados: cuerpo romboidal, hombreras y cresta distinta según variante.
   ctx.fillStyle=dark;ctx.strokeStyle=glow;ctx.lineWidth=1.7;
@@ -821,11 +940,11 @@ function drawEnemySprite(e){
   }
  }
  // Ojos, marcas y brillo de impacto mantienen legible cada enemigo.
- if(e.variant==='imp'||e.variant==='slime'||e.elite||e.boss){ctx.fillStyle=e.hit?'#fff':glow;ctx.shadowColor=glow;ctx.shadowBlur=5;ctx.beginPath();ctx.ellipse(-e.r*.28,-e.r*.12,Math.max(1.7,e.r*.12),Math.max(1.4,e.r*.08),0,0,Math.PI*2);ctx.ellipse(e.r*.28,-e.r*.12,Math.max(1.7,e.r*.12),Math.max(1.4,e.r*.08),0,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}
+ if(e.variant==='imp'||e.variant==='slime'||e.elite||(e.boss&&!e.superBoss)){ctx.fillStyle=e.hit?'#fff':glow;ctx.shadowColor=glow;ctx.shadowBlur=5;ctx.beginPath();ctx.ellipse(-e.r*.28,-e.r*.12,Math.max(1.7,e.r*.12),Math.max(1.4,e.r*.08),0,0,Math.PI*2);ctx.ellipse(e.r*.28,-e.r*.12,Math.max(1.7,e.r*.12),Math.max(1.4,e.r*.08),0,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}
  // Barra de vida y rango del enemigo.
- const bw=e.boss?(rainbow?118:96):e.elite?58:Math.max(28,(e.r+5)*2);const bh=e.boss?9:e.elite?7:5;const top=e.boss?e.r*1.48:e.elite?e.r*1.4:e.r+9;
- ctx.fillStyle='#26364c';rr(-bw/2,-top,bw,bh,3);ctx.fillStyle=e.boss?(rainbow?'#ff65d5':'#b67cff'):e.elite?'#64e9ee':'#ffb75d';rr(-bw/2+1,-top+1,(bw-2)*Math.max(0,e.hp/e.maxHp),bh-2,2);
- if(e.boss){ctx.fillStyle='#fff';ctx.font='bold 10px system-ui';ctx.textAlign='center';ctx.fillText(rainbow?'JEFE DEL INFINITO':'JEFE',0,-top-5);ctx.font='9px system-ui';ctx.fillText(Math.ceil(e.hp)+' / '+e.maxHp,0,-top-13);}
+ const bw=e.superBoss?(rainbow?147:131):e.boss?(rainbow?118:96):e.elite?58:Math.max(28,(e.r+5)*2);const bh=e.superBoss?12:e.boss?9:e.elite?7:5;const top=e.superBoss?e.r*1.65:e.boss?e.r*1.48:e.elite?e.r*1.4:e.r+9;
+ ctx.fillStyle='#26364c';rr(-bw/2,-top,bw,bh,3);ctx.fillStyle=e.boss?(e.superBoss?'#ff3d48':rainbow?'#ff65d5':'#b67cff'):e.elite?'#64e9ee':'#ffb75d';rr(-bw/2+1,-top+1,(bw-2)*Math.max(0,e.hp/e.maxHp),bh-2,2);
+ if(e.boss){ctx.fillStyle=e.superBoss?'#ffb6b6':'#fff';ctx.font='bold 10px system-ui';ctx.textAlign='center';ctx.fillText(e.superBoss?'JEFE SUPREMO CARMESÍ':rainbow?'JEFE DEL INFINITO':'JEFE',0,-top-6);ctx.font=e.superBoss?'10px system-ui':'9px system-ui';ctx.fillText(Math.ceil(e.hp)+' / '+e.maxHp,0,-top-17);}
  else if(e.elite){ctx.fillStyle='#e3ffff';ctx.font='bold 8px system-ui';ctx.textAlign='center';ctx.fillText('ÉLITE',0,-top-4);}
  ctx.restore();
 }
@@ -898,7 +1017,7 @@ for(let i=0;i<13;i++){
 if(island>=20){ctx.save();ctx.globalAlpha=.28;for(let i=0;i<7;i++){ctx.strokeStyle=['#ff4bbf','#ffe95b','#5bffda','#8f75ff'][i%4];ctx.lineWidth=4;ctx.beginPath();ctx.arc(W/2,H/2,70+i*39+Math.sin(frame*.04+i)*6,0,Math.PI*2);ctx.stroke();}ctx.restore();}
 ctx.fillStyle='#e9e8d9';ctx.fillRect(W/2-36,44,72,12);ctx.fillRect(W/2-26,56,52,30);ctx.fillRect(W/2-42,86,84,9);ctx.fillStyle='#ffd166';ctx.beginPath();ctx.arc(W/2,64,6,0,Math.PI*2);ctx.fill();
 for(const e of enemies){
- if(e.boss&&e.castFrames>0){ctx.save();ctx.globalAlpha=.55+Math.sin(frame*.35)*.12;ctx.setLineDash([9,7]);ctx.lineWidth=e.attackType==='z'?5:3;ctx.strokeStyle=island>=20?'#ff58d7':'#ff8754';if(e.attackType==='c'){ctx.beginPath();ctx.arc(e.x,e.y,island>=20?225:170,0,Math.PI*2);ctx.stroke();}else if(e.attackType==='z'){let tx=e.targetX-e.x,ty=e.targetY-e.y,ll=Math.hypot(tx,ty)||1;ctx.beginPath();ctx.moveTo(e.x,e.y);ctx.lineTo(e.x+tx/ll*(island>=20?620:470),e.y+ty/ll*(island>=20?620:470));ctx.stroke();}else{ctx.beginPath();ctx.moveTo(e.x,e.y);ctx.lineTo(e.targetX,e.targetY);ctx.stroke();}ctx.restore();}
+ if((e.boss||e.elite)&&e.castFrames>0){const isBoss=e.boss,rainbow=postGame||island>=20;ctx.save();ctx.globalAlpha=.52+Math.sin(frame*.35)*.13;ctx.setLineDash([9,7]);ctx.lineWidth=isBoss?(e.superBoss?(e.attackType==='z'?7:5):(e.attackType==='z'?5:3)):2.5;ctx.strokeStyle=isBoss?(e.superBoss?'#ff3038':'#bd74ff'):'#58dcd2';if(e.attackType==='c'){ctx.beginPath();ctx.arc(e.x,e.y,isBoss?(e.superBoss?(rainbow?288:218):(rainbow?225:170)):(rainbow?125:105),0,Math.PI*2);ctx.stroke();}else if(e.attackType==='z'){let tx=e.targetX-e.x,ty=e.targetY-e.y,ll=Math.hypot(tx,ty)||1,range=isBoss?(e.superBoss?(rainbow?794:602):(rainbow?620:470)):(rainbow?360:300);ctx.beginPath();ctx.moveTo(e.x,e.y);ctx.lineTo(e.x+tx/ll*range,e.y+ty/ll*range);ctx.stroke();}else{ctx.beginPath();ctx.moveTo(e.x,e.y);ctx.lineTo(e.targetX,e.targetY);ctx.stroke();}ctx.restore();}
  drawEnemySprite(e);
 }
 for(const p of particles){ctx.globalAlpha=Math.max(0,p.life/p.max);if(p.ring){ctx.strokeStyle=p.color;ctx.lineWidth=5*(p.life/p.max)+1;ctx.shadowColor=p.color;ctx.shadowBlur=16;ctx.beginPath();ctx.arc(p.x,p.y,p.radius*(1-p.life/p.max*.22),0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;}else if(p.beam){ctx.strokeStyle=p.color;ctx.lineWidth=p.width*(p.life/p.max);ctx.lineCap='round';ctx.shadowColor=p.color;ctx.shadowBlur=18;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.ex,p.ey);ctx.stroke();ctx.shadowBlur=0;}else{ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();}}ctx.globalAlpha=1;
@@ -988,6 +1107,12 @@ window.addEventListener('keydown',e=>{
 // Rugido (M1): clic izquierdo o toque en cualquier zona libre del campo de juego.
 // Las tarjetas, el HUD y las pantallas superpuestas quedan excluidos.
 const gameStageEl=document.querySelector('.gameStage');
+// El clic derecho no tiene acción dentro del juego: evita el menú contextual del navegador.
+document.addEventListener('contextmenu',e=>{
+ if(e.target&&e.target.closest&&e.target.closest('.gameStage,header,.mobile,.startScreen,.islandTransition,.pauseScreen,.gameOverScreen,.campaignCompleteScreen'))e.preventDefault();
+},{capture:true});
+// Evita que un pointerdown derecho alcance los controles de ataque.
+gameStageEl.addEventListener('pointerdown',e=>{if(e.button===2){e.preventDefault();e.stopPropagation();}},{capture:true});
 const rugidoUiSelector='.startScreen,.islandTransition,.pauseScreen,.gameOverScreen,.campaignCompleteScreen,button,a,input,select,textarea,[role="button"],[role="dialog"]';
 gameStageEl.addEventListener('pointerdown',e=>{
  if(e.button!==0||e.isPrimary===false)return;
