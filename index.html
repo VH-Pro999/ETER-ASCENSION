@@ -492,6 +492,38 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
 }
 
 .hud-spacer{display:none!important;visibility:hidden!important}
+
+/* Panel secreto de administración: solo se abre con la secuencia Konami. */
+.adminScreen{position:fixed!important;inset:0!important;z-index:200!important;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:100vw;height:100vh;height:100dvh;padding:clamp(12px,3vw,26px);overflow:auto;background:radial-gradient(ellipse at 50% 30%,rgba(27,69,107,.92),rgba(2,7,18,.98));backdrop-filter:blur(10px);}
+.adminScreen.hidden{display:none!important}
+.adminCard{box-sizing:border-box;width:min(520px,100%);max-height:calc(100dvh - 24px);overflow:auto;padding:clamp(20px,4vw,32px);border:1px solid rgba(91,190,255,.62);border-radius:20px;background:linear-gradient(145deg,rgba(8,24,46,.98),rgba(25,23,54,.98));box-shadow:0 0 55px rgba(40,155,255,.2),0 18px 70px rgba(0,0,0,.45);text-align:left;color:#f1f7ff;}
+.adminEyebrow{margin:0 0 7px;color:#63c9ff;font-size:.72rem;font-weight:950;letter-spacing:.2em;text-transform:uppercase}
+.adminCard h2{margin:0 0 8px;color:#fff;font-size:clamp(1.7rem,5vw,2.35rem);letter-spacing:.08em}
+.adminCard p{color:#c5d9ef;line-height:1.45;margin:0 0 20px}
+.adminField{display:grid;gap:7px;margin:14px 0}
+.adminField label{font-size:.85rem;color:#cde5ff;font-weight:800}
+.adminField input,.adminField select{box-sizing:border-box;width:100%;min-height:46px;padding:10px 12px;border:1px solid rgba(127,184,231,.55);border-radius:10px;background:#0b1b32;color:#fff;font:inherit;outline:none}
+.adminField input:focus,.adminField select:focus{border-color:#63c9ff;box-shadow:0 0 0 3px rgba(70,175,255,.16)}
+.adminLevelPreview{display:block;color:#80cfff;font-size:.82rem;font-weight:800;margin-top:2px;letter-spacing:.02em;}
+.adminActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+.adminActions button{min-height:47px;padding:11px 14px;border:1px solid rgba(145,187,226,.45);border-radius:10px;background:#1a3555;color:#eaf5ff;font-weight:900;}
+.adminActions #adminTeleportBtn{border:0;background:linear-gradient(100deg,#55d5ff,#7c8cff);color:#071526;box-shadow:0 5px 22px rgba(60,173,255,.2)}
+@media(max-width:420px){.adminActions{grid-template-columns:1fr}.adminCard{padding:20px 16px}}
+
+
+/* Tema rojo del panel admin secreto. */
+.adminScreen{background:radial-gradient(ellipse at 50% 28%,rgba(115,18,30,.96),rgba(15,3,8,.99))!important;}
+.adminCard{border:1px solid rgba(255,92,105,.78)!important;background:linear-gradient(145deg,rgba(39,7,14,.99),rgba(78,10,20,.99))!important;box-shadow:0 0 55px rgba(255,35,55,.24),0 18px 70px rgba(0,0,0,.5)!important;color:#fff3f4!important;}
+.adminEyebrow{color:#ff747e!important;}
+.adminCard h2{color:#fff!important;text-shadow:0 0 18px rgba(255,76,91,.25);}
+.adminCard p{color:#f3cbd0!important;}
+.adminField label{color:#ffe0e3!important;}
+.adminField input,.adminField select{border:1px solid rgba(255,126,137,.62)!important;background:#26080f!important;color:#fff!important;}
+.adminField input:focus,.adminField select:focus{border-color:#ff5968!important;box-shadow:0 0 0 3px rgba(255,70,88,.2)!important;}
+.adminLevelPreview{color:#ff9da5!important;}
+.adminActions button{border:1px solid rgba(255,145,153,.48)!important;background:#54101b!important;color:#fff0f1!important;}
+.adminActions #adminTeleportBtn{border:0!important;background:linear-gradient(100deg,#ff354b,#b90f2b)!important;color:#fff!important;box-shadow:0 5px 22px rgba(255,35,55,.3)!important;}
+.adminActions button:hover{filter:brightness(1.12);}
 </style>
 </head>
 <body>
@@ -504,7 +536,7 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
   <div class="stat hud-spacer" aria-hidden="true"></div>
   <div class="stat"><small>Vida</small><strong id="hpText">120 / 120</strong><div class="bar"><div class="fill hp" id="hpBar"></div></div></div>
   <div class="stat"><small id="furyLabel">Furia dracónica</small><strong id="furyText">0%</strong><div class="bar"><div class="fill fury" id="furyBar"></div></div></div>
- </div><div class="startScreen" id="startScreen"><div class="startCard"><h2>ÉTERDRACO</h2><p>Eres un joven con poderes de dragón que se embarca en una aventura por islas de todo tipo, enfrentando enemigos, élites y jefes. ¿Aceptas el desafío?</p><button id="startBtn">START</button></div></div><div class="islandTransition hidden" id="islandTransition" role="dialog" aria-modal="true" aria-labelledby="transitionTitle"><div class="islandTransitionCard"><div class="eyebrow" id="transitionEyebrow">NUEVO REINO DESCUBIERTO</div><h2 id="transitionTitle">Preparando el viaje...</h2><p id="transitionDescription">Una nueva aventura te espera.</p><button id="goIslandBtn">IR AL SIGUIENTE REINO</button></div></div><div id="pauseScreen" class="pauseScreen hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle"><div class="pauseCard"><div class="pauseIcon">Ⅱ</div><h2 id="pauseTitle">PAUSA</h2><p>La partida está detenida.</p><button id="resumeBtn" type="button">▶ CONTINUAR</button></div></div><div id="gameOverScreen" class="gameOverScreen hidden" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle"><div class="gameOverCard"><div class="gameOverMark">✦</div><p class="gameOverEyebrow">LA AVENTURA SE DETUVO</p><h2 id="gameOverTitle">GAME OVER</h2><p>Los reinos aún esperan tu regreso.</p><button id="reloadBtn" type="button">↻ VOLVER A EMPEZAR</button></div></div><div id="campaignCompleteScreen" class="campaignCompleteScreen hidden" role="dialog" aria-modal="true" aria-labelledby="campaignCompleteTitle"><div class="campaignCompleteCard"><p class="campaignEyebrow">HISTORIA PRINCIPAL COMPLETADA</p><h2 id="campaignCompleteTitle">¡FELICIDADES!</h2><p>Has alcanzado el nivel 100, conquistado los 20 mundos y demostrado que puedes dominar el poder del dragón.</p><div class="campaignDivider"></div><h3>Tu viaje todavía no termina.</h3><p>Continúa en la <strong>Dimensión Rainbow</strong>, un mundo de postgame donde los enemigos, los jefes y tu poder siguen creciendo sin límite.</p><button id="continueInfiniteBtn" type="button">CONTINUAR EN LA DIMENSIÓN RAINBOW</button></div></div></div><div class="foot"><span id="islandLabel">ISLA 1 · PUERTO ROCKET</span><span id="status" class="visuallyHidden">Pulsa START para jugar</span></div>
+ </div><div class="startScreen" id="startScreen"><div class="startCard"><h2>ÉTERDRACO</h2><p>Eres un joven con poderes de dragón que se embarca en una aventura por islas de todo tipo, enfrentando enemigos, élites y jefes. ¿Aceptas el desafío?</p><button id="startBtn">START</button></div></div><div class="islandTransition hidden" id="islandTransition" role="dialog" aria-modal="true" aria-labelledby="transitionTitle"><div class="islandTransitionCard"><div class="eyebrow" id="transitionEyebrow">NUEVO REINO DESCUBIERTO</div><h2 id="transitionTitle">Preparando el viaje...</h2><p id="transitionDescription">Una nueva aventura te espera.</p><button id="goIslandBtn">IR AL SIGUIENTE REINO</button></div></div><div id="pauseScreen" class="pauseScreen hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle"><div class="pauseCard"><div class="pauseIcon">Ⅱ</div><h2 id="pauseTitle">PAUSA</h2><p>La partida está detenida.</p><button id="resumeBtn" type="button">▶ CONTINUAR</button></div></div><div id="gameOverScreen" class="gameOverScreen hidden" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle"><div class="gameOverCard"><div class="gameOverMark">✦</div><p class="gameOverEyebrow">LA AVENTURA SE DETUVO</p><h2 id="gameOverTitle">GAME OVER</h2><p>Los reinos aún esperan tu regreso.</p><button id="reloadBtn" type="button">↻ VOLVER A EMPEZAR</button></div></div><div id="campaignCompleteScreen" class="campaignCompleteScreen hidden" role="dialog" aria-modal="true" aria-labelledby="campaignCompleteTitle"><div class="campaignCompleteCard"><p class="campaignEyebrow">HISTORIA PRINCIPAL COMPLETADA</p><h2 id="campaignCompleteTitle">¡FELICIDADES!</h2><p>Has alcanzado el nivel 100, conquistado los 20 mundos y demostrado que puedes dominar el poder del dragón.</p><div class="campaignDivider"></div><h3>Tu viaje todavía no termina.</h3><p>Continúa en la <strong>Dimensión Rainbow</strong>, un mundo de postgame donde los enemigos, los jefes y tu poder siguen creciendo sin límite.</p><button id="continueInfiniteBtn" type="button">CONTINUAR EN LA DIMENSIÓN RAINBOW</button></div></div><div id="adminScreen" class="adminScreen hidden" role="dialog" aria-modal="true" aria-labelledby="adminTitle"><div class="adminCard"><p class="adminEyebrow">ACCESO ESPECIAL · ÉTERDRACO</p><h2 id="adminTitle">MODO ADMIN</h2><p>Hola VH. Escoge tu mundo:</p><div class="adminField"><label for="adminWorld">Mundo de destino</label><select id="adminWorld"></select><small id="adminLevelPreview" class="adminLevelPreview">Nivel inicial: 1</small></div><div class="adminActions"><button id="adminTeleportBtn" type="button">TELETRANSPORTAR</button><button id="adminBackBtn" type="button">VOLVER</button></div></div></div></div><div class="foot"><span id="islandLabel">ISLA 1 · PUERTO ROCKET</span><span id="status" class="visuallyHidden">Pulsa START para jugar</span></div>
  <div class="mobile"><div class="mobileActions">
  <button id="mobileSpace" type="button" aria-label="Rugido: tocar o pulsar espacio para atacar"><span class="controlKey">CLICK / ESPACIO</span><span class="attackName">Rugido</span><small class="cooldownLabel" data-cd="m1">LISTO</small></button>
  <button type="button" data-ability="z"><span class="controlKey">Z</span><span class="attackName">Hiperrayo</span><small class="cooldownLabel" data-cd="z">LISTO</small></button>
@@ -593,9 +625,62 @@ const themes=[
 ];
 const MAX_ENEMIES_ON_SCREEN=7, MAX_PURPLE_BOSSES_ON_SCREEN=3, RESPAWN_DELAY_FRAMES=180, EMPTY_SCREEN_REFILL_FRAMES=300, EMPTY_SCREEN_REFILL_STEP=EMPTY_SCREEN_REFILL_FRAMES/MAX_ENEMIES_ON_SCREEN; // 7 enemigos como máximo, incluidos hasta 3 jefes morados; reposición normal cada 3 s
 let keys={},player,enemies,particles,level,xp,xpNeed,island,islandKills,fury,transformed,transformFrames,attackCD,cds,frame,gameOver,shake,started=false,furyauraCD=0,spawnCounter=0,spawnClock=0,emptyRefillUntil=-1,emptyRefillNextFrame=0,transitionPending=false,paused=false,postGame=false,campaignCompleteShown=false;
+let adminCodeIndex=0,adminReturnTo='start',adminOverrideActive=false;
+const adminCode=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a','Enter'];
 let propulsionHitState=new Map(); // Por uso: máximo seis pulsos de daño por enemigo.
 let furyPending=0; // Carga pendiente liberada gradualmente durante el combate activo.
 const rand=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+// Audio procedural: sonidos originales generados con Web Audio, sin archivos externos.
+let sfxAudioContext=null;
+function getSfxAudioContext(){
+ try{
+  const AudioCtor=window.AudioContext||window.webkitAudioContext;
+  if(!AudioCtor)return null;
+  if(!sfxAudioContext)sfxAudioContext=new AudioCtor();
+  if(sfxAudioContext.state==='suspended')sfxAudioContext.resume().catch(()=>{});
+  return sfxAudioContext;
+ }catch(err){return null;}
+}
+function sfxTone(startHz,endHz,duration,wave='sine',volume=.055,delay=0){
+ const ac=getSfxAudioContext();if(!ac)return;
+ try{
+  const t=ac.currentTime+delay,osc=ac.createOscillator(),gain=ac.createGain();
+  osc.type=wave;osc.frequency.setValueAtTime(Math.max(1,startHz),t);
+  osc.frequency.exponentialRampToValueAtTime(Math.max(1,endHz),t+duration);
+  gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(Math.max(.0002,volume),t+.012);
+  gain.gain.exponentialRampToValueAtTime(.0001,t+duration);
+  osc.connect(gain);gain.connect(ac.destination);osc.start(t);osc.stop(t+duration+.03);
+ }catch(err){}
+}
+function playPlayerAttackSound(kind,isDragon=transformed){
+ // Sonidos agudos/cálidos y rápidos para distinguir las acciones del jugador.
+ const boost=isDragon?1.12:1;
+ if(kind==='m1'){sfxTone(390*boost,115*boost,.13,'triangle',.055);sfxTone(620*boost,260*boost,.085,'sine',.025,.012);}
+ else if(kind==='z'){sfxTone(980*boost,155*boost,.23,'sawtooth',.052);sfxTone(520*boost,180*boost,.20,'triangle',.035,.025);}
+ else if(kind==='x'){sfxTone(230*boost,72*boost,.18,'square',.045);sfxTone(680*boost,210*boost,.12,'triangle',.032,.025);}
+ else if(kind==='c'){sfxTone(145*boost,42*boost,.42,'triangle',.085);sfxTone(310*boost,68*boost,.30,'sawtooth',.035,.035);}
+ else if(kind==='f'){sfxTone(420*boost,95*boost,.22,'sawtooth',.05);sfxTone(760*boost,240*boost,.14,'sine',.025,.035);}
+ else if(kind==='transform'){sfxTone(180,720,.48,'sine',.07);sfxTone(360,1080,.38,'triangle',.045,.09);}
+}
+function playEnemyAttackSound(kind='normal',attack='contact'){
+ // Tonos más graves, ásperos y descendentes para los ataques de los enemigos.
+ if(kind==='carmesi'){
+  sfxTone(145,38,.68,'sawtooth',.095);sfxTone(78,28,.82,'triangle',.075,.08);sfxTone(260,72,.42,'square',.025,.12);
+ }else if(kind==='boss'){
+  sfxTone(245,62,.43,'sawtooth',.072);sfxTone(130,48,.48,'triangle',.045,.04);
+ }else if(kind==='elite'){
+  sfxTone(390,105,.26,'square',.055);sfxTone(205,75,.32,'triangle',.035,.035);
+ }else{
+  sfxTone(185,78,.16,'triangle',.052);sfxTone(280,120,.11,'square',.022,.025);
+ }
+}
+function playGameOverSound(){
+ // Tres notas descendentes y un golpe grave de cierre.
+ sfxTone(260,145,.48,'sawtooth',.075);
+ sfxTone(185,92,.68,'triangle',.075,.24);
+ sfxTone(105,42,1.05,'sine',.10,.58);
+ sfxTone(68,32,.78,'triangle',.065,.72);
+}
 function log(s){let e=$('log');e.innerHTML='› '+s+'<br>'+e.innerHTML;if(e.innerHTML.length>1800)e.innerHTML=e.innerHTML.slice(0,1800);}
 function areaName(){return postGame?'Dimensión Rainbow':(island>=20?'Dimensión Rainbow':(islandNames[island]||'Dimensión Rainbow'));}
 function syncPauseButtonVisibility(){
@@ -604,7 +689,7 @@ function syncPauseButtonVisibility(){
  $('pauseBtn').disabled=!visible;
 }
 function currentTheme(){return themes[Math.min(island,20)];}
-function reset(){document.body.classList.remove('game-started','game-paused','game-transition','game-over','campaign-complete');started=false;paused=false;postGame=false;campaignCompleteShown=false;keys={};transitionPending=false;$('islandTransition').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('startScreen').classList.remove('hidden');$('pauseBtn').disabled=true;$('pauseBtn').style.display='none';$('pauseBtn').textContent='Ⅱ PAUSA';$('game').parentElement.classList.remove('paused');$('status').textContent='Pulsa START para jugar';player={x:W/2,y:H/2,r:14,hp:120,maxHp:120,speed:3.1,dx:1,dy:0,inv:0,soarFrames:0};enemies=[];particles=[];level=1;xp=0;xpNeed=1000;island=0;islandKills=0;fury=0;furyPending=0;transformed=false;transformFrames=0;attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};frame=0;gameOver=false;shake=0;furyauraCD=0;spawnCounter=0;spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState=new Map();for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();$('log').textContent='Un joven descubre el poder de un dragón ancestral y parte a recorrer los reinos.';log('Cada reino ajusta enemigos y jefes al nivel medio del tramo: 3, 8, 13…98. En la Dimensión Rainbow la dificultad sigue tu nivel actual. Apariciones: normal 69% · élite 23.5% · jefe violeta 6.5% (máx. 3 a la vez) · jefe supremo rojo 1%. El Carmesí aparece con 1% de probabilidad; los demás NPC siguen apareciendo, pero solo puede existir un Carmesí activo. Daño recibido: 70% en forma normal y 52% en forma dragón. XP: normal 50 · élite 100 · jefe 500 · supremo 1000.');syncPauseButtonVisibility();updateUI();}
+function reset(){adminCodeIndex=0;adminOverrideActive=false;document.body.classList.remove('game-started','game-paused','game-transition','game-over','campaign-complete');started=false;paused=false;postGame=false;campaignCompleteShown=false;keys={};transitionPending=false;$('islandTransition').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('startScreen').classList.remove('hidden');$('pauseBtn').disabled=true;$('pauseBtn').style.display='none';$('pauseBtn').textContent='Ⅱ PAUSA';$('game').parentElement.classList.remove('paused');$('status').textContent='Pulsa START para jugar';player={x:W/2,y:H/2,r:14,hp:120,maxHp:120,speed:3.1,dx:1,dy:0,inv:0,soarFrames:0};enemies=[];particles=[];level=1;xp=0;xpNeed=1000;island=0;islandKills=0;fury=0;furyPending=0;transformed=false;transformFrames=0;attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};frame=0;gameOver=false;shake=0;furyauraCD=0;spawnCounter=0;spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState=new Map();for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();$('log').textContent='Un joven descubre el poder de un dragón ancestral y parte a recorrer los reinos.';log('Cada reino ajusta enemigos y jefes al nivel medio del tramo: 3, 8, 13…98. En la Dimensión Rainbow la dificultad sigue tu nivel actual. Apariciones: normal 69% · élite 23.5% · jefe violeta 6.5% (máx. 3 a la vez) · jefe supremo rojo 1%. El Carmesí aparece con 1% de probabilidad; los demás NPC siguen apareciendo, pero solo puede existir un Carmesí activo. Daño recibido: 70% en forma normal y 52% en forma dragón. XP: normal 50 · élite 100 · jefe 500 · supremo 1000.');syncPauseButtonVisibility();updateUI();}
 function enemyBenchmarkLevel(){
  // Reinos de campaña: dificultad basada en el nivel medio del tramo (3, 8, 13...98).
  // Dimensión Rainbow: la dificultad sigue el nivel real del jugador.
@@ -632,7 +717,7 @@ function changeIsland(nextIsland){
  else{$('transitionTitle').textContent=name;$('transitionDescription').textContent='La aventura está en pausa. Prepárate y entra en este reino para continuar tu viaje.';$('goIslandBtn').textContent='IR A '+name.toLocaleUpperCase('es-ES');log('🌍 Nuevo reino descubierto: '+name+'. Pulsa «Ir a» cuando estés listo.');$('status').textContent='Nuevo reino descubierto';}
  shake=12;burst(W/2,H/2,island>=20?'#ff68d7':'#ffffff',45,7);updateUI();
 }
-function updateAreaForLevel(){const target=level>100?20:Math.floor((level-1)/5);if(target!==island)changeIsland(target);}
+function updateAreaForLevel(){if(adminOverrideActive)return;const target=level>100?20:Math.floor((level-1)/5);if(target!==island)changeIsland(target);}
 function showCampaignComplete(){
  if(campaignCompleteShown||postGame||level<100||gameOver)return;
  campaignCompleteShown=true;paused=true;transitionPending=false;document.body.classList.remove('game-transition');document.body.classList.add('game-paused','campaign-complete');keys={};
@@ -659,10 +744,10 @@ function gainXP(n){
   xp-=xpNeed;level++;xpNeed=1000;player.maxHp+=12;player.speed=Math.min(4.6,player.speed+.045);
   log('¡Nivel '+level+'! +12 vida máxima; tu vida actual se conserva.');
   burst(player.x,player.y,'#ffe08a',28,5);updateAreaForLevel();
-  if(level>=100&&!postGame){showCampaignComplete();break;}
+  if(level>=100&&!postGame&&!adminOverrideActive){showCampaignComplete();break;}
  }
 }
-function hurtPlayer(rawDamage,source='enemigo'){if(player.inv>0||gameOver)return false;const damage=Math.max(1,Math.round(rawDamage*(transformed?.52:.70))); player.hp=Math.max(0,player.hp-damage);player.inv=26;burst(player.x,player.y,'#ff637b',12,4);if(source)log('💥 '+source+' te hizo '+damage+' de daño.');if(player.hp<=0){gameOver=true;paused=false;document.body.classList.remove('game-paused','game-transition');document.body.classList.add('game-over');keys={};$('status').textContent='Derrotado';syncPauseButtonVisibility();$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.remove('hidden');log('¡Te vencieron! La aventura terminó.');}return true;}
+function hurtPlayer(rawDamage,source='enemigo'){if(player.inv>0||gameOver)return false;if(source&&source.startsWith('M1'))playEnemyAttackSound(source.includes('jefe')?'boss':source.includes('élite')?'elite':'normal','contact');const damage=Math.max(1,Math.round(rawDamage*(transformed?.52:.70))); player.hp=Math.max(0,player.hp-damage);player.inv=26;burst(player.x,player.y,'#ff637b',12,4);if(source)log('💥 '+source+' te hizo '+damage+' de daño.');if(player.hp<=0){playGameOverSound();gameOver=true;paused=false;document.body.classList.remove('game-paused','game-transition');document.body.classList.add('game-over');keys={};$('status').textContent='Derrotado';syncPauseButtonVisibility();$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.remove('hidden');log('¡Te vencieron! La aventura terminó.');}return true;}
 function playerDamage(base){/* +10% adicional sobre el daño ya aumentado: se conserva el extra de 20% normal y 25% transformado. */return Math.round(base*1.21*(transformed?1.25:1.20)*(1+Math.max(0,level-1)*.035+Math.min(island,20)*.05));}
 function enemyAttackDamage(base,isBoss=false){const benchmarkLevel=enemyBenchmarkLevel();const scale=1+Math.max(0,benchmarkLevel-1)*.035+Math.min(island,20)*.05;return Math.round(base*.84*scale*(postGame?1.08:1)*(isBoss?1.20:1.05));}
 const FURY_CHARGE_MULTIPLIER=.30; // La carga se genera al acertar golpes y se acumula con los impactos y permite llenar el medidor en unos 45 segundos de combate activo.
@@ -675,7 +760,7 @@ function enemyContactDamage(e){
  const islandScale=1+Math.max(0,benchmarkLevel-3)*.0045;
  return Math.max(1,Math.round(baseDamage*islandScale));
 }
-function resolveBossAttack(e){if(!e.boss||gameOver)return;const rainbow=island>=20;const tx=e.targetX,ty=e.targetY;let dx=tx-e.x,dy=ty-e.y,dist=Math.hypot(dx,dy)||1,ux=dx/dist,uy=dy/dist;let raw=e.attackType==='z'?54:e.attackType==='x'?72:e.attackType==='c'?48:30;raw=enemyAttackDamage(raw*(e.superBoss?1.4:1),true);let hit=false;
+function resolveBossAttack(e){if(!e.boss||gameOver)return;playEnemyAttackSound(e.superBoss?'carmesi':'boss',e.attackType);const rainbow=island>=20;const tx=e.targetX,ty=e.targetY;let dx=tx-e.x,dy=ty-e.y,dist=Math.hypot(dx,dy)||1,ux=dx/dist,uy=dy/dist;let raw=e.attackType==='z'?54:e.attackType==='x'?72:e.attackType==='c'?48:30;raw=enemyAttackDamage(raw*(e.superBoss?1.4:1),true);let hit=false;
  if(e.attackType==='z'){const range=(rainbow?620:470)*(e.superBoss?1.28:1),beamWidth=(rainbow?40:30)*(e.superBoss?1.2:1),ex=e.x+ux*range,ey=e.y+uy*range;particles.push({beam:true,x:e.x,y:e.y,ex,ey,width:beamWidth,color:e.superBoss?'#ff3038':'#bd74ff',life:20,max:20});const ax=player.x-e.x,ay=player.y-e.y,proj=ax*ux+ay*uy,perp=Math.abs(ax*uy-ay*ux);hit=proj>0&&proj<range&&perp< (rainbow?42:32)*(e.superBoss?1.2:1)+player.r;}
  else if(e.attackType==='x'||e.attackType==='f'){const oldX=e.x,oldY=e.y,travel=Math.min((e.attackType==='x'?(rainbow?230:180):(rainbow?180:130))*(e.superBoss?1.28:1),dist);e.x=clamp(e.x+ux*travel,20,W-20);e.y=clamp(e.y+uy*travel,35,H-20);particles.push({beam:true,x:oldX,y:oldY,ex:e.x,ey:e.y,width:(e.attackType==='x'?34:22)*(e.superBoss?1.25:1),color:e.superBoss?'#ff3038':'#bd74ff',life:18,max:18});const lineDx=e.x-oldX,lineDy=e.y-oldY,len2=lineDx*lineDx+lineDy*lineDy||1,t=clamp(((player.x-oldX)*lineDx+(player.y-oldY)*lineDy)/len2,0,1);const lineDistance=Math.hypot(player.x-(oldX+t*lineDx),player.y-(oldY+t*lineDy));hit=lineDistance<player.r+(e.attackType==='x'?36:26)*(e.superBoss?1.25:1)||Math.hypot(player.x-e.x,player.y-e.y)<(rainbow?105:82)*(e.superBoss?1.25:1);}
  else {const radius=(rainbow?225:170)*(e.superBoss?1.28:1);particles.push({ring:true,x:e.x,y:e.y,radius,color:e.superBoss?'#ff3038':'#bd74ff',life:24,max:24});hit=Math.hypot(player.x-e.x,player.y-e.y)<radius;}
@@ -683,6 +768,7 @@ function resolveBossAttack(e){if(!e.boss||gameOver)return;const rainbow=island>=
 function updateBossSkill(e,d){if(!e.boss)return false;if(e.castFrames>0){e.castFrames--;if(e.castFrames===0)resolveBossAttack(e);return true;}e.skillCd=Math.max(0,e.skillCd-1);const skillRange=(island>=20?650:510)*(e.superBoss?1.28:1);if(e.skillCd<=0&&d>46&&d<skillRange){e.attackType=['z','x','c','f'][Math.floor(rand(0,4))];e.targetX=player.x;e.targetY=player.y;e.castFrames=e.superBoss?27:32;e.skillCd=Math.floor(rand(island>=20?330:390,island>=20?480:540)*(e.superBoss ? 0.95 : 1));return true;}return false;}
 function resolveEliteAttack(e){
  if(!e.elite||gameOver)return;
+ playEnemyAttackSound('elite',e.attackType);
  const rainbow=postGame||island>=20;
  let dx=e.targetX-e.x,dy=e.targetY-e.y,dist=Math.hypot(dx,dy)||1,ux=dx/dist,uy=dy/dist;
  // Élites golpean con ataques inspirados en los jefes, pero con menos daño y alcance.
@@ -726,6 +812,7 @@ function updateEliteSkill(e,d){
 function hurtEnemy(e,dmg,knock=0){e.hp-=dmg;e.hit=8;addFury(Math.max(.5,dmg*.05)+(e.boss?.375:0));burst(e.x,e.y,e.superBoss?'#ff3038':e.boss?'#bd74ff':e.elite?'#75c2ff':'#ffb45c',8,3);if(knock){let dx=e.x-player.x,dy=e.y-player.y,l=Math.hypot(dx,dy)||1;e.x+=dx/l*knock;e.y+=dy/l*knock;}if(e.hp<=0){const xpReward=e.superBoss?1000:e.boss?500:e.elite?100:50;islandKills++;addFury(e.boss?8:e.elite?5:3.75);gainXP(xpReward);log((e.superBoss?'JEFE SUPREMO CARMESÍ DERROTADO':e.boss?'JEFE MORADO DERROTADO':e.elite?'ÉLITE DERROTADO':'Enemigo derrotado')+' · +'+xpReward+' XP.');burst(e.x,e.y,e.superBoss?'#ff3038':e.boss?'#bd74ff':e.elite?'#398fff':'#ffd166',e.boss?34:18,5);enemies=enemies.filter(q=>q!==e);if(islandKills>=4){islandKills=0;log('Misión de isla completada: ¡bonificación de furia!');addFury(3);}if(enemies.length===0){emptyRefillUntil=frame+EMPTY_SCREEN_REFILL_FRAMES;emptyRefillNextFrame=frame+EMPTY_SCREEN_REFILL_STEP;spawnClock=0;}else if(emptyRefillUntil<0&&spawnClock<=0){spawnClock=RESPAWN_DELAY_FRAMES;}}}
 function areaAttack(){
  if(!started||paused||gameOver||transitionPending||attackCD>0)return;
+ playPlayerAttackSound('m1',transformed);
  attackCD=60; // 1 segundo entre golpes (60 FPS)
  const radius=transformed?150:104, damage=playerDamage(transformed?140:36);
  particles.push({ring:true,x:player.x,y:player.y,radius,color:transformed?'#ff542e':'#ffd166',life:18,max:18});
@@ -742,9 +829,9 @@ function areaAttack(){
 function nearestEnemy(){if(!enemies.length)return null;return enemies.reduce((best,e)=>!best||Math.hypot(e.x-player.x,e.y-player.y)<Math.hypot(best.x-player.x,best.y-player.y)?e:best,null);}
 function aimAtNearest(){const target=nearestEnemy();if(target){const dx=target.x-player.x,dy=target.y-player.y,len=Math.hypot(dx,dy)||1;player.dx=dx/len;player.dy=dy/len;}return target;}
 function fireLine(dmg,range,width,color,label){dmg=playerDamage(dmg);let hit=0;let vx=player.dx,vy=player.dy;let ex=player.x+vx*range,ey=player.y+vy*range;particles.push({beam:true,x:player.x,y:player.y,ex,ey,width,color,life:13,max:13});for(const e of [...enemies]){let ax=e.x-player.x,ay=e.y-player.y,proj=ax*vx+ay*vy,perp=Math.abs(ax*vy-ay*vx);if(proj>0&&proj<range&&perp<width+e.r){hurtEnemy(e,dmg,10);hit++;}}if(!hit)addFury(1);log(label+(hit?' golpeó a '+hit+' enemigo(s).':' cruzó la isla sin acertar.'));shake=4;}
-function ability(k){if(!started||paused||gameOver||transitionPending)return;if(k==='v'){transform();return;}if(cds[k]>0){return;}if(k==='z'){cds.z=180;aimAtNearest();fireLine(transformed?195:65,transformed?600:390,transformed?42:24,'#ff6b35','Hiperrayo');burst(player.x+player.dx*30,player.y+player.dy*30,'#ff9a48',18,5);}
-if(k==='x'){cds.x=300;const target=aimAtNearest();let oldX=player.x,oldY=player.y;if(target){const vx=target.x-player.x,vy=target.y-player.y,d=Math.hypot(vx,vy)||1,travel=Math.min(transformed?210:145,Math.max(0,d-30));player.x=clamp(player.x+vx/d*travel,20,W-20);player.y=clamp(player.y+vy/d*travel,35,H-20);}else{player.x=clamp(player.x+player.dx*(transformed?175:105),20,W-20);player.y=clamp(player.y+player.dy*(transformed?175:105),35,H-20);}particles.push({beam:true,x:oldX,y:oldY,ex:player.x,ey:player.y,width:transformed?48:30,color:'#ffdf6b',life:15,max:15});let hit=0;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<(transformed?145:100)){hurtEnemy(e,playerDamage(transformed?260:95),34); /* X: daño menor que C; cooldown de 5 s. */ hit++;}if(!hit)burst(player.x,player.y,'#ff8c46',24,6);log('Placaje ígneo: '+(hit?hit+' enemigo(s) golpeado(s).':'embestida sin impacto.'));shake=9;}
-if(k==='c'){cds.c=360;const meteorRadius=transformed?390:275;burst(player.x,player.y,transformed?'#ff6a35':'#ff8c46',transformed?34:27,transformed?7:6);particles.push({ring:true,x:player.x,y:player.y,radius:meteorRadius,color:transformed?'#ff4b37':'#ff994e',life:28,max:28});let hit=0;for(const e of [...enemies]){let d=Math.hypot(e.x-player.x,e.y-player.y);if(d<meteorRadius+e.r){hurtEnemy(e,playerDamage(transformed?360:155),transformed?48:30);hit++;let mx=e.x,my=e.y;particles.push({beam:true,x:mx+rand(-38,22),y:my-100,ex:mx,ey:my,width:transformed?12:9,color:transformed?'#ff5b43':'#ffc05c',life:24,max:24});}}log('Lluvia de meteoros: '+hit+' objetivo(s) alcanzados.');shake=transformed?15:9;}}
+function ability(k){if(!started||paused||gameOver||transitionPending)return;if(k==='v'){transform();return;}if(cds[k]>0){return;}if(k==='z'){playPlayerAttackSound('z',transformed);cds.z=180;aimAtNearest();fireLine(transformed?195:65,transformed?600:390,transformed?42:24,'#ff6b35','Hiperrayo');burst(player.x+player.dx*30,player.y+player.dy*30,'#ff9a48',18,5);}
+if(k==='x'){playPlayerAttackSound('x',transformed);cds.x=300;const target=aimAtNearest();let oldX=player.x,oldY=player.y;if(target){const vx=target.x-player.x,vy=target.y-player.y,d=Math.hypot(vx,vy)||1,travel=Math.min(transformed?210:145,Math.max(0,d-30));player.x=clamp(player.x+vx/d*travel,20,W-20);player.y=clamp(player.y+vy/d*travel,35,H-20);}else{player.x=clamp(player.x+player.dx*(transformed?175:105),20,W-20);player.y=clamp(player.y+player.dy*(transformed?175:105),35,H-20);}particles.push({beam:true,x:oldX,y:oldY,ex:player.x,ey:player.y,width:transformed?48:30,color:'#ffdf6b',life:15,max:15});let hit=0;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<(transformed?145:100)){hurtEnemy(e,playerDamage(transformed?260:95),34); /* X: daño menor que C; cooldown de 5 s. */ hit++;}if(!hit)burst(player.x,player.y,'#ff8c46',24,6);log('Placaje ígneo: '+(hit?hit+' enemigo(s) golpeado(s).':'embestida sin impacto.'));shake=9;}
+if(k==='c'){playPlayerAttackSound('c',transformed);cds.c=360;const meteorRadius=transformed?390:275;burst(player.x,player.y,transformed?'#ff6a35':'#ff8c46',transformed?34:27,transformed?7:6);particles.push({ring:true,x:player.x,y:player.y,radius:meteorRadius,color:transformed?'#ff4b37':'#ff994e',life:28,max:28});let hit=0;for(const e of [...enemies]){let d=Math.hypot(e.x-player.x,e.y-player.y);if(d<meteorRadius+e.r){hurtEnemy(e,playerDamage(transformed?360:155),transformed?48:30);hit++;let mx=e.x,my=e.y;particles.push({beam:true,x:mx+rand(-38,22),y:my-100,ex:mx,ey:my,width:transformed?12:9,color:transformed?'#ff5b43':'#ffc05c',life:24,max:24});}}log('Lluvia de meteoros: '+hit+' objetivo(s) alcanzados.');shake=transformed?15:9;}}
 function propulsionHit(e){
  // Cada enemigo puede recibir como máximo seis impactos durante una activación,
  // con medio segundo entre pulsos. Evita el daño infinito por contacto continuo.
@@ -761,6 +848,7 @@ function propulsionHit(e){
 }
 function soar(){
  if(!started||paused||gameOver||transitionPending||cds.f>0||player.soarFrames>0)return;
+ playPlayerAttackSound('f',transformed);
  // El cooldown empieza al finalizar los 3 segundos de impulso, no al activarlo.
  cds.f=0;
  player.soarFrames=180;
@@ -803,6 +891,7 @@ function transform(){
  // No se puede reanudar con una carga parcial: todas las activaciones requieren 100%.
  if(fury<100){log('Necesitas el 100% de furia para activar la transformación. Carga el medidor derrotando enemigos.');return;}
  transformed=true;
+ playPlayerAttackSound('transform',true);
  transformFrames=1800;
  fury=100;furyPending=0;
  cds.v=0;
@@ -817,13 +906,54 @@ function togglePause(force){
  document.body.classList.toggle('game-paused',paused);
  keys={};if(paused)shake=0;
  $('pauseScreen').classList.toggle('hidden',!paused);
- $('pauseBtn').textContent=paused?'▶ CONTINUAR':'Ⅱ PAUSA';
+ $('pauseBtn').textContent='Ⅱ PAUSA'; // El botón conserva siempre su etiqueta; CONTINUAR pertenece al botón del menú de pausa.
  syncPauseButtonVisibility();
- $('pauseBtn').setAttribute('aria-label',paused?'Continuar partida':'Pausar partida');
+ $('pauseBtn').setAttribute('aria-label','Pausar partida');
  $('game').parentElement.classList.toggle('paused',paused);
  $('status').textContent=paused?'Partida en pausa':'Explorando';
  if(paused)log('⏸ Partida pausada. El movimiento, enemigos y cooldowns están detenidos.');
  else log('▶ Partida reanudada.');
+}
+function adminStartingLevel(worldIndex){
+ // Cada reino de campaña comienza cada cinco niveles; Rainbow empieza en el nivel 100.
+ return worldIndex>=20?100:worldIndex*5+1;
+}
+function updateAdminLevelPreview(){
+ const selectedWorld=Math.max(0,Math.min(20,Math.floor(Number($('adminWorld').value)||0)));
+ $('adminLevelPreview').textContent='Nivel inicial automático: '+adminStartingLevel(selectedWorld);
+}
+function openAdminPanel(returnTo){
+ adminReturnTo=returnTo;
+ $('adminWorld').value=String(island||0);
+ updateAdminLevelPreview();
+ if(returnTo==='start')$('startScreen').classList.add('hidden');
+ else $('pauseScreen').classList.add('hidden');
+ $('adminScreen').classList.remove('hidden');
+ $('adminWorld').focus();
+}
+function closeAdminPanel(){
+ $('adminScreen').classList.add('hidden');
+ if(adminReturnTo==='start')$('startScreen').classList.remove('hidden');
+ else $('pauseScreen').classList.remove('hidden');
+ adminCodeIndex=0;
+}
+function applyAdminTeleport(){
+ getSfxAudioContext();
+ const chosenIsland=Math.max(0,Math.min(20,Math.floor(Number($('adminWorld').value)||0)));
+ const chosenLevel=adminStartingLevel(chosenIsland);
+ const hpRatio=player&&player.maxHp>0?clamp(player.hp/player.maxHp,0,1):1;
+ level=chosenLevel;xp=0;xpNeed=1000;
+ player.maxHp=120+(level-1)*12;player.hp=Math.max(1,Math.round(player.maxHp*hpRatio));
+ player.speed=Math.min(4.6,3.1+(level-1)*.045);player.x=W/2;player.y=H/2;player.soarFrames=0;
+ island=chosenIsland;postGame=chosenIsland===20;adminOverrideActive=false;campaignCompleteShown=false;
+ islandKills=0;transitionPending=false;paused=false;gameOver=false;started=true;keys={};attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};
+ enemies=[];particles=[];spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState.clear();
+ for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();
+ $('startScreen').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('islandTransition').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('adminScreen').classList.add('hidden');
+ document.body.classList.remove('game-paused','game-transition','game-over','campaign-complete');document.body.classList.add('game-started');
+ $('status').textContent='Modo admin · '+areaName();syncPauseButtonVisibility();
+ log('⚙ MODO ADMIN: destino '+areaName()+' · nivel inicial '+level+'. La progresión normal continuará desde este reino.');
+ updateUI();adminCodeIndex=0;
 }
 function updateUI(){
  $('level').textContent=level;$('xpText').textContent=Math.floor(xp)+' / 1000 XP';$('xpBar').style.width=(xp/1000*100)+'%';$('hpText').textContent=Math.ceil(player.hp)+' / '+player.maxHp;$('hpBar').style.width=(player.hp/player.maxHp*100)+'%';
@@ -1233,6 +1363,21 @@ function loop(){update();draw();requestAnimationFrame(loop);}
 window.addEventListener('keydown',e=>{
  const k=e.key;
  const isSpace=e.code==='Space'||k===' ';
+ const adminVisible=!$('adminScreen').classList.contains('hidden');
+ if(adminVisible){if(k==='Escape'&&!e.repeat){e.preventDefault();closeAdminPanel();}return;}
+ const startMenuVisible=!$('startScreen').classList.contains('hidden');
+ const pauseMenuVisible=started&&paused&&!$('pauseScreen').classList.contains('hidden');
+ if((startMenuVisible||pauseMenuVisible)&&!e.repeat){
+  const normalized=(k==='b'||k==='B')?'b':(k==='a'||k==='A')?'a':k;
+  if(normalized===adminCode[adminCodeIndex]){
+   adminCodeIndex++;
+   if(adminCodeIndex===adminCode.length){e.preventDefault();adminCodeIndex=0;openAdminPanel(startMenuVisible?'start':'pause');return;}
+   if(normalized.startsWith('Arrow'))e.preventDefault();
+  }else{
+   adminCodeIndex=normalized===adminCode[0]?1:0;
+   if(normalized.startsWith('Arrow'))e.preventDefault();
+  }
+ }else if(!startMenuVisible&&!pauseMenuVisible){adminCodeIndex=0;}
  if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(k))e.preventDefault();
  if(k==='Escape'&&!e.repeat){e.preventDefault();togglePause();return;}
  // P pausa/reanuda durante la partida; se ignoran las pantallas de menú y fin.
@@ -1247,7 +1392,7 @@ window.addEventListener('keydown',e=>{
  // Espacio activa Rugido solo sobre el campo de juego. Si el foco está en
  // un botón o menú, se conserva el comportamiento accesible del navegador.
  if(isSpace){
-  const uiTarget=e.target&&e.target.closest&&e.target.closest('.startScreen,.islandTransition,.pauseScreen,.gameOverScreen,.campaignCompleteScreen,button,a,input,select,textarea,[role="button"],[role="dialog"],[contenteditable="true"]');
+  const uiTarget=e.target&&e.target.closest&&e.target.closest('.startScreen,.islandTransition,.pauseScreen,.gameOverScreen,.campaignCompleteScreen,.adminScreen,button,a,input,select,textarea,[role="button"],[role="dialog"],[contenteditable="true"]');
   if(uiTarget)return;
   if(!started||paused||gameOver||transitionPending)return;
   e.preventDefault();
@@ -1269,11 +1414,11 @@ window.addEventListener('keydown',e=>{
 const gameStageEl=document.querySelector('.gameStage');
 // El clic derecho no tiene acción dentro del juego: evita el menú contextual del navegador.
 document.addEventListener('contextmenu',e=>{
- if(e.target&&e.target.closest&&e.target.closest('.gameStage,header,.mobile,.startScreen,.islandTransition,.pauseScreen,.gameOverScreen,.campaignCompleteScreen'))e.preventDefault();
+ if(e.target&&e.target.closest&&e.target.closest('.gameStage,header,.mobile,.startScreen,.islandTransition,.pauseScreen,.gameOverScreen,.campaignCompleteScreen,.adminScreen'))e.preventDefault();
 },{capture:true});
 // Evita que un pointerdown derecho alcance los controles de ataque.
 gameStageEl.addEventListener('pointerdown',e=>{if(e.button===2){e.preventDefault();e.stopPropagation();}},{capture:true});
-const rugidoUiSelector='.startScreen,.islandTransition,.pauseScreen,.gameOverScreen,.campaignCompleteScreen,button,a,input,select,textarea,[role="button"],[role="dialog"]';
+const rugidoUiSelector='.startScreen,.islandTransition,.pauseScreen,.gameOverScreen,.campaignCompleteScreen,.adminScreen,button,a,input,select,textarea,[role="button"],[role="dialog"]';
 gameStageEl.addEventListener('pointerdown',e=>{
  if(e.button!==0||e.isPrimary===false)return;
  if(!started||paused||gameOver||transitionPending)return;
@@ -1291,10 +1436,12 @@ window.addEventListener('keyup',e=>keys[e.key]=false);
 document.querySelectorAll('[data-ability]').forEach(b=>b.onclick=()=>ability(b.dataset.ability));
 document.querySelectorAll('[data-key]').forEach(b=>{let k=b.dataset.key;let down=e=>{e.preventDefault();keys[k]=true},up=e=>{e.preventDefault();keys[k]=false};b.addEventListener('pointerdown',down);b.addEventListener('pointerup',up);b.addEventListener('pointerleave',up);b.addEventListener('pointercancel',up);});
 $('mobileF').onclick=soar;$('mobileSpace').onclick=areaAttack;$('desktopM1').onclick=areaAttack;$('pauseBtn').onclick=()=>togglePause();$('resumeBtn').onclick=()=>togglePause(false);$('reloadBtn').onclick=()=>window.location.reload();
+islandNames.concat(['Dimensión Rainbow']).forEach((name,index)=>{const option=document.createElement('option');option.value=String(index);option.textContent=(index+1)+'. '+name;$('adminWorld').appendChild(option);});
+$('adminWorld').addEventListener('change',updateAdminLevelPreview);$('adminTeleportBtn').onclick=applyAdminTeleport;$('adminBackBtn').onclick=closeAdminPanel;
 $('goIslandBtn').onclick=()=>{transitionPending=false;document.body.classList.remove('game-transition','game-paused');paused=false;$('islandTransition').classList.add('hidden');document.body.classList.add('game-started');syncPauseButtonVisibility();$('status').textContent=postGame?'Dimensión Rainbow':(island>=20?'Dimensión Rainbow':'Explorando '+areaName());log('Rumbo a '+areaName()+'. La aventura continúa.');updateUI();};
-$('startBtn').onclick=()=>{if(!gameOver){spawnClock=0;started=true;paused=false;transitionPending=false;document.body.classList.remove('game-transition','game-paused');document.body.classList.add('game-started');$('startScreen').classList.add('hidden');$('islandTransition').classList.add('hidden');$('status').textContent='Explorando '+areaName();syncPauseButtonVisibility();log('¡Aventura iniciada en '+areaName()+'! Hay hasta siete enemigos en pantalla, con un máximo de tres jefes morados a la vez; solo puede haber un Sagrado Carmesí activo a la vez y los demás NPC siguen apareciendo.');updateUI();}};
+$('startBtn').onclick=()=>{getSfxAudioContext();if(!gameOver){spawnClock=0;started=true;paused=false;transitionPending=false;document.body.classList.remove('game-transition','game-paused');document.body.classList.add('game-started');$('startScreen').classList.add('hidden');$('islandTransition').classList.add('hidden');$('status').textContent='Explorando '+areaName();syncPauseButtonVisibility();log('¡Aventura iniciada en '+areaName()+'! Hay hasta siete enemigos en pantalla, con un máximo de tres jefes morados a la vez; solo puede haber un Sagrado Carmesí activo a la vez y los demás NPC siguen apareciendo.');updateUI();}};
 // Superposiciones de pausa y Game Over a nivel de página para que no se recorten en pantallas pequeñas.
-document.body.appendChild($('pauseScreen'));document.body.appendChild($('gameOverScreen'));document.body.appendChild($('campaignCompleteScreen'));
+document.body.appendChild($('pauseScreen'));document.body.appendChild($('gameOverScreen'));document.body.appendChild($('campaignCompleteScreen'));document.body.appendChild($('adminScreen'));
 $('continueInfiniteBtn').onclick=enterInfiniteWorld;
 reset();loop();
 })();
