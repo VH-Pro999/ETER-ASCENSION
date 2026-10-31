@@ -4,7 +4,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="ÉTER: ASCENSIÓN es una aventura 2D original. Un joven despierta un poder ancestral y explora mundos llenos de enemigos, élites y jefes."><meta name="theme-color" content="#07101d"><title>ÉTER: ASCENSIÓN · Beta 17</title>
+<meta name="description" content="ÉTER: ASCENSIÓN es una aventura 2D original. Un joven despierta un poder ancestral y explora mundos llenos de enemigos, élites y jefes."><meta name="theme-color" content="#07101d"><title>ÉTER: ASCENSIÓN</title>
 <style>
 :root{--bg:#07101d;--panel:#101b2e;--line:#304764;--gold:#ffd166;--red:#ff5e4d;--cyan:#64e9ee;--muted:#aabbd2}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f2f6ff;font-family:system-ui,Arial,sans-serif}
@@ -641,10 +641,23 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
 .adminModes{margin:18px 0 12px;padding:13px;border:1px solid rgba(255,126,137,.35);border-radius:13px;background:rgba(16,8,18,.38)}
 .adminModes h3{margin:0 0 9px;color:#ffb7c0;font-size:.78rem;letter-spacing:.14em}
 .adminNoLimitsStatus{margin-top:10px;padding:10px 11px;border:1px solid rgba(255,93,107,.8);border-radius:10px;background:linear-gradient(100deg,rgba(110,7,24,.72),rgba(51,5,20,.82));color:#fff0f1;font-size:.76rem;font-weight:950;line-height:1.4;letter-spacing:.035em;text-align:center;box-shadow:0 0 18px rgba(255,38,62,.16)}
-.gameNoLimitsNotice{position:absolute;top:48px;left:50%;transform:translateX(-50%);z-index:7;box-sizing:border-box;width:max-content;max-width:min(72%,620px);padding:7px 12px;border:1px solid rgba(255,105,117,.85);border-radius:10px;background:rgba(83,4,20,.91);color:#fff3f4;font-size:clamp(.62rem,1.2vw,.82rem);font-weight:1000;letter-spacing:.07em;text-align:center;text-shadow:0 1px 5px #4d0010;box-shadow:0 4px 18px rgba(0,0,0,.34),0 0 18px rgba(255,35,58,.2);pointer-events:none;white-space:normal}
-.gameNoLimitsNotice.hidden,.adminNoLimitsStatus.hidden{display:none!important}
-@media(max-width:850px){.gameNoLimitsNotice{top:103px;max-width:76%;padding:6px 9px;font-size:.65rem;letter-spacing:.035em}}
-@media(max-width:480px){.gameNoLimitsNotice{top:98px;max-width:78%;padding:5px 7px;font-size:.57rem}}
+.adminNoLimitsStatus.hidden{display:none!important}
+.invokerToolsPanel{margin-top:10px;padding:12px;border:1px solid rgba(95,207,255,.38);border-radius:11px;background:rgba(5,22,37,.48);display:grid;gap:9px}
+.invokerToolsPanel.hidden{display:none!important}
+.invokerToolsPanel label{display:grid;gap:5px;color:#cfeeff;font-size:.75rem;font-weight:800}
+.invokerToolsPanel select,.invokerToolsPanel input{width:100%;box-sizing:border-box;padding:9px 10px;border:1px solid rgba(111,204,255,.42);border-radius:8px;background:#071727;color:#fff;font:inherit}
+.invokerToolsPanel button{min-height:42px;border:0;border-radius:9px;background:linear-gradient(100deg,#1676a5,#31b9cc);color:#fff;font-weight:950;letter-spacing:.06em;cursor:pointer}
+.invokerToolsPanel small{color:#b8d8e8;font-size:.7rem;line-height:1.4}
+.invokerCounts{padding:8px;border-radius:8px;background:rgba(0,0,0,.22);color:#eafaff!important;font-weight:900;font-variant-numeric:tabular-nums}
+.invokerAdminNotice{margin-top:9px;padding:9px 10px;border:1px solid rgba(255,194,91,.62);border-radius:9px;background:rgba(81,47,5,.34);color:#ffe9b1;font-size:.72rem;font-weight:900;line-height:1.4;text-align:center}
+.invokerAdminNotice.hidden{display:none!important}
+.invokerResultScreen{position:fixed;inset:0;z-index:12000;display:flex;align-items:center;justify-content:center;padding:18px;background:radial-gradient(ellipse at center,rgba(14,31,50,.94),rgba(1,5,14,.98));backdrop-filter:blur(8px);color:#fff;text-align:center}
+.invokerResultScreen.hidden{display:none!important}
+.invokerResultCard{width:min(520px,94vw);padding:28px 22px;border:1px solid rgba(108,218,255,.72);border-radius:18px;background:linear-gradient(145deg,#0b1b2d,#182d47);box-shadow:0 0 55px rgba(57,183,255,.2)}
+.invokerResultEyebrow{margin:0 0 8px;color:#8ee8ff;font-size:.7rem;font-weight:950;letter-spacing:.2em}
+.invokerResultCard h2{margin:0;color:#fff;font-size:clamp(1.6rem,6vw,2.7rem);letter-spacing:.06em}
+.invokerResultCard p:last-child{margin:10px 0 0;color:#d6e8f6;line-height:1.5}
+
 
 .adminModeRow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 2px;border-top:1px solid rgba(255,255,255,.09);cursor:pointer}
 .adminModeRow:first-of-type{border-top:0}
@@ -654,6 +667,13 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
 .adminModeRow input{width:21px;height:21px;flex:0 0 auto;accent-color:#ff526b;cursor:pointer}
 .vhAdmin{border-color:rgba(255,197,72,.45);background:rgba(39,26,8,.27)}
 .vhAdmin h3{color:#ffe09a}
+.vhAdmin{margin-top:14px;padding:12px;border:1px solid rgba(255,197,72,.45);border-radius:11px;background:rgba(39,26,8,.27)}
+.adminModes>h3{font-weight:950}
+.adminClearAllWrap{display:grid;gap:6px;margin:14px 0 8px;padding:12px;border:1px solid rgba(255,91,110,.38);border-radius:12px;background:rgba(58,10,24,.24)}
+.adminClearAllWrap button{width:100%;min-height:44px;border:1px solid rgba(255,160,170,.68);border-radius:10px;background:linear-gradient(105deg,#a90e2e,#e52b45 55%,#8f0d2b);color:#fff;font-weight:1000;letter-spacing:.09em;cursor:pointer;box-shadow:0 5px 18px rgba(210,18,52,.2)}
+.adminClearAllWrap button:hover{filter:brightness(1.12)}
+.adminClearAllWrap small{color:#d8bac0;font-size:.69rem;line-height:1.4;text-align:center}
+
 .vhNote{margin:0 0 10px!important}
 .vhUnlockRow{display:flex;gap:8px;align-items:stretch}
 .vhUnlockRow input{flex:1;min-width:0;box-sizing:border-box;padding:10px;border:1px solid rgba(255,198,95,.48);border-radius:9px;background:#170f0b;color:#fff;font:inherit}
@@ -665,6 +685,33 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
 .vhLockoutCard h2{font-size:clamp(1.5rem,6vw,3rem);color:#fff;letter-spacing:.06em}
 .vhLockoutCard small{color:#bfaab0;letter-spacing:.2em}
 @media(max-width:430px){.vhUnlockRow{flex-direction:column}.vhUnlockRow button{min-height:42px}}
+
+/* Modo Youtuber: escena limpia para grabar, con pausa y avance de mundo conservados. */
+body.youtuber-mode header,
+body.youtuber-mode .panel,
+body.youtuber-mode .gameStage > .stats,
+body.youtuber-mode .foot,
+body.youtuber-mode .mobile,
+body.youtuber-mode footer,
+body.youtuber-mode .tip {display:none!important;}
+body.youtuber-mode .layout{width:100vw!important;height:100dvh!important;margin:0!important;}
+body.youtuber-mode .layout>section{width:100vw!important;height:100dvh!important;}
+body.youtuber-mode .layout>section>.box{width:100vw!important;height:100dvh!important;}
+body.youtuber-mode .gameStage{width:min(100vw,calc(100dvh * 1.6666667))!important;height:auto!important;aspect-ratio:5/3!important;margin:0 auto!important;}
+body.youtuber-mode .gameStage #pauseBtn{display:inline-flex!important;visibility:visible!important;pointer-events:auto!important;z-index:30!important;}
+body.youtuber-mode .islandTransition:not(.hidden){display:flex!important;z-index:40!important;}
+body.youtuber-mode .islandTransitionCard .eyebrow,
+body.youtuber-mode .islandTransitionCard h2,
+body.youtuber-mode .islandTransitionCard p{display:none!important;}
+body.youtuber-mode .islandTransitionCard{width:min(360px,92vw)!important;padding:16px!important;}
+body.youtuber-mode .islandTransitionCard button{display:inline-flex!important;align-items:center;justify-content:center;min-height:54px;width:100%;}
+body.youtuber-mode .pauseScreen:not(.hidden),
+body.youtuber-mode .gameOverScreen:not(.hidden),
+body.youtuber-mode .campaignCompleteScreen:not(.hidden){display:flex!important;}
+body.youtuber-mode .campaignCompleteCard>*:not(button),
+body.youtuber-mode .gameOverCard>*:not(button){display:none!important;}
+body.youtuber-mode .campaignCompleteCard button,
+body.youtuber-mode .gameOverCard button{display:inline-flex!important;align-items:center;justify-content:center;}
 </style>
 <!-- ÉTER: ASCENSIÓN — Beta 7: hitboxes ajustadas y daño enemigo -10%. -->
 </head>
@@ -672,24 +719,58 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
 <header><div><h1>ÉTER: <span>ASCENSIÓN</span></h1><p>Un poder ancestral. Veinte mundos. Un viaje sin fin.</p></div></header>
 <main class="layout">
 <section>
- <div class="box"><div class="gameStage"><button id="pauseBtn" type="button" aria-label="Pausar partida" disabled>Ⅱ PAUSA</button><canvas id="game" width="900" height="540" aria-label="Juego de aventura 2D"></canvas><div id="gameNoLimitsNotice" class="gameNoLimitsNotice hidden" role="status">⚠ LÍMITES DE APARICIÓN ANULADOS</div>
+ <div class="box"><div class="gameStage"><button id="pauseBtn" type="button" aria-label="Pausar partida" disabled>Ⅱ PAUSA</button><canvas id="game" width="900" height="540" aria-label="Juego de aventura 2D"></canvas>
  <div class="stats">
   <div class="stat"><small>Nivel</small><strong id="level">1</strong><div class="bar"><div class="fill xp" id="xpBar"></div></div><small id="xpText">0 / 1000 XP</small></div>
   <div class="stat hud-spacer" aria-hidden="true"></div>
   <div class="stat"><small>Vida</small><strong id="hpText">120 / 120</strong><div class="bar"><div class="fill hp" id="hpBar"></div></div></div>
   <div class="stat"><small id="furyLabel">Furia dracónica</small><strong id="furyText">0%</strong><div class="bar"><div class="fill fury" id="furyBar"></div></div></div>
- </div><div class="startScreen" id="startScreen"><div class="startCard"><h2>ÉTER: ASCENSIÓN</h2><p>Eres un joven que despierta el poder de una fruta ancestral y se embarca en una aventura por islas de todo tipo, enfrentando enemigos, élites y jefes. ¿Aceptas el desafío?</p><button id="startBtn">DESPERTAR</button></div></div><div id="fruitSelectScreen" class="fruitSelectScreen hidden" role="dialog" aria-modal="true" aria-labelledby="fruitSelectTitle"><div class="fruitSelectCard"><p class="fruitSelectEyebrow">ELIGE TU PODER ANCESTRAL</p><h2 id="fruitSelectTitle">SELECCIÓN DE FRUTA</h2><p class="fruitSelectIntro">Cada fruta destaca en un atributo, es equilibrada en otro y tiene una debilidad. Escoge tu estilo de combate.</p><div id="fruitGroups" class="fruitGroups"></div><div class="fruitSelectFooter"><button id="confirmFruitBtn" type="button">CONFIRMAR Y JUGAR</button></div></div></div><div class="islandTransition hidden" id="islandTransition" role="dialog" aria-modal="true" aria-labelledby="transitionTitle"><div class="islandTransitionCard"><div class="eyebrow" id="transitionEyebrow">NUEVO REINO DESCUBIERTO</div><h2 id="transitionTitle">Preparando el viaje...</h2><p id="transitionDescription">Una nueva aventura te espera.</p><button id="goIslandBtn">IR AL SIGUIENTE REINO</button></div></div><div id="pauseScreen" class="pauseScreen hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle"><div class="pauseCard"><button id="soundToggleBtn" class="soundToggleBtn" type="button" aria-label="Silenciar sonido" aria-pressed="false" title="Silenciar sonido">🔊</button><div class="pauseIcon">Ⅱ</div><h2 id="pauseTitle">PAUSA</h2><p>La partida está detenida.</p><button id="resumeBtn" type="button">▶ CONTINUAR</button></div></div><div id="gameOverScreen" class="gameOverScreen hidden" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle"><div class="gameOverCard"><div class="gameOverMark">✦</div><p class="gameOverEyebrow">LA AVENTURA SE DETUVO</p><h2 id="gameOverTitle">GAME OVER</h2><p>Los reinos aún esperan tu regreso.</p><button id="reloadBtn" type="button">↻ VOLVER A EMPEZAR</button></div></div><div id="campaignCompleteScreen" class="campaignCompleteScreen hidden" role="dialog" aria-modal="true" aria-labelledby="campaignCompleteTitle"><div class="campaignCompleteCard"><p class="campaignEyebrow">HISTORIA PRINCIPAL COMPLETADA</p><h2 id="campaignCompleteTitle">¡FELICIDADES!</h2><p>Has alcanzado el nivel 100, conquistado los 20 mundos y demostrado que puedes dominar el poder de tu fruta.</p><div class="campaignDivider"></div><h3>Tu viaje todavía no termina.</h3><p>Continúa en la <strong>Dimensión Rainbow</strong>, un mundo de postgame donde los enemigos, los jefes y tu poder siguen creciendo sin límite.</p><button id="continueInfiniteBtn" type="button">CONTINUAR EN LA DIMENSIÓN RAINBOW</button></div></div><div id="adminScreen" class="adminScreen hidden" role="dialog" aria-modal="true" aria-labelledby="adminTitle"><div class="adminCard"><p class="adminEyebrow">ACCESO ESPECIAL · ÉTER: ASCENSIÓN</p><h2 id="adminTitle">MODO ADMIN</h2><p>Hola VH. Escoge tu mundo:</p><div class="adminField"><label for="adminWorld">Mundo de destino</label><select id="adminWorld"></select><small id="adminLevelPreview" class="adminLevelPreview">Nivel inicial: 1</small></div><div class="adminField adminFruitField"><label for="adminFruit">Poder / fruta equipada</label><select id="adminFruit"></select><small class="adminLevelPreview">El cambio de fruta se aplica al instante, sin reiniciar la partida.</small></div>
+ </div><div class="startScreen" id="startScreen"><div class="startCard"><h2>ÉTER: ASCENSIÓN</h2><p>Eres un joven que despierta el poder de una fruta ancestral y se embarca en una aventura por islas de todo tipo, enfrentando enemigos, élites y jefes. ¿Aceptas el desafío?</p><button id="startBtn">DESPERTAR</button></div></div><div id="fruitSelectScreen" class="fruitSelectScreen hidden" role="dialog" aria-modal="true" aria-labelledby="fruitSelectTitle"><div class="fruitSelectCard"><p class="fruitSelectEyebrow">ELIGE TU PODER ANCESTRAL</p><h2 id="fruitSelectTitle">SELECCIÓN DE FRUTA</h2><p class="fruitSelectIntro">Cada fruta destaca en un atributo, es equilibrada en otro y tiene una debilidad. Escoge tu estilo de combate.</p><div id="fruitGroups" class="fruitGroups"></div><div class="fruitSelectFooter"><button id="confirmFruitBtn" type="button">CONFIRMAR Y JUGAR</button></div></div></div><div class="islandTransition hidden" id="islandTransition" role="dialog" aria-modal="true" aria-labelledby="transitionTitle"><div class="islandTransitionCard"><div class="eyebrow" id="transitionEyebrow">NUEVO REINO DESCUBIERTO</div><h2 id="transitionTitle">Preparando el viaje...</h2><p id="transitionDescription">Una nueva aventura te espera.</p><button id="goIslandBtn">IR AL SIGUIENTE REINO</button></div></div><div id="pauseScreen" class="pauseScreen hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle"><div class="pauseCard"><button id="soundToggleBtn" class="soundToggleBtn" type="button" aria-label="Silenciar sonido" aria-pressed="false" title="Silenciar sonido">🔊</button><div class="pauseIcon">Ⅱ</div><h2 id="pauseTitle">PAUSA</h2><p>La partida está detenida.</p><button id="resumeBtn" type="button">▶ CONTINUAR</button></div></div><div id="invokerResultScreen" class="invokerResultScreen hidden" role="status" aria-live="assertive"><div class="invokerResultCard"><p class="invokerResultEyebrow">MODO ENTRENAMIENTO</p><h2 id="invokerResultTitle">DESAFÍO SUPERADO</h2><p id="invokerResultText">Has derrotado a todos los enemigos invocados.</p></div></div><div id="gameOverScreen" class="gameOverScreen hidden" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle"><div class="gameOverCard"><div class="gameOverMark">✦</div><p class="gameOverEyebrow">LA AVENTURA SE DETUVO</p><h2 id="gameOverTitle">GAME OVER</h2><p>Los reinos aún esperan tu regreso.</p><button id="reloadBtn" type="button">↻ VOLVER A EMPEZAR</button></div></div><div id="campaignCompleteScreen" class="campaignCompleteScreen hidden" role="dialog" aria-modal="true" aria-labelledby="campaignCompleteTitle"><div class="campaignCompleteCard"><p class="campaignEyebrow">HISTORIA PRINCIPAL COMPLETADA</p><h2 id="campaignCompleteTitle">¡FELICIDADES!</h2><p>Has alcanzado el nivel 100, conquistado los 20 mundos y demostrado que puedes dominar el poder de tu fruta.</p><div class="campaignDivider"></div><h3>Tu viaje todavía no termina.</h3><p>Continúa en la <strong>Dimensión Rainbow</strong>, un mundo de postgame donde los enemigos, los jefes y tu poder siguen creciendo sin límite.</p><button id="continueInfiniteBtn" type="button">CONTINUAR EN LA DIMENSIÓN RAINBOW</button></div></div><div id="adminScreen" class="adminScreen hidden" role="dialog" aria-modal="true" aria-labelledby="adminTitle"><div class="adminCard"><p class="adminEyebrow">ACCESO ESPECIAL · ÉTER: ASCENSIÓN</p><h2 id="adminTitle">MODO ADMIN</h2><p>Hola VH. Escoge tu mundo:</p><div class="adminField"><label for="adminWorld">Mundo de destino</label><select id="adminWorld"></select><small id="adminLevelPreview" class="adminLevelPreview">Nivel inicial: 1</small></div><div class="adminField adminFruitField"><label for="adminFruit">Poder / fruta equipada</label><select id="adminFruit"></select><small class="adminLevelPreview">El cambio de fruta se aplica al instante, sin reiniciar la partida.</small></div>
 <div class="adminModes">
- <h3>MODOS ESPECIALES</h3>
+ <h3>01 · PROGRESIÓN</h3>
+ <label class="adminModeRow"><span><strong>x2 EXP</strong><small>Duplica la experiencia obtenida. Se multiplica con x5 y x10 si activas más de uno.</small></span><input id="modeDoubleXP" type="checkbox"></label>
+ <label class="adminModeRow"><span><strong>x5 EXP</strong><small>Multiplica por cinco la experiencia obtenida.</small></span><input id="modeXP5" type="checkbox"></label>
+ <label class="adminModeRow"><span><strong>x10 EXP</strong><small>Multiplica por diez la experiencia obtenida.</small></span><input id="modeXP10" type="checkbox"></label>
+ <div id="adminXPMultiplierStatus" class="adminNoLimitsStatus" style="border-color:rgba(255,209,102,.55);background:rgba(75,48,8,.3);color:#fff0c2;box-shadow:none" role="status">MULTIPLICADOR ACTUAL: x1 EXP</div>
+</div>
+<div class="adminModes">
+ <h3>02 · JUGADOR</h3>
  <label class="adminModeRow"><span><strong>Furia infinita</strong><small>La furia permanece al 100% y la transformación no termina.</small></span><input id="modeInfiniteFury" type="checkbox"></label>
  <label class="adminModeRow"><span><strong>No cooldowns</strong><small>Todos los enfriamientos pasan a 0,2 segundos.</small></span><input id="modeNoCooldowns" type="checkbox"></label>
- <label class="adminModeRow"><span><strong>Stats full</strong><small>+100% de velocidad y ataque; 100% de reducción del daño recibido.</small></span><input id="modeStatsFull" type="checkbox"></label>
- <label class="adminModeRow"><span><strong>Modo Hardcore</strong><small>Solo jefes: 90% jefes normales y 10% Sagrado Carmesí. Sin límite ni espera inicial. Combinado con Caos, anula todos los topes de aparición.</small></span><input id="modeHardcore" type="checkbox"></label>
- <label class="adminModeRow"><span><strong>Modo Caos</strong><small>Hasta 25 enemigos, 5 jefes normales y 2 Sagrados Carmesí. Combinado con Hardcore, se anulan todos los límites de aparición.</small></span><input id="modeChaos" type="checkbox"></label><div id="adminNoLimitsStatus" class="adminNoLimitsStatus hidden" role="status">⚠ LÍMITES DE APARICIÓN ANULADOS: no hay tope de enemigos, jefes normales ni Sagrados Carmesí.</div>
+ <label class="adminModeRow"><span><strong>Stats full</strong><small>+99% de ataque y velocidad; 99% de reducción del daño recibido. Aún puedes recibir daño.</small></span><input id="modeStatsFull" type="checkbox"></label>
 </div>
-<div class="adminModes vhAdmin">
- <h3>PERSONAJE SECRETO</h3>
- <p class="vhNote">VH mode · Countryball gigante de Perú · 1000% en velocidad, ataque, defensa y furia permanente. Ataques con nombres peruanos exclusivos.</p>
+<div class="adminModes">
+ <h3>03 · MUNDO Y ENEMIGOS</h3>
+ <label class="adminModeRow"><span><strong>Enemigos agresivos</strong><small>Persiguen un 45% más rápido, atacan con mayor frecuencia y causan un 50% más de daño global.</small></span><input id="modeAggressiveEnemies" type="checkbox"></label>
+ <label class="adminModeRow"><span><strong>Modo Hardcore</strong><small>Solo jefes: 90% jefes normales y 10% Sagrado Carmesí. Sin límite ni espera inicial. Combinado con Caos, anula todos los topes de aparición.</small></span><input id="modeHardcore" type="checkbox"></label>
+ <label class="adminModeRow"><span><strong>Modo Caos</strong><small>Hasta 25 enemigos, 5 jefes normales y 2 Sagrados Carmesí. Combinado con Hardcore, se anulan todos los límites de aparición.</small></span><input id="modeChaos" type="checkbox"></label>
+ <div id="adminNoLimitsStatus" class="adminNoLimitsStatus hidden" role="status">⚠ LÍMITES DE APARICIÓN ANULADOS: no hay tope de enemigos, jefes normales ni Sagrados Carmesí.</div>
+ <div id="adminInvokerDisabledStatus" class="invokerAdminNotice hidden" role="status">MODO ENTRENAMIENTO ACTIVADO: el Modo Hardcore y el Modo Caos han sido desactivados y no funcionan durante este desafío.</div>
+</div>
+<div class="adminModes">
+ <h3>04 · HERRAMIENTAS</h3>
+ <label class="adminModeRow"><span><strong>Contador de daño</strong><small>Muestra números flotantes sobre cada enemigo con el daño causado y el color de la habilidad que impactó, incluido VH mode.</small></span><input id="modeDamageCounter" type="checkbox"></label>
+ <label class="adminModeRow"><span><strong>Invocador de enemigos</strong><small>Modo entrenamiento: invoca enemigos manualmente, detiene las apariciones naturales y evita que los enemigos recuperen vida mientras el modo esté activo.</small></span><input id="modeEnemyInvoker" type="checkbox"></label>
+ <div id="invokerToolsPanel" class="invokerToolsPanel hidden">
+  <label for="invokerEnemyType">Tipo de enemigo
+   <select id="invokerEnemyType"><option value="normal">Enemigo normal</option><option value="elite">Élite</option><option value="boss">Jefe normal (morado)</option><option value="crimson">Sagrado Carmesí</option></select>
+  </label>
+  <label for="invokerEnemyCount">Cantidad que quieres invocar
+   <input id="invokerEnemyCount" type="number" min="1" max="100" step="1" value="10" inputmode="numeric">
+  </label>
+  <button id="invokeEnemiesBtn" type="button">INVOCAR ENEMIGOS</button>
+  <small class="invokerCounts" id="invokerCounts">Normales + élites: 0/100 · Jefes: 0/50 · Carmesí: 0/25</small>
+  <small>Topes exclusivos del invocador: 100 enemigos normales y élites combinados, 50 jefes morados y 25 Sagrados Carmesí. Las reglas normales de aparición no se aplican.</small>
+ </div>
+ <label class="adminModeRow"><span><strong>Modo Youtuber</strong><small>Oculta el HUD y las interfaces durante la partida. Conserva el botón de pausa y los botones para entrar al siguiente mundo.</small></span><input id="modeYoutuber" type="checkbox"></label>
+</div>
+<div class="adminClearAllWrap">
+ <button id="adminClearAllBtn" type="button">LIMPIAR TODO</button>
+ <small>Desactiva de golpe todos los modos, multiplicadores y herramientas, incluido VH mode.</small>
+</div>
+<div class="vhAdmin">
+ <h3>PERSONAJE SECRETO · VH MODE</h3>
+ <p class="vhNote">Countryball gigante del Perú · 1000% en velocidad, ataque, defensa y furia permanente. Ataques con nombres peruanos exclusivos.</p>
  <div class="vhUnlockRow"><input id="vhPasswordInput" type="password" autocomplete="off" placeholder="Contraseña secreta" aria-label="Contraseña de VH mode"><button id="vhModeBtn" type="button">DESBLOQUEAR VH MODE</button></div>
  <small id="vhModeStatus" class="adminLevelPreview">Requiere contraseña.</small>
 </div>
@@ -787,6 +868,7 @@ const MAX_ENEMIES_ON_SCREEN=7, MAX_PURPLE_BOSSES_ON_SCREEN=3, RESPAWN_DELAY_FRAM
 const SUPER_BOSS_DELAY_MS=180000; // El Sagrado Carmesí queda bloqueado durante los primeros 3 minutos de juego activo.
 let activeGameElapsedMs=0,lastActiveUpdateAt=0; // El tiempo no avanza en inicio, pausa, transición ni Game Over.
 let keys={},player,enemies,particles,level,xp,xpNeed,island,islandKills,fury,transformed,transformFrames,attackCD,cds,frame,gameOver,shake,started=false,furyauraCD=0,spawnCounter=0,spawnClock=0,emptyRefillUntil=-1,emptyRefillNextFrame=0,transitionPending=false,paused=false,postGame=false,campaignCompleteShown=false;
+let totalDamageDealt=0,totalDamageTaken=0;
 const FRUITS={
  // Cada fruta destaca en un atributo, queda en un nivel intermedio en otro y tiene una debilidad clara.
  lightning:{name:'Lightning',group:'speed',form:'Avatar del rayo ancestral',speed:1.32,damage:1.08,normalTaken:.92,transformedTaken:.69,primary:'#38a8ff',light:'#c4f0ff',dark:'#1659bc',rgb:'56,168,255',speedText:'Muy alta'},
@@ -814,11 +896,12 @@ const VH_ATTACK_NAMES={
  f:'Vuelo de los Andes'
 };
 let selectedFruit='dragon';
-let adminModes={infiniteFury:false,noCooldowns:false,statsFull:false,hardcore:false,chaos:false,vhMode:false};
+let adminModes={doubleXP:false,xp5:false,xp10:false,infiniteFury:false,noCooldowns:false,statsFull:false,hardcore:false,chaos:false,aggressiveEnemies:false,damageCounter:false,enemyInvoker:false,youtuberMode:false,vhMode:false};
+let trainingHadSummons=false,trainingResultInProgress=false,trainingResultTimer=0;
 function fruitInfo(){
  const base=FRUITS[selectedFruit]||FRUITS.dragon;
  if(adminModes.vhMode)return {...base,speed:11,damage:11,normalTaken:0,transformedTaken:0,speedText:'VH · 1000%'};
- if(adminModes.statsFull)return {...base,speed:2,damage:2,normalTaken:0,transformedTaken:0,speedText:'100%'};
+ if(adminModes.statsFull)return {...base,speed:1.99,damage:1.99,normalTaken:.01,transformedTaken:.01,speedText:'99%'};
  return base;
 }
 // Hardcore define la composición (solo jefes); Caos amplía la cantidad.
@@ -831,12 +914,13 @@ function activePurpleBossLimit(){return unlimitedAdminSpawns()?Infinity:(adminMo
 function activeSuperBossLimit(){return unlimitedAdminSpawns()?Infinity:(adminModes.chaos?2:(adminModes.hardcore?Infinity:1));}
 function adminEnemyBootstrapCount(){return adminModes.hardcore?MAX_ENEMIES_ON_SCREEN:Math.min(MAX_ENEMIES_ON_SCREEN,activeEnemyLimit());}
 function rebuildEnemiesForAdminModes(){
- if(!player||!Array.isArray(enemies))return;
+ if(!player||!Array.isArray(enemies)||adminModes.enemyInvoker)return;
  enemies=[];emptyRefillUntil=-1;emptyRefillNextFrame=0;spawnClock=RESPAWN_DELAY_FRAMES;
  const count=adminEnemyBootstrapCount();
  for(let i=0;i<count;i++)spawnEnemy();
- if($('log'))log(unlimitedAdminSpawns()?'⚠ Hardcore + Caos: LÍMITES DE APARICIÓN ANULADOS. Solo jefes: 90% jefes normales y 10% Sagrados Carmesí, sin topes de cantidad.':adminModes.hardcore?'⚙ Hardcore: solo jefes, sin límite de cantidad.':adminModes.chaos?'⚙ Caos: hasta 25 enemigos en pantalla.':'⚙ Límites de aparición normales restaurados.');
+ if($('log'))log(unlimitedAdminSpawns()?'⚙ Hardcore + Caos activos. Solo jefes: 90% jefes normales y 10% Sagrados Carmesí.':adminModes.hardcore?'⚙ Hardcore: solo jefes, sin límite de cantidad.':adminModes.chaos?'⚙ Caos: hasta 25 enemigos en pantalla.':'⚙ Límites de aparición normales restaurados.');
 }
+function activeXPMultiplier(){return Math.min(100,(adminModes.doubleXP?2:1)*(adminModes.xp5?5:1)*(adminModes.xp10?10:1));}
 function cooldownFrames(normalFrames){return adminModes.noCooldowns?12:normalFrames;}
 
 // Hitboxes follow the solid body of each awakened form, not its decorative aura.
@@ -1040,17 +1124,18 @@ function syncPauseButtonVisibility(){
  syncVHAnthemPlayback();
 }
 function currentTheme(){return themes[Math.min(island,20)];}
-function reset(){activeGameElapsedMs=0;lastActiveUpdateAt=0;adminCodeIndex=0;adminOverrideActive=false;document.body.classList.remove('game-started','game-paused','game-transition','game-over','campaign-complete');started=false;paused=false;postGame=false;campaignCompleteShown=false;keys={};transitionPending=false;$('islandTransition').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('startScreen').classList.remove('hidden');$('pauseBtn').disabled=true;$('pauseBtn').style.display='none';$('pauseBtn').textContent='Ⅱ PAUSA';$('game').parentElement.classList.remove('paused');$('status').textContent='Pulsa DESPERTAR para jugar';player={x:W/2,y:H/2,r:14,hp:120,maxHp:120,speed:3.1,dx:1,dy:0,inv:0,soarFrames:0,regenPenaltyFrames:0};enemies=[];particles=[];level=1;xp=0;xpNeed=1000;island=0;islandKills=0;fury=0;furyPending=0;transformed=false;transformFrames=0;attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};frame=0;gameOver=false;shake=0;furyauraCD=0;spawnCounter=0;spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState=new Map();for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();$('log').textContent='Un joven descubre el poder de una fruta ancestral y parte a recorrer los reinos.';log('Cada reino ajusta enemigos y jefes al nivel medio del tramo: 3, 8, 13…98. En la Dimensión Rainbow la dificultad sigue tu nivel actual. Apariciones: normal 69% · élite 23.5% · jefe violeta 6.5% (máx. 3 a la vez) · jefe supremo rojo 1%. El Carmesí tiene 1% de probabilidad de aparecer después de 3 minutos de juego activo; el contador se detiene en pausa, transiciones y menú inicial. Los demás NPC siguen apareciendo, pero solo puede existir un Carmesí activo. El daño recibido y la fuerza de cada fruta dependen del poder equipado. XP: normal 50 · élite 100 · jefe 500 · supremo 1000.');syncPauseButtonVisibility();applyFruitTheme();updateUI();}
+function reset(){activeGameElapsedMs=0;lastActiveUpdateAt=0;totalDamageDealt=0;totalDamageTaken=0;adminCodeIndex=0;adminOverrideActive=false;document.body.classList.remove('game-started','game-paused','game-transition','game-over','campaign-complete');started=false;paused=false;postGame=false;campaignCompleteShown=false;keys={};transitionPending=false;$('islandTransition').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('invokerResultScreen').classList.add('hidden');$('adminScreen').classList.add('hidden');$('startScreen').classList.remove('hidden');$('pauseBtn').disabled=true;$('pauseBtn').style.display='none';$('pauseBtn').textContent='Ⅱ PAUSA';$('game').parentElement.classList.remove('paused');$('status').textContent='Pulsa DESPERTAR para jugar';player={x:W/2,y:H/2,r:14,hp:120,maxHp:120,speed:3.1,dx:1,dy:0,inv:0,soarFrames:0,regenPenaltyFrames:0};enemies=[];particles=[];level=1;xp=0;xpNeed=1000;island=0;islandKills=0;fury=0;furyPending=0;transformed=false;transformFrames=0;attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};frame=0;gameOver=false;shake=0;furyauraCD=0;spawnCounter=0;spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState=new Map();for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();$('log').textContent='Un joven descubre el poder de una fruta ancestral y parte a recorrer los reinos.';log('Cada reino ajusta enemigos y jefes al nivel medio del tramo: 3, 8, 13…98. En la Dimensión Rainbow la dificultad sigue tu nivel actual. Apariciones: normal 69% · élite 23.5% · jefe violeta 6.5% (máx. 3 a la vez) · jefe supremo rojo 1%. El Carmesí tiene 1% de probabilidad de aparecer después de 3 minutos de juego activo; el contador se detiene en pausa, transiciones y menú inicial. Los demás NPC siguen apareciendo, pero solo puede existir un Carmesí activo. El daño recibido y la fuerza de cada fruta dependen del poder equipado. XP: normal 50 · élite 100 · jefe 500 · supremo 1000.');syncPauseButtonVisibility();applyFruitTheme();updateUI();}
 function enemyBenchmarkLevel(){
  // Reinos de campaña: dificultad basada en el nivel medio del tramo (3, 8, 13...98).
  // Dimensión Rainbow: la dificultad sigue el nivel real del jugador.
  return (postGame||island>=20)?Math.max(1,level):island*5+3;
 }
-function spawnEnemy(){if(enemies.length>=activeEnemyLimit())return false;let x,y,tries=0;do{x=rand(35,W-35);y=rand(60,H-35);tries++;}while(Math.hypot(x-player.x,y-player.y)<150&&tries<100);spawnCounter++;const benchmarkLevel=enemyBenchmarkLevel();const rainbow=postGame||level>100||island>=20;const roll=Math.random()*100;
+function spawnEnemy(forcedType=null,source='natural'){const invoked=source==='invoker';if(adminModes.enemyInvoker&&!invoked)return false;if(!invoked&&enemies.length>=activeEnemyLimit())return false;let x,y,tries=0;do{x=rand(35,W-35);y=rand(60,H-35);tries++;}while(Math.hypot(x-player.x,y-player.y)<150&&tries<100);spawnCounter++;const benchmarkLevel=enemyBenchmarkLevel();const rainbow=postGame||level>100||island>=20;const roll=Math.random()*100;
 const activeSuperBosses=enemies.filter(e=>e.superBoss).length;
 const activePurpleBosses=enemies.filter(e=>e.boss&&!e.superBoss).length;
 let superBoss=false,boss=false,elite=false;
-if(adminModes.hardcore){
+if(forcedType){superBoss=forcedType==='crimson';boss=forcedType==='boss'||forcedType==='crimson';elite=forcedType==='elite';}
+else if(adminModes.hardcore){
  // Hardcore selecciona solo jefes: 90% morados y 10% Carmesí.
  // Si Caos está activo, sus topes de 5 + 2 prevalecen; si una clase se llena,
  // el espacio restante puede usar la otra clase mientras conserve capacidad.
@@ -1077,7 +1162,7 @@ if(superBoss){
 }
 // Aumento global del 10% a la vida de todos los NPC, incluido el Sagrado Carmesí.
 hp=Math.max(1,Math.round(hp*1.10));
-let baseSpeed=superBoss?rand(.94,1.12):boss?rand(.72,.95):elite?rand(.96,1.25):rand(.82,1.12);let speed=baseSpeed+Math.min(benchmarkLevel*.006+island*.012,1.2);const variants=boss?['wyrm','titan','oracle']:elite?['sentinel','fang','specter','juggernaut','arcanist']:['slime','imp','moth','golem','brute','stinger','shaman','crawler','thornkin','ranger'];const variant=variants[Math.floor(rand(0,variants.length))];const enemyRadius=superBoss?(rainbow?36:31)*.80:boss?(rainbow?30:24):elite?18:14; /* Sagrado Carmesí: tamaño y hitbox reducidos un 20%. */ if(superBoss){const marginX=110,marginY=82;x=clamp(x,marginX,W-marginX);y=clamp(y,marginY,H-marginY);if(Math.hypot(x-player.x,y-player.y)<150){x=player.x<W/2?W-marginX:marginX;y=player.y<H/2?H-marginY:marginY;}}else if(boss){x=clamp(x,58,W-58);y=clamp(y,55,H-55);}enemies.push({x,y,r:enemyRadius,hp,maxHp:hp,speed,hit:0,cd:0,boss,superBoss,elite,variant,phase:rand(0,6),skillCd:superBoss?Math.floor(rand(80,145)):boss?Math.floor(rand(100,190)):elite?Math.floor(rand(240,360)):0,castFrames:0,attackType:'',targetX:player.x,targetY:player.y});}
+let baseSpeed=superBoss?rand(.94,1.12):boss?rand(.72,.95):elite?rand(.96,1.25):rand(.82,1.12);let speed=baseSpeed+Math.min(benchmarkLevel*.006+island*.012,1.2);const variants=boss?['wyrm','titan','oracle']:elite?['sentinel','fang','specter','juggernaut','arcanist']:['slime','imp','moth','golem','brute','stinger','shaman','crawler','thornkin','ranger'];const variant=variants[Math.floor(rand(0,variants.length))];const enemyRadius=superBoss?(rainbow?36:31)*.80:boss?(rainbow?30:24):elite?18:14; /* Sagrado Carmesí: tamaño y hitbox reducidos un 20%. */ if(superBoss){const marginX=110,marginY=82;x=clamp(x,marginX,W-marginX);y=clamp(y,marginY,H-marginY);if(Math.hypot(x-player.x,y-player.y)<150){x=player.x<W/2?W-marginX:marginX;y=player.y<H/2?H-marginY:marginY;}}else if(boss){x=clamp(x,58,W-58);y=clamp(y,55,H-55);}enemies.push({x,y,r:enemyRadius,hp,maxHp:hp,speed,hit:0,cd:0,boss,superBoss,elite,variant,phase:rand(0,6),skillCd:superBoss?Math.floor(rand(80,145)):boss?Math.floor(rand(100,190)):elite?Math.floor(rand(240,360)):0,castFrames:0,attackType:'',targetX:player.x,targetY:player.y,invoked,regenLocked:adminModes.enemyInvoker});return true;}
 function playerAttackPrimaryColor(){return adminModes.vhMode?'#d71920':fruitInfo().primary;}
 function playerAttackSecondaryColor(){return adminModes.vhMode?'#ffffff':fruitInfo().light;}
 function burst(x,y,color,n=14,power=4){for(let i=0;i<n;i++){let a=rand(0,Math.PI*2),s=rand(.7,power);particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:rand(15,35),max:35,color,r:rand(2,5)});}}
@@ -1090,7 +1175,7 @@ function changeIsland(nextIsland){
  else{$('transitionTitle').textContent=name;$('transitionDescription').textContent='La aventura está en pausa. Prepárate y entra en este reino para continuar tu viaje.';$('goIslandBtn').textContent='IR A '+name.toLocaleUpperCase('es-ES');log('🌍 Nuevo reino descubierto: '+name+'. Pulsa «Ir a» cuando estés listo.');$('status').textContent='Nuevo reino descubierto';}
  shake=12;burst(W/2,H/2,island>=20?'#ff68d7':'#ffffff',45,7);updateUI();
 }
-function updateAreaForLevel(){if(adminOverrideActive)return;const target=level>100?20:Math.floor((level-1)/5);if(target!==island)changeIsland(target);}
+function updateAreaForLevel(){if(adminOverrideActive||adminModes.enemyInvoker)return;const target=level>100?20:Math.floor((level-1)/5);if(target!==island)changeIsland(target);}
 function showCampaignComplete(){
  if(campaignCompleteShown||postGame||level<100||gameOver)return;
  campaignCompleteShown=true;paused=true;transitionPending=false;document.body.classList.remove('game-transition');document.body.classList.add('game-paused','campaign-complete');keys={};
@@ -1111,18 +1196,20 @@ function enterInfiniteWorld(){
  updateUI();
 }
 function gainXP(n){
- if(campaignCompleteShown&&!postGame)return;
- xp+=n;
+ if(campaignCompleteShown&&!postGame)return 0;
+ const awardedXP=Math.max(0,Math.floor(Number(n)||0))*activeXPMultiplier();
+ xp+=awardedXP;
  while(xp>=xpNeed){
   xp-=xpNeed;level++;xpNeed=1000;player.maxHp+=12;player.speed=Math.min(4.6,player.speed+.045);
   log('¡Nivel '+level+'! +12 vida máxima; tu vida actual se conserva.');
   burst(player.x,player.y,'#ffe08a',28,5);updateAreaForLevel();
-  if(level>=100&&!postGame&&!adminOverrideActive){showCampaignComplete();break;}
+  if(level>=100&&!postGame&&!adminOverrideActive&&!adminModes.enemyInvoker){showCampaignComplete();break;}
  }
+ return awardedXP;
 }
-function hurtPlayer(rawDamage,source='enemigo'){if(player.inv>0||gameOver)return false;if(adminModes.statsFull||adminModes.vhMode){player.hp=player.maxHp;player.regenPenaltyFrames=0;return false;}if(source&&source.startsWith('M1'))playEnemyAttackSound(source.includes('jefe')?'boss':source.includes('élite')?'elite':'normal','contact');const damage=Math.max(1,Math.round(rawDamage*(transformed?fruitInfo().transformedTaken:fruitInfo().normalTaken))); player.hp=Math.max(0,player.hp-damage);player.regenPenaltyFrames=180;player.inv=26;burst(player.x,player.y,'#ff637b',12,4);if(source)log('💥 '+source+' te hizo '+damage+' de daño.');if(player.hp<=0){playGameOverSound();gameOver=true;paused=false;document.body.classList.remove('game-paused','game-transition');document.body.classList.add('game-over');keys={};$('status').textContent='Derrotado';syncPauseButtonVisibility();$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.remove('hidden');log('¡Te vencieron! La aventura terminó.');}return true;}
+function hurtPlayer(rawDamage,source='enemigo'){if(player.inv>0||gameOver)return false;if(adminModes.vhMode){player.hp=player.maxHp;player.regenPenaltyFrames=0;return false;}if(source&&source.startsWith('M1'))playEnemyAttackSound(source.includes('jefe')?'boss':source.includes('élite')?'elite':'normal','contact');const takenFactor=transformed?fruitInfo().transformedTaken:fruitInfo().normalTaken;const damage=adminModes.statsFull?Math.max(.01,Math.round(rawDamage*.01*100)/100):Math.max(1,Math.round(rawDamage*takenFactor));totalDamageTaken+=damage;player.hp=Math.max(0,player.hp-damage);player.regenPenaltyFrames=180;player.inv=26;burst(player.x,player.y,'#ff637b',12,4);if(source)log('💥 '+source+' te hizo '+(Number.isInteger(damage)?damage:damage.toFixed(2))+' de daño.');if(player.hp<=0){if(adminModes.enemyInvoker){playGameOverSound();finishInvokerChallenge(false);return true;}playGameOverSound();gameOver=true;paused=false;document.body.classList.remove('game-paused','game-transition');document.body.classList.add('game-over');keys={};$('status').textContent='Derrotado';syncPauseButtonVisibility();$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.remove('hidden');log('¡Te vencieron! La aventura terminó.');}return true;}
 function playerDamage(base){/* Conserva el escalado por nivel y añade el multiplicador de daño propio de cada fruta. */return Math.round(base*fruitInfo().damage*1.21*(transformed?1.32:1.20)*(1+Math.max(0,level-1)*.035+Math.min(island,20)*.05));}
-function enemyAttackDamage(base,isBoss=false,isSuperBoss=false){const benchmarkLevel=enemyBenchmarkLevel();const scale=1+Math.max(0,benchmarkLevel-1)*.035+Math.min(island,20)*.05;return Math.round(base*.84*.90*scale*(postGame?1.08:1)*(isBoss?1.20:1.05)*(isSuperBoss?.65:1));} // Ataques especiales: -10% global; Sagrado Carmesí: -35% adicional respecto a su daño anterior.
+function enemyAttackDamage(base,isBoss=false,isSuperBoss=false){const benchmarkLevel=enemyBenchmarkLevel();const scale=1+Math.max(0,benchmarkLevel-1)*.035+Math.min(island,20)*.05;return Math.round(base*.84*.90*scale*(postGame?1.08:1)*(isBoss?1.20:1.05)*(isSuperBoss?.65:1)*(adminModes.aggressiveEnemies?1.5:1));} // Ataques especiales: -10% global; Sagrado Carmesí: -35% adicional respecto a su daño anterior.
 const FURY_CHARGE_MULTIPLIER=.30; // La carga se genera al acertar golpes y se acumula con los impactos y permite llenar el medidor en unos 45 segundos de combate activo.
 function addFury(amount){if(!transformed&&transformFrames<=0&&fury<100)furyPending=Math.min(100-fury,furyPending+Math.max(0,amount)*FURY_CHARGE_MULTIPLIER);}
 function enemyContactDamage(e){
@@ -1131,14 +1218,14 @@ function enemyContactDamage(e){
  const benchmarkLevel=enemyBenchmarkLevel();
  const baseDamage=(e.boss?50:e.elite?25:15)*.74*.90*(e.superBoss?1.4*.65:1); // Contacto enemigo: -10% global; Sagrado Carmesí: -35% adicional.
  const islandScale=1+Math.max(0,benchmarkLevel-3)*.0045;
- return Math.max(1,Math.round(baseDamage*islandScale));
+ return Math.max(1,Math.round(baseDamage*islandScale*(adminModes.aggressiveEnemies?1.5:1)));
 }
 function resolveBossAttack(e){if(!e.boss||gameOver)return;playEnemyAttackSound(e.superBoss?'carmesi':'boss',e.attackType);const rainbow=island>=20;const tx=e.targetX,ty=e.targetY;let dx=tx-e.x,dy=ty-e.y,dist=Math.hypot(dx,dy)||1,ux=dx/dist,uy=dy/dist;let raw=e.attackType==='z'?54:e.attackType==='x'?72:e.attackType==='c'?48:30;raw=enemyAttackDamage(raw*(e.superBoss?1.4:1),true,!!e.superBoss);let hit=false;
  if(e.attackType==='z'){const range=(rainbow?620:470)*(e.superBoss?1.28:1),beamWidth=(rainbow?40:30)*(e.superBoss?1.2:1),ex=e.x+ux*range,ey=e.y+uy*range;particles.push({beam:true,x:e.x,y:e.y,ex,ey,width:beamWidth,color:e.superBoss?'#ff3038':'#bd74ff',life:20,max:20});const ax=player.x-e.x,ay=player.y-e.y,proj=ax*ux+ay*uy,perp=Math.abs(ax*uy-ay*ux),playerRadius=playerHitboxRadius();hit=proj+playerRadius>0&&proj-playerRadius<range&&perp< (rainbow?42:32)*(e.superBoss?1.2:1)+playerRadius;}
  else if(e.attackType==='x'||e.attackType==='f'){const oldX=e.x,oldY=e.y,travel=Math.min((e.attackType==='x'?(rainbow?230:180):(rainbow?180:130))*(e.superBoss?1.28:1),dist);e.x=clamp(e.x+ux*travel,20,W-20);e.y=clamp(e.y+uy*travel,35,H-20);particles.push({beam:true,x:oldX,y:oldY,ex:e.x,ey:e.y,width:(e.attackType==='x'?34:22)*(e.superBoss?1.25:1),color:e.superBoss?'#ff3038':'#bd74ff',life:18,max:18});const lineDx=e.x-oldX,lineDy=e.y-oldY,len2=lineDx*lineDx+lineDy*lineDy||1,t=clamp(((player.x-oldX)*lineDx+(player.y-oldY)*lineDy)/len2,0,1);const lineDistance=Math.hypot(player.x-(oldX+t*lineDx),player.y-(oldY+t*lineDy));hit=lineDistance<playerHitboxRadius()+(e.attackType==='x'?36:26)*(e.superBoss?1.25:1)||Math.hypot(player.x-e.x,player.y-e.y)<(rainbow?105:82)*(e.superBoss?1.25:1)+playerHitboxRadius();}
  else {const radius=(rainbow?225:170)*(e.superBoss?1.28:1);particles.push({ring:true,x:e.x,y:e.y,radius,color:e.superBoss?'#ff3038':'#bd74ff',life:24,max:24});hit=Math.hypot(player.x-e.x,player.y-e.y)<radius+playerHitboxRadius();}
  if(hit)hurtPlayer(raw,'Ataque '+({z:'Z · Cañón',x:'X · Embestida',c:'C · Explosión',f:'F · Acelerón'}[e.attackType]||'del jefe'));else log('✨ Esquivaste el ataque '+e.attackType.toUpperCase()+' del jefe.');}
-function updateBossSkill(e,d){if(!e.boss)return false;if(e.castFrames>0){e.castFrames--;if(e.castFrames===0)resolveBossAttack(e);return true;}e.skillCd=Math.max(0,e.skillCd-1);const skillRange=(island>=20?650:510)*(e.superBoss?1.28:1);if(e.skillCd<=0&&d>46&&d<skillRange){e.attackType=['z','x','c','f'][Math.floor(rand(0,4))];e.targetX=player.x;e.targetY=player.y;e.castFrames=e.superBoss?27:32;e.skillCd=Math.floor(rand(island>=20?330:390,island>=20?480:540)*(e.superBoss ? 0.95 : 1));return true;}return false;}
+function updateBossSkill(e,d){if(!e.boss)return false;if(e.castFrames>0){e.castFrames--;if(e.castFrames===0)resolveBossAttack(e);return true;}e.skillCd=Math.max(0,e.skillCd-(adminModes.aggressiveEnemies?1.45:1));const aggressionRange=adminModes.aggressiveEnemies?1.22:1;const skillRange=(island>=20?650:510)*(e.superBoss?1.28:1)*aggressionRange;if(e.skillCd<=0&&d>46&&d<skillRange){e.attackType=['z','x','c','f'][Math.floor(rand(0,4))];e.targetX=player.x;e.targetY=player.y;e.castFrames=Math.max(15,Math.round((e.superBoss?27:32)*(adminModes.aggressiveEnemies?.82:1)));e.skillCd=Math.floor(rand(island>=20?330:390,island>=20?480:540)*(e.superBoss ? 0.95 : 1)*(adminModes.aggressiveEnemies?.70:1));return true;}return false;}
 function resolveEliteAttack(e){
  if(!e.elite||gameOver)return;
  playEnemyAttackSound('elite',e.attackType);
@@ -1171,18 +1258,19 @@ function resolveEliteAttack(e){
 function updateEliteSkill(e,d){
  if(!e.elite)return false;
  if(e.castFrames>0){e.castFrames--;if(e.castFrames===0)resolveEliteAttack(e);return true;}
- e.skillCd=Math.max(0,e.skillCd-1);
+ e.skillCd=Math.max(0,e.skillCd-(adminModes.aggressiveEnemies?1.45:1));
  const rainbow=postGame||island>=20;
- if(e.skillCd<=0&&d>54&&d<(rainbow?390:330)){
+ const eliteRange=(rainbow?390:330)*(adminModes.aggressiveEnemies?1.22:1);
+ if(e.skillCd<=0&&d>54&&d<eliteRange){
   e.attackType=d>185?'z':(['x','c'][Math.floor(rand(0,2))]);
-  e.targetX=player.x;e.targetY=player.y;e.castFrames=42;
-  // 10-14 s entre ataques especiales de élite; más espaciados que los de un jefe.
-  e.skillCd=Math.floor(rand(rainbow?660:620,rainbow?840:800));
+  e.targetX=player.x;e.targetY=player.y;e.castFrames=Math.max(18,Math.round(42*(adminModes.aggressiveEnemies?.82:1)));
+  // Enemigos agresivos recuperan antes sus ataques especiales.
+  e.skillCd=Math.floor(rand(rainbow?660:620,rainbow?840:800)*(adminModes.aggressiveEnemies?.70:1));
   return true;
  }
  return false;
 }
-function hurtEnemy(e,dmg,knock=0){e.hp-=dmg;e.hit=8;addFury(Math.max(.5,dmg*.05)+(e.boss?.375:0));burst(e.x,e.y,e.superBoss?'#ff3038':e.boss?'#bd74ff':e.elite?'#75c2ff':'#ffb45c',8,3);if(knock){let dx=e.x-player.x,dy=e.y-player.y,l=Math.hypot(dx,dy)||1;e.x+=dx/l*knock;e.y+=dy/l*knock;}if(e.hp<=0){const xpReward=e.superBoss?1000:e.boss?500:e.elite?100:50;islandKills++;addFury(e.boss?8:e.elite?5:3.75);gainXP(xpReward);log((e.superBoss?'JEFE SUPREMO CARMESÍ DERROTADO':e.boss?'JEFE MORADO DERROTADO':e.elite?'ÉLITE DERROTADO':'Enemigo derrotado')+' · +'+xpReward+' XP.');burst(e.x,e.y,e.superBoss?'#ff3038':e.boss?'#bd74ff':e.elite?'#398fff':'#ffd166',e.boss?34:18,5);enemies=enemies.filter(q=>q!==e);if(islandKills>=4){islandKills=0;log('Misión de isla completada: ¡bonificación de furia!');addFury(3);}if(enemies.length===0){emptyRefillUntil=frame+EMPTY_SCREEN_REFILL_FRAMES;emptyRefillNextFrame=frame+EMPTY_SCREEN_REFILL_STEP;spawnClock=0;}else if(emptyRefillUntil<0&&spawnClock<=0){spawnClock=RESPAWN_DELAY_FRAMES;}}}
+function hurtEnemy(e,dmg,knock=0,damageColor=playerAttackPrimaryColor()){totalDamageDealt+=Math.max(0,Number(dmg)||0);e.hp-=dmg;e.hit=8;if(adminModes.damageCounter){const shownDamage=Math.max(0,Math.round(Number(dmg)||0));particles.push({text:true,textValue:shownDamage.toLocaleString('es-PE'),x:e.x+rand(-7,7),y:e.y-e.r-12,vx:rand(-.35,.35),vy:-1.05,life:48,max:48,color:damageColor,fontSize:Math.min(25,14+Math.log10(shownDamage+1)*2.2)});}addFury(Math.max(.5,dmg*.05)+(e.boss?.375:0));burst(e.x,e.y,e.superBoss?'#ff3038':e.boss?'#bd74ff':e.elite?'#75c2ff':'#ffb45c',8,3);if(knock){let dx=e.x-player.x,dy=e.y-player.y,l=Math.hypot(dx,dy)||1;e.x+=dx/l*knock;e.y+=dy/l*knock;}if(e.hp<=0){const xpReward=e.superBoss?1000:e.boss?500:e.elite?100:50;islandKills++;addFury(e.boss?8:e.elite?5:3.75);const awardedXP=gainXP(xpReward);log((e.superBoss?'JEFE SUPREMO CARMESÍ DERROTADO':e.boss?'JEFE MORADO DERROTADO':e.elite?'ÉLITE DERROTADO':'Enemigo derrotado')+' · +'+awardedXP+' XP.');burst(e.x,e.y,e.superBoss?'#ff3038':e.boss?'#bd74ff':e.elite?'#398fff':'#ffd166',e.boss?34:18,5);enemies=enemies.filter(q=>q!==e);if(adminModes.enemyInvoker){updateInvokerPanelStatus();if(trainingHadSummons&&!enemies.some(q=>q.invoked))finishInvokerChallenge(true);return;}if(islandKills>=4){islandKills=0;log('Misión de isla completada: ¡bonificación de furia!');addFury(3);}if(enemies.length===0){emptyRefillUntil=frame+EMPTY_SCREEN_REFILL_FRAMES;emptyRefillNextFrame=frame+EMPTY_SCREEN_REFILL_STEP;spawnClock=0;}else if(emptyRefillUntil<0&&spawnClock<=0){spawnClock=RESPAWN_DELAY_FRAMES;}}}
 function areaAttack(){
  if(!started||paused||gameOver||transitionPending||attackCD>0)return;
  playPlayerAttackSound('m1',transformed);
@@ -1193,7 +1281,7 @@ function areaAttack(){
  let hit=0;
  for(const e of [...enemies]){
   const d=Math.hypot(e.x-player.x,e.y-player.y);
-  if(d<radius+e.r){hurtEnemy(e,damage,transformed?34:22);hit++;}
+  if(d<radius+e.r){hurtEnemy(e,damage,transformed?34:22,playerAttackPrimaryColor());hit++;}
  }
  if(hit===0)log(attackName('m1')+': acércate a los enemigos para alcanzarles.');
  else log(attackName('m1')+' alcanzó a '+hit+' enemigo(s).');
@@ -1201,10 +1289,10 @@ function areaAttack(){
 }
 function nearestEnemy(){if(!enemies.length)return null;return enemies.reduce((best,e)=>!best||Math.hypot(e.x-player.x,e.y-player.y)<Math.hypot(best.x-player.x,best.y-player.y)?e:best,null);}
 function aimAtNearest(){const target=nearestEnemy();if(target){const dx=target.x-player.x,dy=target.y-player.y,len=Math.hypot(dx,dy)||1;player.dx=dx/len;player.dy=dy/len;}return target;}
-function fireLine(dmg,range,width,color,label){dmg=playerDamage(dmg);let hit=0;let vx=player.dx,vy=player.dy;let ex=player.x+vx*range,ey=player.y+vy*range;particles.push({beam:true,x:player.x,y:player.y,ex,ey,width,color,life:13,max:13});for(const e of [...enemies]){let ax=e.x-player.x,ay=e.y-player.y,proj=ax*vx+ay*vy,perp=Math.abs(ax*vy-ay*vx);if(proj+e.r>0&&proj-e.r<range&&perp<width+e.r){hurtEnemy(e,dmg,10);hit++;}}if(!hit)addFury(1);log(label+(hit?' golpeó a '+hit+' enemigo(s).':' cruzó la isla sin acertar.'));shake=4;}
+function fireLine(dmg,range,width,color,label){dmg=playerDamage(dmg);let hit=0;let vx=player.dx,vy=player.dy;let ex=player.x+vx*range,ey=player.y+vy*range;particles.push({beam:true,x:player.x,y:player.y,ex,ey,width,color,life:13,max:13});for(const e of [...enemies]){let ax=e.x-player.x,ay=e.y-player.y,proj=ax*vx+ay*vy,perp=Math.abs(ax*vy-ay*vx);if(proj+e.r>0&&proj-e.r<range&&perp<width+e.r){hurtEnemy(e,dmg,10,color);hit++;}}if(!hit)addFury(1);log(label+(hit?' golpeó a '+hit+' enemigo(s).':' cruzó la isla sin acertar.'));shake=4;}
 function ability(k){if(!started||paused||gameOver||transitionPending)return;if(k==='v'){transform();return;}if(cds[k]>0){return;}if(k==='z'){playPlayerAttackSound('z',transformed);cds.z=cooldownFrames(180);aimAtNearest();fireLine(transformed?195:65,transformed?600:390,transformed?42:24,playerAttackPrimaryColor(),attackName('z'));burst(player.x+player.dx*30,player.y+player.dy*30,playerAttackSecondaryColor(),18,5);}
-if(k==='x'){playPlayerAttackSound('x',transformed);cds.x=cooldownFrames(300);const target=aimAtNearest();let oldX=player.x,oldY=player.y;if(target){const vx=target.x-player.x,vy=target.y-player.y,d=Math.hypot(vx,vy)||1,travel=Math.min(transformed?210:145,Math.max(0,d-30));player.x+=vx/d*travel;player.y+=vy/d*travel;}else{player.x+=player.dx*(transformed?175:105);player.y+=player.dy*(transformed?175:105);}clampPlayerToStage();particles.push({beam:true,x:oldX,y:oldY,ex:player.x,ey:player.y,width:transformed?48:30,color:playerAttackPrimaryColor(),life:15,max:15});let hit=0;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<(transformed?130:85)+e.r){hurtEnemy(e,playerDamage(transformed?260:95),34); /* X: daño menor que C; cooldown de 5 s. */ hit++;}if(!hit)burst(player.x,player.y,playerAttackPrimaryColor(),24,6);log(attackName('x')+': '+(hit?hit+' enemigo(s) golpeado(s).':'embestida sin impacto.'));shake=9;}
-if(k==='c'){playPlayerAttackSound('c',transformed);cds.c=cooldownFrames(360);const meteorRadius=transformed?390:275;burst(player.x,player.y,playerAttackPrimaryColor(),transformed?34:27,transformed?7:6);particles.push({ring:true,x:player.x,y:player.y,radius:meteorRadius,color:playerAttackSecondaryColor(),life:28,max:28});let hit=0;for(const e of [...enemies]){let d=Math.hypot(e.x-player.x,e.y-player.y);if(d<meteorRadius+e.r){hurtEnemy(e,playerDamage(transformed?360:155),transformed?48:30);hit++;let mx=e.x,my=e.y;particles.push({beam:true,x:mx+rand(-38,22),y:my-100,ex:mx,ey:my,width:transformed?12:9,color:playerAttackSecondaryColor(),life:24,max:24});}}log(attackName('c')+': '+hit+' objetivo(s) alcanzados.');shake=transformed?15:9;}}
+if(k==='x'){playPlayerAttackSound('x',transformed);cds.x=cooldownFrames(300);const target=aimAtNearest();let oldX=player.x,oldY=player.y;if(target){const vx=target.x-player.x,vy=target.y-player.y,d=Math.hypot(vx,vy)||1,travel=Math.min(transformed?210:145,Math.max(0,d-30));player.x+=vx/d*travel;player.y+=vy/d*travel;}else{player.x+=player.dx*(transformed?175:105);player.y+=player.dy*(transformed?175:105);}clampPlayerToStage();particles.push({beam:true,x:oldX,y:oldY,ex:player.x,ey:player.y,width:transformed?48:30,color:playerAttackPrimaryColor(),life:15,max:15});let hit=0;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<(transformed?130:85)+e.r){hurtEnemy(e,playerDamage(transformed?260:95),34,playerAttackPrimaryColor()); /* X: daño menor que C; cooldown de 5 s. */ hit++;}if(!hit)burst(player.x,player.y,playerAttackPrimaryColor(),24,6);log(attackName('x')+': '+(hit?hit+' enemigo(s) golpeado(s).':'embestida sin impacto.'));shake=9;}
+if(k==='c'){playPlayerAttackSound('c',transformed);cds.c=cooldownFrames(360);const meteorRadius=transformed?390:275;burst(player.x,player.y,playerAttackPrimaryColor(),transformed?34:27,transformed?7:6);particles.push({ring:true,x:player.x,y:player.y,radius:meteorRadius,color:playerAttackSecondaryColor(),life:28,max:28});let hit=0;for(const e of [...enemies]){let d=Math.hypot(e.x-player.x,e.y-player.y);if(d<meteorRadius+e.r){hurtEnemy(e,playerDamage(transformed?360:155),transformed?48:30,playerAttackSecondaryColor());hit++;let mx=e.x,my=e.y;particles.push({beam:true,x:mx+rand(-38,22),y:my-100,ex:mx,ey:my,width:transformed?12:9,color:playerAttackSecondaryColor(),life:24,max:24});}}log(attackName('c')+': '+hit+' objetivo(s) alcanzados.');shake=transformed?15:9;}}
 function propulsionHit(e){
  // Cada enemigo puede recibir como máximo tres impactos durante una activación de 1,5 s,
  // con medio segundo entre pulsos. Evita el daño infinito por contacto continuo.
@@ -1212,7 +1300,7 @@ function propulsionHit(e){
  if(!state)state={hits:0,lastFrame:-99999};
  if(state.hits>=3||frame-state.lastFrame<30)return false;
  const damage=playerDamage(transformed?45:27);
- hurtEnemy(e,damage,transformed?10:7);
+ hurtEnemy(e,damage,transformed?10:7,playerAttackPrimaryColor());
  state.hits++;
  state.lastFrame=frame;
  propulsionHitState.set(e,state);
@@ -1289,25 +1377,109 @@ function togglePause(force){
  if(paused)log('⏸ Partida pausada. El movimiento, enemigos y cooldowns están detenidos.');
  else log('▶ Partida reanudada.');
 }
+function getInvokerEnemyCounts(){
+ const summoned=(Array.isArray(enemies)?enemies:[]).filter(e=>e.invoked);
+ return {
+  basic:summoned.filter(e=>!e.boss&&!e.superBoss).length,
+  bosses:summoned.filter(e=>e.boss&&!e.superBoss).length,
+  crimson:summoned.filter(e=>e.superBoss).length,
+  total:summoned.length
+ };
+}
+function updateInvokerPanelStatus(){
+ const counts=getInvokerEnemyCounts();
+ const status=$('invokerCounts');
+ if(status)status.textContent='Normales + élites: '+counts.basic+'/100 · Jefes: '+counts.bosses+'/50 · Carmesí: '+counts.crimson+'/25 · Total: '+counts.total;
+}
+function summonInvokerEnemies(){
+ if(!adminModes.enemyInvoker){log('Activa primero el Invocador de enemigos.');return;}
+ const type=$('invokerEnemyType')?.value||'normal';
+ const requested=Math.max(1,Math.min(100,Math.floor(Number($('invokerEnemyCount')?.value)||1)));
+ const counts=getInvokerEnemyCounts();
+ const remaining=type==='crimson'?25-counts.crimson:type==='boss'?50-counts.bosses:100-counts.basic;
+ const amount=Math.max(0,Math.min(requested,remaining));
+ if(amount<=0){log(type==='crimson'?'Límite del Sagrado Carmesí alcanzado (25).':type==='boss'?'Límite de jefes alcanzado (50).':'Límite combinado de enemigos normales y élites alcanzado (100).');return;}
+ let created=0;
+ for(let i=0;i<amount;i++)if(spawnEnemy(type,'invoker'))created++;
+ if(created>0){trainingHadSummons=true;emptyRefillUntil=-1;emptyRefillNextFrame=0;spawnClock=0;}
+ updateInvokerPanelStatus();
+ const labels={normal:'enemigos normales',elite:'élites',boss:'jefes morados',crimson:'Sagrados Carmesí'};
+ log('🎯 Invocador: '+created+' '+labels[type]+' generados. Las apariciones naturales permanecen detenidas.');
+}
+function finishInvokerChallenge(won){
+ if(!adminModes.enemyInvoker||trainingResultInProgress)return;
+ trainingResultInProgress=true;paused=true;transitionPending=false;keys={};
+ document.body.classList.remove('game-transition','game-over');document.body.classList.add('game-paused');
+ $('pauseScreen').classList.add('hidden');$('islandTransition').classList.add('hidden');$('gameOverScreen').classList.add('hidden');
+ $('invokerResultTitle').textContent=won?'DESAFÍO SUPERADO':'SUERTE LA PRÓXIMA VEZ';
+ $('invokerResultText').textContent=won?'Has derrotado a todos los enemigos que invocaste. Volverás al Modo Admin.':'Has sido derrotado. La partida completa se reiniciará y volverás al menú inicial.';
+ $('invokerResultScreen').classList.remove('hidden');
+ if(won){adminModes.enemyInvoker=false;trainingHadSummons=false;syncAdminModeUI();updateUI();}
+ syncPauseButtonVisibility();
+ if(trainingResultTimer)clearTimeout(trainingResultTimer);
+ trainingResultTimer=setTimeout(()=>{
+  $('invokerResultScreen').classList.add('hidden');trainingResultInProgress=false;trainingResultTimer=0;
+  if(won){
+   paused=true;started=true;adminReturnTo='pause';$('pauseScreen').classList.add('hidden');$('adminScreen').classList.remove('hidden');
+   syncAdminModeUI();updateUI();
+  }else{
+   Object.keys(adminModes).forEach(key=>{adminModes[key]=false;});
+   trainingHadSummons=false;enemies=[];particles=[];
+   syncVHAnthemPlayback();updateAttackLabels();syncAdminModeUI();
+   reset();
+  }
+ },1900);
+}
 function syncAdminModeUI(){
- const map={infiniteFury:'modeInfiniteFury',noCooldowns:'modeNoCooldowns',statsFull:'modeStatsFull',hardcore:'modeHardcore',chaos:'modeChaos'};
+ const map={doubleXP:'modeDoubleXP',xp5:'modeXP5',xp10:'modeXP10',infiniteFury:'modeInfiniteFury',noCooldowns:'modeNoCooldowns',statsFull:'modeStatsFull',aggressiveEnemies:'modeAggressiveEnemies',hardcore:'modeHardcore',chaos:'modeChaos',damageCounter:'modeDamageCounter',enemyInvoker:'modeEnemyInvoker',youtuberMode:'modeYoutuber'};
  Object.entries(map).forEach(([key,id])=>{if($(id))$(id).checked=!!adminModes[key];});
+ if($('adminXPMultiplierStatus'))$('adminXPMultiplierStatus').textContent='MULTIPLICADOR ACTUAL: x'+activeXPMultiplier()+' EXP';
+ document.body.classList.toggle('youtuber-mode',!!adminModes.youtuberMode);
  if($('vhModeStatus'))$('vhModeStatus').textContent=adminModes.vhMode?'VH mode ACTIVADO · Countryball de Perú equipado.':'Requiere contraseña.';
  if($('vhModeBtn'))$('vhModeBtn').textContent=adminModes.vhMode?'DESACTIVAR VH MODE':'DESBLOQUEAR VH MODE';
  const noLimits=unlimitedAdminSpawns();
  if($('adminNoLimitsStatus'))$('adminNoLimitsStatus').classList.toggle('hidden',!noLimits);
- if($('gameNoLimitsNotice'))$('gameNoLimitsNotice').classList.toggle('hidden',!noLimits);
+ if($('adminInvokerDisabledStatus'))$('adminInvokerDisabledStatus').classList.toggle('hidden',!adminModes.enemyInvoker);
+ if($('invokerToolsPanel'))$('invokerToolsPanel').classList.toggle('hidden',!adminModes.enemyInvoker);
+ ['modeHardcore','modeChaos'].forEach(id=>{if($(id)){$(id).disabled=!!adminModes.enemyInvoker;$(id).checked=adminModes.enemyInvoker?false:$(id).checked;}});
+ updateInvokerPanelStatus();
 }
 function setAdminMode(key,enabled){
  if(!(key in adminModes))return;
+ if((key==='hardcore'||key==='chaos')&&enabled&&adminModes.enemyInvoker){adminModes[key]=false;syncAdminModeUI();if($('log'))log('Modo Hardcore y Modo Caos no están disponibles durante el entrenamiento.');return;}
+ const wasInvoker=adminModes.enemyInvoker;
  adminModes[key]=!!enabled;
+ if(key==='enemyInvoker'&&enabled){
+  // El desafío comienza con un campo limpio y sin oleadas naturales.
+  const disabledHardcore=adminModes.hardcore,disabledChaos=adminModes.chaos;
+  adminModes.hardcore=false;adminModes.chaos=false;
+  enemies=[];emptyRefillUntil=-1;emptyRefillNextFrame=0;spawnClock=0;trainingHadSummons=false;trainingResultInProgress=false;
+  particles=particles.filter(p=>!p.text);
+  if(disabledHardcore||disabledChaos)log('El entrenamiento desactivó Hardcore y/o Caos.');
+ }
+ if(key==='enemyInvoker'&&!enabled&&wasInvoker){
+  enemies=enemies.filter(e=>!e.invoked);trainingHadSummons=false;emptyRefillUntil=-1;emptyRefillNextFrame=0;spawnClock=RESPAWN_DELAY_FRAMES;
+ }
  if(adminModes.infiniteFury){fury=100;furyPending=0;}
  if(adminModes.noCooldowns){attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};}
  if(player&&adminModes.statsFull){player.hp=player.maxHp;}
  syncAdminModeUI();
  if((key==='hardcore'||key==='chaos'))rebuildEnemiesForAdminModes();
- if($('log'))log('⚙ '+({infiniteFury:'Furia infinita',noCooldowns:'No cooldowns',statsFull:'Stats full',hardcore:'Modo Hardcore',chaos:'Modo Caos'}[key]||key)+(enabled?' activado.':' desactivado.')+(unlimitedAdminSpawns()?' · ⚠ LÍMITES DE APARICIÓN ANULADOS: sin tope total ni de jefes.':''));
+ if(adminModes.vhMode&&adminModes.infiniteFury){fury=100;furyPending=0;}
+ const names={doubleXP:'x2 EXP',xp5:'x5 EXP',xp10:'x10 EXP',infiniteFury:'Furia infinita',noCooldowns:'No cooldowns',statsFull:'Stats full',aggressiveEnemies:'Enemigos agresivos',hardcore:'Modo Hardcore',chaos:'Modo Caos',damageCounter:'Contador de daño',enemyInvoker:'Invocador de enemigos',youtuberMode:'Modo Youtuber'};
+ if($('log'))log('⚙ '+(names[key]||key)+(enabled?' activado.':' desactivado.'));
  updateUI();
+}
+function clearAllAdminModes(){
+ const hadSpawnOverrides=adminModes.hardcore||adminModes.chaos;
+ const hadInvoker=adminModes.enemyInvoker;
+ Object.keys(adminModes).forEach(key=>{adminModes[key]=false;});
+ if(hadInvoker){enemies=enemies.filter(e=>!e.invoked);trainingHadSummons=false;emptyRefillUntil=-1;}
+ particles=particles.filter(p=>!p.text);
+ syncVHAnthemPlayback();updateAttackLabels();syncAdminModeUI();
+ if(hadSpawnOverrides||hadInvoker)rebuildEnemiesForAdminModes();
+ updateUI();
+ if($('log'))log('🧹 LIMPIAR TODO: se desactivaron todos los modos, multiplicadores y herramientas, incluido VH mode.');
 }
 function startVhLockout(){
  const layer=$('vhLockoutScreen'),label=$('vhCountdown');
@@ -1348,6 +1520,7 @@ function openAdminPanel(returnTo){
  else if(returnTo==='selection')$('fruitSelectScreen').classList.add('hidden');
  else $('pauseScreen').classList.add('hidden');
  $('adminScreen').classList.remove('hidden');
+ syncAdminModeUI();
  $('adminWorld').focus();
 }
 function closeAdminPanel(){
@@ -1368,8 +1541,8 @@ function applyAdminTeleport(){
  player.speed=Math.min(4.6,3.1+(level-1)*.045);player.x=W/2;player.y=H/2;player.soarFrames=0;
  island=chosenIsland;postGame=chosenIsland===20;adminOverrideActive=false;campaignCompleteShown=false;
  islandKills=0;transitionPending=false;paused=false;gameOver=false;started=true;keys={};attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};
- enemies=[];particles=[];spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState.clear();
- for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();
+ enemies=[];particles=[];spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState.clear();if(adminModes.enemyInvoker)trainingHadSummons=false;
+ for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();updateInvokerPanelStatus();
  $('startScreen').classList.add('hidden');$('fruitSelectScreen').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('islandTransition').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('adminScreen').classList.add('hidden');
  document.body.classList.remove('game-paused','game-transition','game-over','campaign-complete');document.body.classList.add('game-started');
  $('status').textContent='Modo admin · '+areaName();syncPauseButtonVisibility();
@@ -1377,7 +1550,7 @@ function applyAdminTeleport(){
  updateUI();adminCodeIndex=0;
 }
 function updateUI(){
- $('level').textContent=level;$('xpText').textContent=Math.floor(xp)+' / 1000 XP';$('xpBar').style.width=(xp/1000*100)+'%';$('hpText').textContent=Math.ceil(player.hp)+' / '+player.maxHp;$('hpBar').style.width=(player.hp/player.maxHp*100)+'%';
+ $('level').textContent=level;$('xpText').textContent=Math.floor(xp)+' / 1000 XP';$('xpBar').style.width=(xp/1000*100)+'%';$('hpText').textContent=(adminModes.statsFull?player.hp.toFixed(1):Math.ceil(player.hp))+' / '+player.maxHp;$('hpBar').style.width=(player.hp/player.maxHp*100)+'%';
  const furyPct=(adminModes.infiniteFury||adminModes.vhMode)?100:clamp(transformFrames>0?transformFrames/1800*100:fury,0,100);
  if(adminModes.vhMode){$('furyLabel').textContent='Furia VH';$('furyText').textContent='1000%';}
  else if(transformed){$('furyLabel').textContent='Furia '+fruitInfo().name+' · activa';$('furyText').textContent=Math.ceil(furyPct)+'%';}
@@ -1386,7 +1559,7 @@ function updateUI(){
  $('furyBar').style.width=(adminModes.vhMode?100:furyPct)+'%';
  $('transformBar').style.width=(adminModes.vhMode?100:furyPct)+'%';
  const furyDefenseBonus=fruitInfo().normalTaken<=0?100:Math.round((1-(fruitInfo().transformedTaken/fruitInfo().normalTaken))*100);$('transformText').textContent=transformed?'FORMA '+fruitInfo().name.toUpperCase()+' ACTIVA · Daño +10% · Velocidad +26% · Daño recibido -'+furyDefenseBonus+'% · '+Math.ceil(furyPct)+'% de duración restante':('La furia de '+fruitInfo().name+' se carga gradualmente durante el combate: puede llegar al 100% en unos 45 segundos de combate activo. Carga actual: '+Math.floor(fury)+'%. Al activarla durante 30 segundos, aumenta el daño (+10%), la velocidad (+26%) y reduce el daño recibido (aprox. 23–26%). Si cancelas la forma, debes volver al 100% para activarla.');
- if(adminModes.vhMode){$('transformText').textContent='VH MODE · Countryball del Perú · Ataque +1000% · Velocidad +1000% · Defensa +1000% · Medidor de furia permanente: 1000%, incluso en reposo.';}else if(adminModes.statsFull){$('transformText').textContent='STATS FULL · Ataque +100% · Velocidad +100% · Reducción del daño recibido: 100%.';}
+ if(adminModes.vhMode){$('transformText').textContent='VH MODE · Countryball del Perú · Ataque +1000% · Velocidad +1000% · Defensa +1000% · Medidor de furia permanente: 1000%, incluso en reposo.';}else if(adminModes.statsFull){$('transformText').textContent='STATS FULL · Ataque +99% · Velocidad +99% · Reducción del daño recibido: 99%. Aún puedes recibir daño.';}
  cv.parentElement.classList.toggle('fury-ready',!transformed&&fury>=100&&cds.v<=0);cv.parentElement.classList.toggle('fury-active',transformed);
  $('islandLabel').textContent=postGame?'DIMENSIÓN RAINBOW · POSTGAME':(island>=20?'DIMENSIÓN RAINBOW':'ISLA '+(island+1)+' · '+areaName().toUpperCase());$('quest').textContent=postGame?'POSTGAME INFINITO: derrota jefes que escalan sin límite. Sigue subiendo niveles, aumenta tu poder y busca cuánto puedes llegar. XP: normal 50 · élite 100 · jefe 500.':(island>=20?'Dimensión Rainbow: derrota jefes dimensionales. XP: normal 50 · élite 100 · jefe 500.':'Derrota enemigos: '+islandKills+'/4. Cambias de isla cada 5 niveles; 1000 XP por nivel. XP: normal 50 · élite 100 · jefe 500.');
  const cdState={m1:attackCD,z:cds.z,x:cds.x,c:cds.c,f:cds.f,v:cds.v};
@@ -1408,12 +1581,13 @@ if(player.soarFrames>0){
 }
 if(transformed){if(adminModes.infiniteFury){transformFrames=1800;fury=100;}else{transformFrames=Math.max(0,transformFrames-1);fury=transformFrames/1800*100;}if(!adminModes.infiniteFury&&transformFrames<=0){transformed=false;fury=0;furyPending=0;cds.v=cooldownFrames(600);log('La forma '+fruitInfo().name+' terminó. La furia volvió a 0% y V tendrá 10 segundos de enfriamiento antes de volver a activarse.');$('status').textContent='Explorando';}}
 // Regeneración natural +20%: aumenta con cada nivel. Tras recibir daño, toda la regeneración pasiva se reduce un 50% durante 3 segundos (180 frames a 60 FPS).
-const naturalRegen=(0.045+level*.001)*1.20;const transformedRegen=transformed?(.035*1.20):0;const regenMultiplier=(player.regenPenaltyFrames||0)>0?.5:1;player.hp=Math.min(player.maxHp,player.hp+(naturalRegen+transformedRegen)*regenMultiplier);if(player.regenPenaltyFrames>0)player.regenPenaltyFrames--;if(transformed){furyauraCD--;if(furyauraCD<=0){furyauraCD=30;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<100){hurtEnemy(e,playerDamage(32),8);burst(e.x,e.y,playerAttackPrimaryColor(),5,3);}}}
-for(const e of [...enemies]){if(!enemies.includes(e))continue;e.phase+=.05;e.hit=Math.max(0,e.hit-1);e.cd=Math.max(0,e.cd-1);let ex=player.x-e.x,ey=player.y-e.y,d=Math.hypot(ex,ey)||1;const casting=updateBossSkill(e,d)||updateEliteSkill(e,d);if(casting){continue;}if(d>playerHitboxRadius()+e.r+2){e.x+=ex/d*e.speed;e.y+=ey/d*e.speed;}else if(e.cd<=0&&player.inv<=0){const dmg=enemyContactDamage(e);hurtPlayer(dmg,e.boss?'M1 de jefe':e.elite?'M1 de élite':'M1 enemigo');e.cd=e.boss?72:e.elite?55:45;}e.x=clamp(e.x,15,W-15);e.y=clamp(e.y,35,H-15);}
+const naturalRegen=(0.045+level*.001)*1.20;const transformedRegen=transformed?(.035*1.20):0;const regenMultiplier=(player.regenPenaltyFrames||0)>0?.5:1;player.hp=Math.min(player.maxHp,player.hp+(naturalRegen+transformedRegen)*regenMultiplier);if(player.regenPenaltyFrames>0)player.regenPenaltyFrames--;if(transformed){furyauraCD--;if(furyauraCD<=0){furyauraCD=30;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<100){hurtEnemy(e,playerDamage(32),8,playerAttackPrimaryColor());burst(e.x,e.y,playerAttackPrimaryColor(),5,3);}}}
+for(const e of [...enemies]){if(!enemies.includes(e))continue;if(adminModes.enemyInvoker)e.regenLocked=true;e.phase+=.05;e.hit=Math.max(0,e.hit-1);e.cd=Math.max(0,e.cd-1);let ex=player.x-e.x,ey=player.y-e.y,d=Math.hypot(ex,ey)||1;const casting=updateBossSkill(e,d)||updateEliteSkill(e,d);if(casting){continue;}if(d>playerHitboxRadius()+e.r+2){const chaseSpeed=e.speed*(adminModes.aggressiveEnemies?1.45:1);e.x+=ex/d*chaseSpeed;e.y+=ey/d*chaseSpeed;}else if(e.cd<=0&&player.inv<=0){const dmg=enemyContactDamage(e);hurtPlayer(dmg,e.boss?'M1 de jefe':e.elite?'M1 de élite':'M1 enemigo');const baseContactCd=e.boss?72:e.elite?55:45;e.cd=Math.max(18,Math.round(baseContactCd*(adminModes.aggressiveEnemies?.72:1)));}e.x=clamp(e.x,15,W-15);e.y=clamp(e.y,35,H-15);}
 // Reposición equilibrada y activa incluso cuando está invocado el Sagrado Carmesí.
 // El Carmesí no bloquea la aparición de NPC; spawnEnemy impide crear otro mientras exista uno.
 // Si queda algún enemigo, reaparece uno cada 3 s. Si la pantalla queda vacía, los siete regresan gradualmente en un máximo de 5 s.
-if(emptyRefillUntil>=0){
+if(adminModes.enemyInvoker){emptyRefillUntil=-1;emptyRefillNextFrame=0;spawnClock=0;}
+else if(emptyRefillUntil>=0){
  const refillTarget=refillEnemyTarget();
  if(enemies.length>=refillTarget){emptyRefillUntil=-1;spawnClock=0;}
  else {
@@ -1905,7 +2079,7 @@ for(const e of enemies){
  if((e.boss||e.elite)&&e.castFrames>0){const isBoss=e.boss,rainbow=postGame||island>=20;ctx.save();ctx.globalAlpha=.52+Math.sin(frame*.35)*.13;ctx.setLineDash([9,7]);ctx.lineWidth=isBoss?(e.superBoss?(e.attackType==='z'?7:5):(e.attackType==='z'?5:3)):2.5;ctx.strokeStyle=isBoss?(e.superBoss?'#ff3038':'#bd74ff'):'#55a7ff';if(e.attackType==='c'){ctx.beginPath();ctx.arc(e.x,e.y,isBoss?(e.superBoss?(rainbow?288:218):(rainbow?225:170)):(rainbow?125:105),0,Math.PI*2);ctx.stroke();}else if(e.attackType==='z'){let tx=e.targetX-e.x,ty=e.targetY-e.y,ll=Math.hypot(tx,ty)||1,range=isBoss?(e.superBoss?(rainbow?794:602):(rainbow?620:470)):(rainbow?360:300);ctx.beginPath();ctx.moveTo(e.x,e.y);ctx.lineTo(e.x+tx/ll*range,e.y+ty/ll*range);ctx.stroke();}else{ctx.beginPath();ctx.moveTo(e.x,e.y);ctx.lineTo(e.targetX,e.targetY);ctx.stroke();}ctx.restore();}
  drawEnemySprite(e);
 }
-for(const p of particles){ctx.globalAlpha=Math.max(0,p.life/p.max);if(p.ring){ctx.strokeStyle=p.color;ctx.lineWidth=5*(p.life/p.max)+1;ctx.shadowColor=p.color;ctx.shadowBlur=16;ctx.beginPath();ctx.arc(p.x,p.y,p.radius*(1-p.life/p.max*.22),0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;}else if(p.beam){ctx.strokeStyle=p.color;ctx.lineWidth=p.width*(p.life/p.max);ctx.lineCap='round';ctx.shadowColor=p.color;ctx.shadowBlur=18;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.ex,p.ey);ctx.stroke();ctx.shadowBlur=0;}else{ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();}}ctx.globalAlpha=1;
+for(const p of particles){ctx.globalAlpha=Math.max(0,p.life/p.max);if(p.text){ctx.save();ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='1000 '+p.fontSize+'px system-ui, sans-serif';ctx.lineJoin='round';ctx.lineWidth=3.2;ctx.strokeStyle='rgba(8,5,12,.92)';ctx.strokeText(p.textValue,p.x,p.y);ctx.shadowColor=p.color;ctx.shadowBlur=9;ctx.fillStyle=p.color;ctx.fillText(p.textValue,p.x,p.y);ctx.restore();}else if(p.ring){ctx.strokeStyle=p.color;ctx.lineWidth=5*(p.life/p.max)+1;ctx.shadowColor=p.color;ctx.shadowBlur=16;ctx.beginPath();ctx.arc(p.x,p.y,p.radius*(1-p.life/p.max*.22),0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;}else if(p.beam){ctx.strokeStyle=p.color;ctx.lineWidth=p.width*(p.life/p.max);ctx.lineCap='round';ctx.shadowColor=p.color;ctx.shadowBlur=18;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.ex,p.ey);ctx.stroke();ctx.shadowBlur=0;}else{ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();}}ctx.globalAlpha=1;
 ctx.save();ctx.translate(player.x,player.y);if(player.inv>0&&Math.floor(frame/4)%2===0)ctx.globalAlpha=.45;
 ctx.fillStyle='rgba(0,0,0,.2)';ctx.beginPath();ctx.ellipse(0,13,16,6,0,0,Math.PI*2);ctx.fill();
 if(adminModes.vhMode){ctx.scale(1.12,1.12);drawPeruCountryball(ctx,frame);}
@@ -2051,7 +2225,10 @@ Object.entries(FRUITS).forEach(([id,fruit])=>{const option=document.createElemen
 renderFruitSelect();updateAttackLabels();
 $('fruitGroups').addEventListener('click',e=>{const option=e.target.closest('[data-fruit]');if(option)setSelectedFruit(option.dataset.fruit);});
 $('adminWorld').addEventListener('change',updateAdminLevelPreview);$('adminFruit').addEventListener('change',applyAdminFruit);$('adminTeleportBtn').onclick=applyAdminTeleport;$('adminBackBtn').onclick=closeAdminPanel;
- [['modeInfiniteFury','infiniteFury'],['modeNoCooldowns','noCooldowns'],['modeStatsFull','statsFull'],['modeHardcore','hardcore'],['modeChaos','chaos']].forEach(([id,key])=>$(id).addEventListener('change',e=>setAdminMode(key,e.target.checked)));
+ [['modeDoubleXP','doubleXP'],['modeXP5','xp5'],['modeXP10','xp10'],['modeInfiniteFury','infiniteFury'],['modeNoCooldowns','noCooldowns'],['modeStatsFull','statsFull'],['modeAggressiveEnemies','aggressiveEnemies'],['modeHardcore','hardcore'],['modeChaos','chaos'],['modeDamageCounter','damageCounter'],['modeEnemyInvoker','enemyInvoker'],['modeYoutuber','youtuberMode']].forEach(([id,key])=>$(id).addEventListener('change',e=>setAdminMode(key,e.target.checked)));
+ $('invokeEnemiesBtn').onclick=summonInvokerEnemies;
+ $('invokerEnemyType').addEventListener('change',()=>{const type=$('invokerEnemyType').value;$('invokerEnemyCount').max=type==='crimson'?25:type==='boss'?50:100;});
+ $('adminClearAllBtn').onclick=clearAllAdminModes;
  $('vhModeBtn').onclick=handleVhModePassword;
  $('vhPasswordInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();handleVhModePassword();}});
  syncAdminModeUI();
@@ -2059,7 +2236,7 @@ $('confirmFruitBtn').onclick=startAdventure;
 $('goIslandBtn').onclick=()=>{transitionPending=false;document.body.classList.remove('game-transition','game-paused');paused=false;$('islandTransition').classList.add('hidden');document.body.classList.add('game-started');syncPauseButtonVisibility();$('status').textContent=postGame?'Dimensión Rainbow':(island>=20?'Dimensión Rainbow':'Explorando '+areaName());log('Rumbo a '+areaName()+'. La aventura continúa.');updateUI();};
 $('startBtn').onclick=()=>{getSfxAudioContext();if(!gameOver){$('startScreen').classList.add('hidden');$('fruitSelectScreen').classList.remove('hidden');renderFruitSelect();}};
 // Superposiciones de pausa y Game Over a nivel de página para que no se recorten en pantallas pequeñas.
-document.body.appendChild($('fruitSelectScreen'));document.body.appendChild($('pauseScreen'));document.body.appendChild($('gameOverScreen'));document.body.appendChild($('campaignCompleteScreen'));document.body.appendChild($('adminScreen'));
+document.body.appendChild($('fruitSelectScreen'));document.body.appendChild($('pauseScreen'));document.body.appendChild($('gameOverScreen'));document.body.appendChild($('campaignCompleteScreen'));document.body.appendChild($('adminScreen'));document.body.appendChild($('invokerResultScreen'));
 $('continueInfiniteBtn').onclick=enterInfiniteWorld;
 reset();loop();
 })();
