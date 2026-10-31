@@ -1,3 +1,5 @@
+<!-- ÉTER: ASCENSIÓN Beta 15 -->
+<!-- ÉTER: ASCENSIÓN Beta 15 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -638,6 +640,12 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
 
 .adminModes{margin:18px 0 12px;padding:13px;border:1px solid rgba(255,126,137,.35);border-radius:13px;background:rgba(16,8,18,.38)}
 .adminModes h3{margin:0 0 9px;color:#ffb7c0;font-size:.78rem;letter-spacing:.14em}
+.adminNoLimitsStatus{margin-top:10px;padding:10px 11px;border:1px solid rgba(255,93,107,.8);border-radius:10px;background:linear-gradient(100deg,rgba(110,7,24,.72),rgba(51,5,20,.82));color:#fff0f1;font-size:.76rem;font-weight:950;line-height:1.4;letter-spacing:.035em;text-align:center;box-shadow:0 0 18px rgba(255,38,62,.16)}
+.gameNoLimitsNotice{position:absolute;top:48px;left:50%;transform:translateX(-50%);z-index:7;box-sizing:border-box;width:max-content;max-width:min(72%,620px);padding:7px 12px;border:1px solid rgba(255,105,117,.85);border-radius:10px;background:rgba(83,4,20,.91);color:#fff3f4;font-size:clamp(.62rem,1.2vw,.82rem);font-weight:1000;letter-spacing:.07em;text-align:center;text-shadow:0 1px 5px #4d0010;box-shadow:0 4px 18px rgba(0,0,0,.34),0 0 18px rgba(255,35,58,.2);pointer-events:none;white-space:normal}
+.gameNoLimitsNotice.hidden,.adminNoLimitsStatus.hidden{display:none!important}
+@media(max-width:850px){.gameNoLimitsNotice{top:103px;max-width:76%;padding:6px 9px;font-size:.65rem;letter-spacing:.035em}}
+@media(max-width:480px){.gameNoLimitsNotice{top:98px;max-width:78%;padding:5px 7px;font-size:.57rem}}
+
 .adminModeRow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 2px;border-top:1px solid rgba(255,255,255,.09);cursor:pointer}
 .adminModeRow:first-of-type{border-top:0}
 .adminModeRow span{display:grid;gap:3px;min-width:0}
@@ -664,7 +672,7 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
 <header><div><h1>ÉTER: <span>ASCENSIÓN</span></h1><p>Un poder ancestral. Veinte mundos. Un viaje sin fin.</p></div></header>
 <main class="layout">
 <section>
- <div class="box"><div class="gameStage"><button id="pauseBtn" type="button" aria-label="Pausar partida" disabled>Ⅱ PAUSA</button><canvas id="game" width="900" height="540" aria-label="Juego de aventura 2D"></canvas>
+ <div class="box"><div class="gameStage"><button id="pauseBtn" type="button" aria-label="Pausar partida" disabled>Ⅱ PAUSA</button><canvas id="game" width="900" height="540" aria-label="Juego de aventura 2D"></canvas><div id="gameNoLimitsNotice" class="gameNoLimitsNotice hidden" role="status">⚠ LÍMITES DE APARICIÓN ANULADOS</div>
  <div class="stats">
   <div class="stat"><small>Nivel</small><strong id="level">1</strong><div class="bar"><div class="fill xp" id="xpBar"></div></div><small id="xpText">0 / 1000 XP</small></div>
   <div class="stat hud-spacer" aria-hidden="true"></div>
@@ -676,8 +684,8 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
  <label class="adminModeRow"><span><strong>Furia infinita</strong><small>La furia permanece al 100% y la transformación no termina.</small></span><input id="modeInfiniteFury" type="checkbox"></label>
  <label class="adminModeRow"><span><strong>No cooldowns</strong><small>Todos los enfriamientos pasan a 0,2 segundos.</small></span><input id="modeNoCooldowns" type="checkbox"></label>
  <label class="adminModeRow"><span><strong>Stats full</strong><small>+100% de velocidad y ataque; 100% de reducción del daño recibido.</small></span><input id="modeStatsFull" type="checkbox"></label>
- <label class="adminModeRow"><span><strong>Modo Hardcore</strong><small>Solo jefes: 90% jefes normales y 10% Sagrado Carmesí. Sin límite de cantidad ni espera inicial.</small></span><input id="modeHardcore" type="checkbox"></label>
- <label class="adminModeRow"><span><strong>Modo Caos</strong><small>Hasta 25 enemigos, 5 jefes y 2 Sagrados Carmesí en pantalla.</small></span><input id="modeChaos" type="checkbox"></label>
+ <label class="adminModeRow"><span><strong>Modo Hardcore</strong><small>Solo jefes: 90% jefes normales y 10% Sagrado Carmesí. Sin límite ni espera inicial. Combinado con Caos, anula todos los topes de aparición.</small></span><input id="modeHardcore" type="checkbox"></label>
+ <label class="adminModeRow"><span><strong>Modo Caos</strong><small>Hasta 25 enemigos, 5 jefes normales y 2 Sagrados Carmesí. Combinado con Hardcore, se anulan todos los límites de aparición.</small></span><input id="modeChaos" type="checkbox"></label><div id="adminNoLimitsStatus" class="adminNoLimitsStatus hidden" role="status">⚠ LÍMITES DE APARICIÓN ANULADOS: no hay tope de enemigos, jefes normales ni Sagrados Carmesí.</div>
 </div>
 <div class="adminModes vhAdmin">
  <h3>PERSONAJE SECRETO</h3>
@@ -805,10 +813,22 @@ function fruitInfo(){
  if(adminModes.statsFull)return {...base,speed:2,damage:2,normalTaken:0,transformedTaken:0,speedText:'100%'};
  return base;
 }
-function activeEnemyLimit(){return adminModes.hardcore?Infinity:(adminModes.chaos?25:MAX_ENEMIES_ON_SCREEN);}
+// Hardcore define la composición (solo jefes); Caos amplía la cantidad.
+// Al activar ambos, se anulan todos los topes de enemigos y de cada categoría de jefe.
+function unlimitedAdminSpawns(){return adminModes.hardcore&&adminModes.chaos;}
+function activeEnemyLimit(){return unlimitedAdminSpawns()?Infinity:(adminModes.chaos?25:(adminModes.hardcore?Infinity:MAX_ENEMIES_ON_SCREEN));}
+// Objetivo finito únicamente para reconstruir gradualmente una pantalla vacía; no es un tope de aparición.
 function refillEnemyTarget(){return adminModes.hardcore?MAX_ENEMIES_ON_SCREEN:activeEnemyLimit();}
-function activePurpleBossLimit(){return adminModes.hardcore?Infinity:(adminModes.chaos?5:MAX_PURPLE_BOSSES_ON_SCREEN);}
-function activeSuperBossLimit(){return adminModes.hardcore?Infinity:(adminModes.chaos?2:1);}
+function activePurpleBossLimit(){return unlimitedAdminSpawns()?Infinity:(adminModes.chaos?5:(adminModes.hardcore?Infinity:MAX_PURPLE_BOSSES_ON_SCREEN));}
+function activeSuperBossLimit(){return unlimitedAdminSpawns()?Infinity:(adminModes.chaos?2:(adminModes.hardcore?Infinity:1));}
+function adminEnemyBootstrapCount(){return adminModes.hardcore?MAX_ENEMIES_ON_SCREEN:Math.min(MAX_ENEMIES_ON_SCREEN,activeEnemyLimit());}
+function rebuildEnemiesForAdminModes(){
+ if(!player||!Array.isArray(enemies))return;
+ enemies=[];emptyRefillUntil=-1;emptyRefillNextFrame=0;spawnClock=RESPAWN_DELAY_FRAMES;
+ const count=adminEnemyBootstrapCount();
+ for(let i=0;i<count;i++)spawnEnemy();
+ if($('log'))log(unlimitedAdminSpawns()?'⚠ Hardcore + Caos: LÍMITES DE APARICIÓN ANULADOS. Solo jefes: 90% jefes normales y 10% Sagrados Carmesí, sin topes de cantidad.':adminModes.hardcore?'⚙ Hardcore: solo jefes, sin límite de cantidad.':adminModes.chaos?'⚙ Caos: hasta 25 enemigos en pantalla.':'⚙ Límites de aparición normales restaurados.');
+}
 function cooldownFrames(normalFrames){return adminModes.noCooldowns?12:normalFrames;}
 
 // Hitboxes follow the solid body of each awakened form, not its decorative aura.
@@ -983,15 +1003,27 @@ function enemyBenchmarkLevel(){
  // Dimensión Rainbow: la dificultad sigue el nivel real del jugador.
  return (postGame||island>=20)?Math.max(1,level):island*5+3;
 }
-function spawnEnemy(){if(enemies.length>=activeEnemyLimit())return;let x,y,tries=0;do{x=rand(35,W-35);y=rand(60,H-35);tries++;}while(Math.hypot(x-player.x,y-player.y)<150&&tries<100);spawnCounter++;const benchmarkLevel=enemyBenchmarkLevel();const rainbow=postGame||level>100||island>=20;const roll=Math.random()*100;
+function spawnEnemy(){if(enemies.length>=activeEnemyLimit())return false;let x,y,tries=0;do{x=rand(35,W-35);y=rand(60,H-35);tries++;}while(Math.hypot(x-player.x,y-player.y)<150&&tries<100);spawnCounter++;const benchmarkLevel=enemyBenchmarkLevel();const rainbow=postGame||level>100||island>=20;const roll=Math.random()*100;
 const activeSuperBosses=enemies.filter(e=>e.superBoss).length;
 const activePurpleBosses=enemies.filter(e=>e.boss&&!e.superBoss).length;
-const superBoss=adminModes.hardcore?roll>=90:(activeGameElapsedMs>=SUPER_BOSS_DELAY_MS&&roll>=99&&activeSuperBosses<activeSuperBossLimit());
-const purpleBossRoll=adminModes.hardcore?(roll<90):(roll>=92.5&&roll<99);
-const purpleBossAllowed=activePurpleBosses<activePurpleBossLimit();
-const boss=adminModes.hardcore?true:(superBoss||(purpleBossRoll&&purpleBossAllowed));
-const elite=adminModes.hardcore?false:((roll>=69&&roll<92.5)||(purpleBossRoll&&!purpleBossAllowed&&Math.random()<(23.5/92.5)));
- /* 69% normal, 23.5% élite, 6.5% jefe violeta (máx. 3 simultáneos) y 1% supremo rojo. Si ya hay 3 morados, el intento se convierte en normal o élite. */const progression=1+Math.max(0,benchmarkLevel-1)*.01+Math.min(island,20)*.03;let baseHp=boss?1000+benchmarkLevel*28+island*65:elite?220+benchmarkLevel*9+island*16:95+benchmarkLevel*5+island*10;let dimensionMultiplier=rainbow?(superBoss?2.05:boss?1.6:elite?1.35:1.2):1;// Refuerzo moderado de vida: normales +8%, élites +10%, jefes +15%, Carmesí +25%.
+let superBoss=false,boss=false,elite=false;
+if(adminModes.hardcore){
+ // Hardcore selecciona solo jefes: 90% morados y 10% Carmesí.
+ // Si Caos está activo, sus topes de 5 + 2 prevalecen; si una clase se llena,
+ // el espacio restante puede usar la otra clase mientras conserve capacidad.
+ const purpleAvailable=activePurpleBosses<activePurpleBossLimit();
+ const crimsonAvailable=activeSuperBosses<activeSuperBossLimit();
+ if(!purpleAvailable&&!crimsonAvailable)return false;
+ superBoss=purpleAvailable&&crimsonAvailable?(roll>=90):crimsonAvailable;
+ boss=true;elite=false;
+}else{
+ superBoss=activeGameElapsedMs>=SUPER_BOSS_DELAY_MS&&roll>=99&&activeSuperBosses<activeSuperBossLimit();
+ const purpleBossRoll=roll>=92.5&&roll<99;
+ const purpleBossAllowed=activePurpleBosses<activePurpleBossLimit();
+ boss=superBoss||(purpleBossRoll&&purpleBossAllowed);
+ elite=(roll>=69&&roll<92.5)||(purpleBossRoll&&!purpleBossAllowed&&Math.random()<(23.5/92.5));
+}
+ /* Normal: 69% normal, 23.5% élite, 6.5% jefe violeta y 1% Carmesí tras 3 min. Hardcore: solo jefes, 90% violeta y 10% Carmesí. */const progression=1+Math.max(0,benchmarkLevel-1)*.01+Math.min(island,20)*.03;let baseHp=boss?1000+benchmarkLevel*28+island*65:elite?220+benchmarkLevel*9+island*16:95+benchmarkLevel*5+island*10;let dimensionMultiplier=rainbow?(superBoss?2.05:boss?1.6:elite?1.35:1.2):1;// Refuerzo moderado de vida: normales +8%, élites +10%, jefes +15%, Carmesí +25%.
 const hpBalance=superBoss?1.25:boss?1.15:elite?1.10:1.08;let hp=Math.round(baseHp*progression*dimensionMultiplier*(superBoss?1.45:boss?1.08:1)*hpBalance);
 // Carmesí: vida reducida un 35% respecto al balance anterior; escala con el nivel del mundo.
 // Se escala con la referencia de la isla; en Dimensión Rainbow, enemyBenchmarkLevel() usa el nivel real.
@@ -1219,17 +1251,19 @@ function syncAdminModeUI(){
  Object.entries(map).forEach(([key,id])=>{if($(id))$(id).checked=!!adminModes[key];});
  if($('vhModeStatus'))$('vhModeStatus').textContent=adminModes.vhMode?'VH mode ACTIVADO · Countryball de Perú equipado.':'Requiere contraseña.';
  if($('vhModeBtn'))$('vhModeBtn').textContent=adminModes.vhMode?'DESACTIVAR VH MODE':'DESBLOQUEAR VH MODE';
+ const noLimits=unlimitedAdminSpawns();
+ if($('adminNoLimitsStatus'))$('adminNoLimitsStatus').classList.toggle('hidden',!noLimits);
+ if($('gameNoLimitsNotice'))$('gameNoLimitsNotice').classList.toggle('hidden',!noLimits);
 }
 function setAdminMode(key,enabled){
  if(!(key in adminModes))return;
  adminModes[key]=!!enabled;
- if(key==='hardcore'&&enabled)adminModes.chaos=false;
- if(key==='chaos'&&enabled)adminModes.hardcore=false;
  if(adminModes.infiniteFury){fury=100;furyPending=0;}
  if(adminModes.noCooldowns){attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};}
  if(player&&adminModes.statsFull){player.hp=player.maxHp;}
  syncAdminModeUI();
- if($('log'))log('⚙ '+({infiniteFury:'Furia infinita',noCooldowns:'No cooldowns',statsFull:'Stats full',hardcore:'Modo Hardcore',chaos:'Modo Caos'}[key]||key)+(enabled?' activado.':' desactivado.'));
+ if((key==='hardcore'||key==='chaos'))rebuildEnemiesForAdminModes();
+ if($('log'))log('⚙ '+({infiniteFury:'Furia infinita',noCooldowns:'No cooldowns',statsFull:'Stats full',hardcore:'Modo Hardcore',chaos:'Modo Caos'}[key]||key)+(enabled?' activado.':' desactivado.')+(unlimitedAdminSpawns()?' · ⚠ LÍMITES DE APARICIÓN ANULADOS: sin tope total ni de jefes.':''));
  updateUI();
 }
 function startVhLockout(){
