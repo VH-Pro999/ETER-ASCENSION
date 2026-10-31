@@ -1,5 +1,5 @@
-<!-- ÉTER: ASCENSIÓN Beta 15 -->
-<!-- ÉTER: ASCENSIÓN Beta 15 -->
+<!-- ÉTER: ASCENSIÓN Beta 16 -->
+<!-- ÉTER: ASCENSIÓN Beta 16 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -689,7 +689,7 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
 </div>
 <div class="adminModes vhAdmin">
  <h3>PERSONAJE SECRETO</h3>
- <p class="vhNote">VH mode · Countryball gigante de Perú · 1000% en velocidad, ataque y defensa.</p>
+ <p class="vhNote">VH mode · Countryball gigante de Perú · 1000% en velocidad, ataque, defensa y furia permanente. Ataques con nombres peruanos exclusivos.</p>
  <div class="vhUnlockRow"><input id="vhPasswordInput" type="password" autocomplete="off" placeholder="Contraseña secreta" aria-label="Contraseña de VH mode"><button id="vhModeBtn" type="button">DESBLOQUEAR VH MODE</button></div>
  <small id="vhModeStatus" class="adminLevelPreview">Requiere contraseña.</small>
 </div>
@@ -805,6 +805,14 @@ const FRUIT_ATTACK_NAMES={
  dough:{m1:'Golpe Pegajoso',z:'Misil de Masa',x:'Puño de Masa',c:'Ruptura de Masa',v:'Rueda Colosal',f:'Deslizamiento de Masa'},
  pain:{m1:'Pulso de Dolor',z:'Rayo de Agonía',x:'Golpe Repulsivo',c:'Onda Devastadora',v:'Despertar de la Gran Agonía',f:'Desplazamiento Espectral'}
 };
+const VH_ATTACK_NAMES={
+ m1:'Golpe del Cóndor',
+ z:'Rayo del Inti',
+ x:'Carga del Tumi',
+ c:'Terremoto del Misti',
+ v:'Despertar del Tahuantinsuyo',
+ f:'Vuelo de los Andes'
+};
 let selectedFruit='dragon';
 let adminModes={infiniteFury:false,noCooldowns:false,statsFull:false,hardcore:false,chaos:false,vhMode:false};
 function fruitInfo(){
@@ -845,7 +853,7 @@ function playerHitboxRadius(){return adminModes.vhMode?58:(transformed?(FRUIT_HI
 function playerVisualPadding(){return adminModes.vhMode?{padX:66,padY:66}:(transformed?(FRUIT_HITBOXES[selectedFruit]||FRUIT_HITBOXES.dragon):{padX:18,padY:35});}
 function clampPlayerToStage(){const padding=playerVisualPadding();player.x=clamp(player.x,padding.padX,W-padding.padX);player.y=clamp(player.y,padding.padY,H-padding.padY);}
 function facingAngle(){return Math.atan2(player.dy,player.dx)+Math.PI/2;}
-function currentAttackNames(){return FRUIT_ATTACK_NAMES[selectedFruit]||FRUIT_ATTACK_NAMES.dragon;}
+function currentAttackNames(){return adminModes.vhMode?VH_ATTACK_NAMES:(FRUIT_ATTACK_NAMES[selectedFruit]||FRUIT_ATTACK_NAMES.dragon);}
 function attackName(key){return currentAttackNames()[key]||key.toUpperCase();}
 function updateAttackLabels(){
  const names=currentAttackNames();
@@ -1212,7 +1220,7 @@ function transform(){
   // Al cancelar manualmente, conserva la carga como porcentaje, pero no guarda tiempo de transformación.
   const remainingPct=Math.max(0,Math.min(100,Math.floor(transformFrames/1800*100)));
   transformFrames=0;
-  fury=adminModes.infiniteFury?100:remainingPct;furyPending=0;
+  fury=(adminModes.infiniteFury||adminModes.vhMode)?100:remainingPct;furyPending=0;
   cds.v=cooldownFrames(300);
   log(attackName('v')+' desactivado al '+remainingPct+'%. Debes volver a cargar la furia al 100% para activarlo; V tiene 5 segundos de enfriamiento.');
   burst(player.x,player.y,playerAttackPrimaryColor(),18,4);
@@ -1221,7 +1229,7 @@ function transform(){
  }
  if(cds.v>0){log(attackName('v')+' disponible en '+(cds.v/60).toFixed(1)+' s.');return;}
  // No se puede reanudar con una carga parcial: todas las activaciones requieren 100%.
- if(fury<100&&!adminModes.infiniteFury){log('Necesitas el 100% de furia para activar '+attackName('v')+'. Carga el medidor derrotando enemigos.');return;}
+ if(fury<100&&!adminModes.infiniteFury&&!adminModes.vhMode){log('Necesitas el 100% de furia para activar '+attackName('v')+'. Carga el medidor derrotando enemigos.');return;}
  transformed=true;
  playPlayerAttackSound('transform',true);
  transformFrames=1800;
@@ -1280,11 +1288,11 @@ function startVhLockout(){
  },1000);
 }
 function handleVhModePassword(){
- if(adminModes.vhMode){adminModes.vhMode=false;syncAdminModeUI();updateUI();log('VH mode desactivado.');return;}
+ if(adminModes.vhMode){adminModes.vhMode=false;syncAdminModeUI();updateAttackLabels();updateUI();log('VH mode desactivado. Se restauraron los nombres de la fruta equipada.');return;}
  const input=$('vhPasswordInput');
- if(input&&input.value==='roni211093'){
-  adminModes.vhMode=true;
-  if(input)input.value='';syncAdminModeUI();updateUI();
+ if(input&&input.value.trim().toUpperCase()==='SOMOSLIBRES123'){
+  adminModes.vhMode=true;fury=100;furyPending=0;
+  if(input)input.value='';syncAdminModeUI();updateAttackLabels();updateUI();
   log('🇵🇪 VH MODE ACTIVADO: Countryball de Perú · 1000% en todos los atributos.');
  }else{if(input)input.value='';startVhLockout();}
 }
@@ -1335,20 +1343,21 @@ function applyAdminTeleport(){
 }
 function updateUI(){
  $('level').textContent=level;$('xpText').textContent=Math.floor(xp)+' / 1000 XP';$('xpBar').style.width=(xp/1000*100)+'%';$('hpText').textContent=Math.ceil(player.hp)+' / '+player.maxHp;$('hpBar').style.width=(player.hp/player.maxHp*100)+'%';
- const furyPct=adminModes.infiniteFury?100:clamp(transformFrames>0?transformFrames/1800*100:fury,0,100);
- if(transformed){$('furyLabel').textContent='Furia '+fruitInfo().name+' · activa';$('furyText').textContent=Math.ceil(furyPct)+'%';}
+ const furyPct=(adminModes.infiniteFury||adminModes.vhMode)?100:clamp(transformFrames>0?transformFrames/1800*100:fury,0,100);
+ if(adminModes.vhMode){$('furyLabel').textContent='Furia VH';$('furyText').textContent='1000%';}
+ else if(transformed){$('furyLabel').textContent='Furia '+fruitInfo().name+' · activa';$('furyText').textContent=Math.ceil(furyPct)+'%';}
  else if(transformFrames>0){$('furyLabel').textContent='Furia guardada';$('furyText').textContent=Math.ceil(furyPct)+'%';}
  else{$('furyLabel').textContent='Furia '+fruitInfo().name;$('furyText').textContent=Math.floor(fury)+'%'+(fury>=100?' · LISTA':'');}
- $('furyBar').style.width=furyPct+'%';
- $('transformBar').style.width=furyPct+'%';
+ $('furyBar').style.width=(adminModes.vhMode?100:furyPct)+'%';
+ $('transformBar').style.width=(adminModes.vhMode?100:furyPct)+'%';
  const furyDefenseBonus=fruitInfo().normalTaken<=0?100:Math.round((1-(fruitInfo().transformedTaken/fruitInfo().normalTaken))*100);$('transformText').textContent=transformed?'FORMA '+fruitInfo().name.toUpperCase()+' ACTIVA · Daño +10% · Velocidad +26% · Daño recibido -'+furyDefenseBonus+'% · '+Math.ceil(furyPct)+'% de duración restante':('La furia de '+fruitInfo().name+' se carga gradualmente durante el combate: puede llegar al 100% en unos 45 segundos de combate activo. Carga actual: '+Math.floor(fury)+'%. Al activarla durante 30 segundos, aumenta el daño (+10%), la velocidad (+26%) y reduce el daño recibido (aprox. 23–26%). Si cancelas la forma, debes volver al 100% para activarla.');
- if(adminModes.vhMode){$('furyLabel').textContent='Furia VH';$('transformText').textContent='VH MODE · Countryball del Perú · Ataque +1000% · Velocidad +1000% · Defensa +1000%.';}else if(adminModes.statsFull){$('transformText').textContent='STATS FULL · Ataque +100% · Velocidad +100% · Reducción del daño recibido: 100%.';}
+ if(adminModes.vhMode){$('transformText').textContent='VH MODE · Countryball del Perú · Ataque +1000% · Velocidad +1000% · Defensa +1000% · Medidor de furia permanente: 1000%, incluso en reposo.';}else if(adminModes.statsFull){$('transformText').textContent='STATS FULL · Ataque +100% · Velocidad +100% · Reducción del daño recibido: 100%.';}
  cv.parentElement.classList.toggle('fury-ready',!transformed&&fury>=100&&cds.v<=0);cv.parentElement.classList.toggle('fury-active',transformed);
  $('islandLabel').textContent=postGame?'DIMENSIÓN RAINBOW · POSTGAME':(island>=20?'DIMENSIÓN RAINBOW':'ISLA '+(island+1)+' · '+areaName().toUpperCase());$('quest').textContent=postGame?'POSTGAME INFINITO: derrota jefes que escalan sin límite. Sigue subiendo niveles, aumenta tu poder y busca cuánto puedes llegar. XP: normal 50 · élite 100 · jefe 500.':(island>=20?'Dimensión Rainbow: derrota jefes dimensionales. XP: normal 50 · élite 100 · jefe 500.':'Derrota enemigos: '+islandKills+'/4. Cambias de isla cada 5 niveles; 1000 XP por nivel. XP: normal 50 · élite 100 · jefe 500.');
  const cdState={m1:attackCD,z:cds.z,x:cds.x,c:cds.c,f:cds.f,v:cds.v};
  document.querySelectorAll('[data-cd]').forEach(node=>{const key=node.dataset.cd;let label='LISTO',remaining=cdState[key]||0;if(key==='f'&&player.soarFrames>0)label='ACTIVA';else if(key==='v'&&transformed)label='ACTIVA';else if(key==='v'&&remaining>0)label=(Math.ceil(remaining/6)/10).toFixed(1)+' s';else if(key==='v'&&fury>=100)label='LISTA';else if(key==='v')label=Math.floor(fury)+'%';else if(remaining>0)label=Math.ceil(remaining/60)+' s';node.textContent=label;node.classList.toggle('cooling',remaining>0&&!(key==='v'&&transformed));});
 }
-function update(){if(!started||paused||gameOver||transitionPending){lastActiveUpdateAt=0;return;}const activeNow=performance.now();if(lastActiveUpdateAt>0){const activeDelta=activeNow-lastActiveUpdateAt;if(activeDelta>=0&&activeDelta<250)activeGameElapsedMs+=activeDelta;}lastActiveUpdateAt=activeNow;frame++;if(adminModes.infiniteFury){fury=100;furyPending=0;}else if(!transformed&&furyPending>0){const furyFrameGain=Math.min(furyPending,100/2700,100-fury);fury+=furyFrameGain;furyPending-=furyFrameGain;if(fury>=100)furyPending=0;}attackCD=Math.max(0,attackCD-1);for(let k of ['z','x','c','v'])cds[k]=Math.max(0,cds[k]-1);if(cds.f>0)cds.f=Math.max(0,cds.f-1);player.inv=Math.max(0,player.inv-1);const wasPropelling=player.soarFrames>0;player.soarFrames=Math.max(0,player.soarFrames-1);if(wasPropelling&&player.soarFrames===0){cds.f=cooldownFrames(240);propulsionHitState.clear();log(attackName('f')+' finalizado. Enfriamiento de 4 segundos.');$('status').textContent=attackName('f')+' en enfriamiento';}shake=Math.max(0,shake*.86);
+function update(){if(!started||paused||gameOver||transitionPending){lastActiveUpdateAt=0;return;}const activeNow=performance.now();if(lastActiveUpdateAt>0){const activeDelta=activeNow-lastActiveUpdateAt;if(activeDelta>=0&&activeDelta<250)activeGameElapsedMs+=activeDelta;}lastActiveUpdateAt=activeNow;frame++;if(adminModes.infiniteFury||adminModes.vhMode){fury=100;furyPending=0;}else if(!transformed&&furyPending>0){const furyFrameGain=Math.min(furyPending,100/2700,100-fury);fury+=furyFrameGain;furyPending-=furyFrameGain;if(fury>=100)furyPending=0;}attackCD=Math.max(0,attackCD-1);for(let k of ['z','x','c','v'])cds[k]=Math.max(0,cds[k]-1);if(cds.f>0)cds.f=Math.max(0,cds.f-1);player.inv=Math.max(0,player.inv-1);const wasPropelling=player.soarFrames>0;player.soarFrames=Math.max(0,player.soarFrames-1);if(wasPropelling&&player.soarFrames===0){cds.f=cooldownFrames(240);propulsionHitState.clear();log(attackName('f')+' finalizado. Enfriamiento de 4 segundos.');$('status').textContent=attackName('f')+' en enfriamiento';}shake=Math.max(0,shake*.86);
 let dx=0,dy=0;if(keys.ArrowLeft||keys.a||keys.A)dx--;if(keys.ArrowRight||keys.d||keys.D)dx++;if(keys.ArrowUp||keys.w||keys.W)dy--;if(keys.ArrowDown||keys.s||keys.S)dy++;if(dx||dy){let l=Math.hypot(dx,dy);dx/=l;dy/=l;let boost=player.soarFrames>0?2.15:1;player.x+=dx*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost;player.y+=dy*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost;player.dx=dx;player.dy=dy;if(frame%5===0)particles.push({x:player.x,y:player.y+10,vx:rand(-1,1),vy:rand(-1,1),life:12,max:12,color:transformed?playerAttackSecondaryColor():playerAttackPrimaryColor(),r:2});}
 clampPlayerToStage();
 // Propulsión mantiene una hitbox moderada alrededor del personaje durante 1,5 s.
