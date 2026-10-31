@@ -1003,6 +1003,8 @@ if(superBoss){
 // Aumento global del 10% a la vida de todos los NPC, incluido el Sagrado Carmesí.
 hp=Math.max(1,Math.round(hp*1.10));
 let baseSpeed=superBoss?rand(.94,1.12):boss?rand(.72,.95):elite?rand(.96,1.25):rand(.82,1.12);let speed=baseSpeed+Math.min(benchmarkLevel*.006+island*.012,1.2);const variants=boss?['wyrm','titan','oracle']:elite?['sentinel','fang','specter','juggernaut','arcanist']:['slime','imp','moth','golem','brute','stinger','shaman','crawler','thornkin','ranger'];const variant=variants[Math.floor(rand(0,variants.length))];const enemyRadius=superBoss?(rainbow?36:31)*.80:boss?(rainbow?30:24):elite?18:14; /* Sagrado Carmesí: tamaño y hitbox reducidos un 20%. */ if(superBoss){const marginX=110,marginY=82;x=clamp(x,marginX,W-marginX);y=clamp(y,marginY,H-marginY);if(Math.hypot(x-player.x,y-player.y)<150){x=player.x<W/2?W-marginX:marginX;y=player.y<H/2?H-marginY:marginY;}}else if(boss){x=clamp(x,58,W-58);y=clamp(y,55,H-55);}enemies.push({x,y,r:enemyRadius,hp,maxHp:hp,speed,hit:0,cd:0,boss,superBoss,elite,variant,phase:rand(0,6),skillCd:superBoss?Math.floor(rand(80,145)):boss?Math.floor(rand(100,190)):elite?Math.floor(rand(240,360)):0,castFrames:0,attackType:'',targetX:player.x,targetY:player.y});}
+function playerAttackPrimaryColor(){return adminModes.vhMode?'#d71920':fruitInfo().primary;}
+function playerAttackSecondaryColor(){return adminModes.vhMode?'#ffffff':fruitInfo().light;}
 function burst(x,y,color,n=14,power=4){for(let i=0;i<n;i++){let a=rand(0,Math.PI*2),s=rand(.7,power);particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:rand(15,35),max:35,color,r:rand(2,5)});}}
 function changeIsland(nextIsland){
  island=nextIsland;islandKills=0;player.x=W/2;player.y=H/2;enemies=[];particles=[];spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;
@@ -1111,8 +1113,8 @@ function areaAttack(){
  playPlayerAttackSound('m1',transformed);
  attackCD=cooldownFrames(60); // No Cooldowns: 0,2 s entre impactos.
  const radius=transformed?150:104, damage=playerDamage(transformed?140:36);
- particles.push({ring:true,x:player.x,y:player.y,radius,color:fruitInfo().primary,life:18,max:18});
- burst(player.x+player.dx*24,player.y+player.dy*24,fruitInfo().light,transformed?22:13,transformed?6:4);
+ particles.push({ring:true,x:player.x,y:player.y,radius,color:playerAttackPrimaryColor(),life:18,max:18});
+ burst(player.x+player.dx*24,player.y+player.dy*24,playerAttackSecondaryColor(),transformed?22:13,transformed?6:4);
  let hit=0;
  for(const e of [...enemies]){
   const d=Math.hypot(e.x-player.x,e.y-player.y);
@@ -1125,9 +1127,9 @@ function areaAttack(){
 function nearestEnemy(){if(!enemies.length)return null;return enemies.reduce((best,e)=>!best||Math.hypot(e.x-player.x,e.y-player.y)<Math.hypot(best.x-player.x,best.y-player.y)?e:best,null);}
 function aimAtNearest(){const target=nearestEnemy();if(target){const dx=target.x-player.x,dy=target.y-player.y,len=Math.hypot(dx,dy)||1;player.dx=dx/len;player.dy=dy/len;}return target;}
 function fireLine(dmg,range,width,color,label){dmg=playerDamage(dmg);let hit=0;let vx=player.dx,vy=player.dy;let ex=player.x+vx*range,ey=player.y+vy*range;particles.push({beam:true,x:player.x,y:player.y,ex,ey,width,color,life:13,max:13});for(const e of [...enemies]){let ax=e.x-player.x,ay=e.y-player.y,proj=ax*vx+ay*vy,perp=Math.abs(ax*vy-ay*vx);if(proj+e.r>0&&proj-e.r<range&&perp<width+e.r){hurtEnemy(e,dmg,10);hit++;}}if(!hit)addFury(1);log(label+(hit?' golpeó a '+hit+' enemigo(s).':' cruzó la isla sin acertar.'));shake=4;}
-function ability(k){if(!started||paused||gameOver||transitionPending)return;if(k==='v'){transform();return;}if(cds[k]>0){return;}if(k==='z'){playPlayerAttackSound('z',transformed);cds.z=cooldownFrames(180);aimAtNearest();fireLine(transformed?195:65,transformed?600:390,transformed?42:24,fruitInfo().primary,attackName('z'));burst(player.x+player.dx*30,player.y+player.dy*30,fruitInfo().light,18,5);}
-if(k==='x'){playPlayerAttackSound('x',transformed);cds.x=cooldownFrames(300);const target=aimAtNearest();let oldX=player.x,oldY=player.y;if(target){const vx=target.x-player.x,vy=target.y-player.y,d=Math.hypot(vx,vy)||1,travel=Math.min(transformed?210:145,Math.max(0,d-30));player.x+=vx/d*travel;player.y+=vy/d*travel;}else{player.x+=player.dx*(transformed?175:105);player.y+=player.dy*(transformed?175:105);}clampPlayerToStage();particles.push({beam:true,x:oldX,y:oldY,ex:player.x,ey:player.y,width:transformed?48:30,color:fruitInfo().primary,life:15,max:15});let hit=0;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<(transformed?130:85)+e.r){hurtEnemy(e,playerDamage(transformed?260:95),34); /* X: daño menor que C; cooldown de 5 s. */ hit++;}if(!hit)burst(player.x,player.y,fruitInfo().primary,24,6);log(attackName('x')+': '+(hit?hit+' enemigo(s) golpeado(s).':'embestida sin impacto.'));shake=9;}
-if(k==='c'){playPlayerAttackSound('c',transformed);cds.c=cooldownFrames(360);const meteorRadius=transformed?390:275;burst(player.x,player.y,fruitInfo().primary,transformed?34:27,transformed?7:6);particles.push({ring:true,x:player.x,y:player.y,radius:meteorRadius,color:fruitInfo().light,life:28,max:28});let hit=0;for(const e of [...enemies]){let d=Math.hypot(e.x-player.x,e.y-player.y);if(d<meteorRadius+e.r){hurtEnemy(e,playerDamage(transformed?360:155),transformed?48:30);hit++;let mx=e.x,my=e.y;particles.push({beam:true,x:mx+rand(-38,22),y:my-100,ex:mx,ey:my,width:transformed?12:9,color:fruitInfo().light,life:24,max:24});}}log(attackName('c')+': '+hit+' objetivo(s) alcanzados.');shake=transformed?15:9;}}
+function ability(k){if(!started||paused||gameOver||transitionPending)return;if(k==='v'){transform();return;}if(cds[k]>0){return;}if(k==='z'){playPlayerAttackSound('z',transformed);cds.z=cooldownFrames(180);aimAtNearest();fireLine(transformed?195:65,transformed?600:390,transformed?42:24,playerAttackPrimaryColor(),attackName('z'));burst(player.x+player.dx*30,player.y+player.dy*30,playerAttackSecondaryColor(),18,5);}
+if(k==='x'){playPlayerAttackSound('x',transformed);cds.x=cooldownFrames(300);const target=aimAtNearest();let oldX=player.x,oldY=player.y;if(target){const vx=target.x-player.x,vy=target.y-player.y,d=Math.hypot(vx,vy)||1,travel=Math.min(transformed?210:145,Math.max(0,d-30));player.x+=vx/d*travel;player.y+=vy/d*travel;}else{player.x+=player.dx*(transformed?175:105);player.y+=player.dy*(transformed?175:105);}clampPlayerToStage();particles.push({beam:true,x:oldX,y:oldY,ex:player.x,ey:player.y,width:transformed?48:30,color:playerAttackPrimaryColor(),life:15,max:15});let hit=0;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<(transformed?130:85)+e.r){hurtEnemy(e,playerDamage(transformed?260:95),34); /* X: daño menor que C; cooldown de 5 s. */ hit++;}if(!hit)burst(player.x,player.y,playerAttackPrimaryColor(),24,6);log(attackName('x')+': '+(hit?hit+' enemigo(s) golpeado(s).':'embestida sin impacto.'));shake=9;}
+if(k==='c'){playPlayerAttackSound('c',transformed);cds.c=cooldownFrames(360);const meteorRadius=transformed?390:275;burst(player.x,player.y,playerAttackPrimaryColor(),transformed?34:27,transformed?7:6);particles.push({ring:true,x:player.x,y:player.y,radius:meteorRadius,color:playerAttackSecondaryColor(),life:28,max:28});let hit=0;for(const e of [...enemies]){let d=Math.hypot(e.x-player.x,e.y-player.y);if(d<meteorRadius+e.r){hurtEnemy(e,playerDamage(transformed?360:155),transformed?48:30);hit++;let mx=e.x,my=e.y;particles.push({beam:true,x:mx+rand(-38,22),y:my-100,ex:mx,ey:my,width:transformed?12:9,color:playerAttackSecondaryColor(),life:24,max:24});}}log(attackName('c')+': '+hit+' objetivo(s) alcanzados.');shake=transformed?15:9;}}
 function propulsionHit(e){
  // Cada enemigo puede recibir como máximo tres impactos durante una activación de 1,5 s,
  // con medio segundo entre pulsos. Evita el daño infinito por contacto continuo.
@@ -1139,7 +1141,7 @@ function propulsionHit(e){
  state.hits++;
  state.lastFrame=frame;
  propulsionHitState.set(e,state);
- burst(e.x,e.y,fruitInfo().light,5,2.2);
+ burst(e.x,e.y,playerAttackSecondaryColor(),5,2.2);
  return true;
 }
 function soar(){
@@ -1156,9 +1158,9 @@ function soar(){
  player.y+=player.dy*dashDistance;
  clampPlayerToStage();
  const vx=player.x-oldX,vy=player.y-oldY,len2=vx*vx+vy*vy||1;
- burst(oldX,oldY,fruitInfo().primary,12,4);
- burst(player.x,player.y,fruitInfo().light,14,4);
- particles.push({beam:true,x:oldX,y:oldY,ex:player.x,ey:player.y,width:transformed?25:20,color:fruitInfo().primary,life:12,max:12});
+ burst(oldX,oldY,playerAttackPrimaryColor(),12,4);
+ burst(player.x,player.y,playerAttackSecondaryColor(),14,4);
+ particles.push({beam:true,x:oldX,y:oldY,ex:player.x,ey:player.y,width:transformed?25:20,color:playerAttackPrimaryColor(),life:12,max:12});
  let hit=0;
  const hitRadiusBoost=transformed?18:14;
  for(const e of [...enemies]){
@@ -1181,7 +1183,7 @@ function transform(){
   fury=adminModes.infiniteFury?100:remainingPct;furyPending=0;
   cds.v=cooldownFrames(300);
   log(attackName('v')+' desactivado al '+remainingPct+'%. Debes volver a cargar la furia al 100% para activarlo; V tiene 5 segundos de enfriamiento.');
-  burst(player.x,player.y,fruitInfo().primary,18,4);
+  burst(player.x,player.y,playerAttackPrimaryColor(),18,4);
   $('status').textContent='Furia restante · '+remainingPct+'%';
   updateUI();return;
  }
@@ -1196,7 +1198,7 @@ function transform(){
  player.hp=Math.min(player.maxHp,player.hp+25);
  const furyDefenseBonus=fruitInfo().normalTaken<=0?100:Math.round((1-(fruitInfo().transformedTaken/fruitInfo().normalTaken))*100);log(attackName('v')+' activado por 30 segundos: daño +10%, velocidad +26% y daño recibido -'+furyDefenseBonus+'%.');
  $('status').textContent=attackName('v')+' activado';
- burst(player.x,player.y,fruitInfo().primary,55,7);shake=15;updateUI();
+ burst(player.x,player.y,playerAttackPrimaryColor(),55,7);shake=15;updateUI();
 }
 function togglePause(force){
  if(!started||gameOver||transitionPending||(campaignCompleteShown&&!postGame))return;
@@ -1313,7 +1315,7 @@ function updateUI(){
  document.querySelectorAll('[data-cd]').forEach(node=>{const key=node.dataset.cd;let label='LISTO',remaining=cdState[key]||0;if(key==='f'&&player.soarFrames>0)label='ACTIVA';else if(key==='v'&&transformed)label='ACTIVA';else if(key==='v'&&remaining>0)label=(Math.ceil(remaining/6)/10).toFixed(1)+' s';else if(key==='v'&&fury>=100)label='LISTA';else if(key==='v')label=Math.floor(fury)+'%';else if(remaining>0)label=Math.ceil(remaining/60)+' s';node.textContent=label;node.classList.toggle('cooling',remaining>0&&!(key==='v'&&transformed));});
 }
 function update(){if(!started||paused||gameOver||transitionPending){lastActiveUpdateAt=0;return;}const activeNow=performance.now();if(lastActiveUpdateAt>0){const activeDelta=activeNow-lastActiveUpdateAt;if(activeDelta>=0&&activeDelta<250)activeGameElapsedMs+=activeDelta;}lastActiveUpdateAt=activeNow;frame++;if(adminModes.infiniteFury){fury=100;furyPending=0;}else if(!transformed&&furyPending>0){const furyFrameGain=Math.min(furyPending,100/2700,100-fury);fury+=furyFrameGain;furyPending-=furyFrameGain;if(fury>=100)furyPending=0;}attackCD=Math.max(0,attackCD-1);for(let k of ['z','x','c','v'])cds[k]=Math.max(0,cds[k]-1);if(cds.f>0)cds.f=Math.max(0,cds.f-1);player.inv=Math.max(0,player.inv-1);const wasPropelling=player.soarFrames>0;player.soarFrames=Math.max(0,player.soarFrames-1);if(wasPropelling&&player.soarFrames===0){cds.f=cooldownFrames(240);propulsionHitState.clear();log(attackName('f')+' finalizado. Enfriamiento de 4 segundos.');$('status').textContent=attackName('f')+' en enfriamiento';}shake=Math.max(0,shake*.86);
-let dx=0,dy=0;if(keys.ArrowLeft||keys.a||keys.A)dx--;if(keys.ArrowRight||keys.d||keys.D)dx++;if(keys.ArrowUp||keys.w||keys.W)dy--;if(keys.ArrowDown||keys.s||keys.S)dy++;if(dx||dy){let l=Math.hypot(dx,dy);dx/=l;dy/=l;let boost=player.soarFrames>0?2.15:1;player.x+=dx*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost;player.y+=dy*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost;player.dx=dx;player.dy=dy;if(frame%5===0)particles.push({x:player.x,y:player.y+10,vx:rand(-1,1),vy:rand(-1,1),life:12,max:12,color:transformed?fruitInfo().light:fruitInfo().primary,r:2});}
+let dx=0,dy=0;if(keys.ArrowLeft||keys.a||keys.A)dx--;if(keys.ArrowRight||keys.d||keys.D)dx++;if(keys.ArrowUp||keys.w||keys.W)dy--;if(keys.ArrowDown||keys.s||keys.S)dy++;if(dx||dy){let l=Math.hypot(dx,dy);dx/=l;dy/=l;let boost=player.soarFrames>0?2.15:1;player.x+=dx*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost;player.y+=dy*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost;player.dx=dx;player.dy=dy;if(frame%5===0)particles.push({x:player.x,y:player.y+10,vx:rand(-1,1),vy:rand(-1,1),life:12,max:12,color:transformed?playerAttackSecondaryColor():playerAttackPrimaryColor(),r:2});}
 clampPlayerToStage();
 // Propulsión mantiene una hitbox moderada alrededor del personaje durante 1,5 s.
 // Se aplica un pulso como máximo cada 30 frames por objetivo y hasta tres veces.
@@ -1323,12 +1325,12 @@ if(player.soarFrames>0){
   if(Math.hypot(e.x-player.x,e.y-player.y)<=playerHitboxRadius()+e.r+activeRadiusBonus)propulsionHit(e);
  }
  if(frame%6===0){
-  particles.push({x:player.x-player.dx*rand(8,18),y:player.y-player.dy*rand(8,18),vx:rand(-.45,.45),vy:rand(-.45,.45),life:10,max:10,color:fruitInfo().light,r:rand(2.5,4.5)});
+  particles.push({x:player.x-player.dx*rand(8,18),y:player.y-player.dy*rand(8,18),vx:rand(-.45,.45),vy:rand(-.45,.45),life:10,max:10,color:playerAttackSecondaryColor(),r:rand(2.5,4.5)});
  }
 }
 if(transformed){if(adminModes.infiniteFury){transformFrames=1800;fury=100;}else{transformFrames=Math.max(0,transformFrames-1);fury=transformFrames/1800*100;}if(!adminModes.infiniteFury&&transformFrames<=0){transformed=false;fury=0;furyPending=0;cds.v=cooldownFrames(600);log('La forma '+fruitInfo().name+' terminó. La furia volvió a 0% y V tendrá 10 segundos de enfriamiento antes de volver a activarse.');$('status').textContent='Explorando';}}
 // Regeneración natural +20%: aumenta con cada nivel. Tras recibir daño, toda la regeneración pasiva se reduce un 50% durante 3 segundos (180 frames a 60 FPS).
-const naturalRegen=(0.045+level*.001)*1.20;const transformedRegen=transformed?(.035*1.20):0;const regenMultiplier=(player.regenPenaltyFrames||0)>0?.5:1;player.hp=Math.min(player.maxHp,player.hp+(naturalRegen+transformedRegen)*regenMultiplier);if(player.regenPenaltyFrames>0)player.regenPenaltyFrames--;if(transformed){furyauraCD--;if(furyauraCD<=0){furyauraCD=30;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<100){hurtEnemy(e,playerDamage(32),8);burst(e.x,e.y,fruitInfo().primary,5,3);}}}
+const naturalRegen=(0.045+level*.001)*1.20;const transformedRegen=transformed?(.035*1.20):0;const regenMultiplier=(player.regenPenaltyFrames||0)>0?.5:1;player.hp=Math.min(player.maxHp,player.hp+(naturalRegen+transformedRegen)*regenMultiplier);if(player.regenPenaltyFrames>0)player.regenPenaltyFrames--;if(transformed){furyauraCD--;if(furyauraCD<=0){furyauraCD=30;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<100){hurtEnemy(e,playerDamage(32),8);burst(e.x,e.y,playerAttackPrimaryColor(),5,3);}}}
 for(const e of [...enemies]){if(!enemies.includes(e))continue;e.phase+=.05;e.hit=Math.max(0,e.hit-1);e.cd=Math.max(0,e.cd-1);let ex=player.x-e.x,ey=player.y-e.y,d=Math.hypot(ex,ey)||1;const casting=updateBossSkill(e,d)||updateEliteSkill(e,d);if(casting){continue;}if(d>playerHitboxRadius()+e.r+2){e.x+=ex/d*e.speed;e.y+=ey/d*e.speed;}else if(e.cd<=0&&player.inv<=0){const dmg=enemyContactDamage(e);hurtPlayer(dmg,e.boss?'M1 de jefe':e.elite?'M1 de élite':'M1 enemigo');e.cd=e.boss?72:e.elite?55:45;}e.x=clamp(e.x,15,W-15);e.y=clamp(e.y,35,H-15);}
 // Reposición equilibrada y activa incluso cuando está invocado el Sagrado Carmesí.
 // El Carmesí no bloquea la aparición de NPC; spawnEnemy impide crear otro mientras exista uno.
