@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="ÉTERDRACO: aventura 2D original. Un joven con poderes de dragón explora islas de todo tipo y enfrenta enemigos, élites y jefes. Acepta el desafío."><meta name="theme-color" content="#07101d"><title>ÉTERDRACO: Los 21 Mundos</title>
+<meta name="description" content="ÉTER: ASCENSIÓN es una aventura 2D original. Un joven despierta un poder ancestral y explora mundos llenos de enemigos, élites y jefes."><meta name="theme-color" content="#07101d"><title>ÉTER: ASCENSIÓN | Los 21 Mundos</title>
 <style>
 :root{--bg:#07101d;--panel:#101b2e;--line:#304764;--gold:#ffd166;--red:#ff5e4d;--cyan:#64e9ee;--muted:#aabbd2}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f2f6ff;font-family:system-ui,Arial,sans-serif}
@@ -25,7 +25,7 @@ footer{text-align:center;color:#7f93af;font-size:.78rem;padding:0 10px 20px}
 @media(max-width:850px){.layout{grid-template-columns:1fr}.panel{display:grid;grid-template-columns:1fr 1fr;gap:10px}.wide{grid-column:1/-1}.mobile{display:flex}}
 @media(max-width:500px){.panel{grid-template-columns:1fr}.wide{grid-column:auto}}
 
-/* ÉTERDRACO: pantalla de juego amplia con HUD flotante estilo videojuego. */
+/* ÉTER: ASCENSIÓN: pantalla de juego amplia con HUD flotante estilo videojuego. */
 html,body{width:100%;height:100%;overflow:hidden;background:#050914}
 header{position:absolute;top:9px;right:10px;z-index:8;padding:0;border:0;background:transparent}
 header>div{display:none}header button{pointer-events:auto;background:rgba(6,13,28,.78);border-color:#52657f;backdrop-filter:blur(8px);padding:8px 11px;font-size:.84rem}
@@ -524,10 +524,120 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
 .adminActions button{border:1px solid rgba(255,145,153,.48)!important;background:#54101b!important;color:#fff0f1!important;}
 .adminActions #adminTeleportBtn{border:0!important;background:linear-gradient(100deg,#ff354b,#b90f2b)!important;color:#fff!important;box-shadow:0 5px 22px rgba(255,35,55,.3)!important;}
 .adminActions button:hover{filter:brightness(1.12);}
+
+/* Selección de fruta: reutiliza el acabado azul oscuro y los bordes luminosos del juego. */
+.fruitSelectScreen{position:absolute;inset:0;z-index:6;display:flex;align-items:center;justify-content:center;padding:12px;background:rgba(3,8,20,.91);backdrop-filter:blur(8px)}
+.fruitSelectScreen.hidden{display:none!important}
+.fruitSelectCard{width:min(1120px,98%);max-height:calc(100% - 8px);overflow:auto;padding:clamp(14px,2.5vw,26px);border:1px solid rgba(125,169,218,.62);border-radius:18px;background:linear-gradient(145deg,rgba(12,27,49,.99),rgba(27,23,47,.99));box-shadow:0 0 48px rgba(53,126,205,.18),inset 0 0 32px rgba(255,255,255,.025);text-align:center}
+.fruitSelectEyebrow{margin:0 0 5px;color:#8fe6ef;font-size:.7rem;font-weight:950;letter-spacing:.2em}
+.fruitSelectCard h2{margin:0;color:#fff;font-size:clamp(1.25rem,3vw,1.85rem);letter-spacing:.08em;text-shadow:0 0 16px rgba(111,173,245,.25)}
+.fruitSelectIntro{margin:6px 0 14px;color:#c2d3e9;font-size:.84rem}
+.fruitGroups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;text-align:left}
+.fruitGroup{min-width:0;padding:9px;border:1px solid rgba(131,161,198,.25);border-radius:13px;background:rgba(5,14,28,.55)}
+.fruitGroup h3{margin:0 0 8px;text-align:center;color:#dce9fa;font-size:.78rem;letter-spacing:.13em}
+.fruitGroup[data-group="speed"] h3{color:#83cfff}.fruitGroup[data-group="defense"] h3{color:#f7d978}.fruitGroup[data-group="attack"] h3{color:#ff9b9e}
+.fruitOptions{display:grid;grid-template-columns:1fr;gap:7px}
+.fruitOption{display:grid;grid-template-columns:76px minmax(0,1fr);align-items:center;gap:9px;width:100%;min-width:0;padding:8px;text-align:left;border:1px solid rgba(132,164,204,.34);border-radius:11px;background:linear-gradient(145deg,rgba(24,42,67,.92),rgba(8,18,34,.96));transition:border-color .15s,box-shadow .15s,transform .15s}
+.fruitOption:hover{transform:translateY(-1px);filter:none}
+.fruitOption.selected{border-color:var(--fruit-color,#8fe6ef);box-shadow:0 0 0 1px var(--fruit-color,#8fe6ef),0 0 18px var(--fruit-glow,rgba(143,230,239,.22));background:linear-gradient(145deg,rgba(32,51,77,.98),rgba(12,22,40,.98))}
+.fruitArtwork{display:grid;place-items:center;width:76px;height:76px;border-radius:10px;background:radial-gradient(circle,rgba(255,255,255,.10),rgba(4,11,23,.8) 72%);overflow:hidden}
+.fruitArtwork svg{width:100%;height:100%;display:block;filter:drop-shadow(0 0 7px var(--fruit-glow,rgba(143,230,239,.4)))}
+.fruitInfo{min-width:0}.fruitName{display:block;font-size:.91rem;font-weight:950;color:#fff;line-height:1.2}.fruitForm{display:block;margin:2px 0 5px;color:#adbed7;font-size:.64rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.fruitStats{display:grid;grid-template-columns:1fr 1fr;gap:2px 7px;color:#c9d8eb;font-size:.64rem;line-height:1.25}.fruitStats b{color:#fff}
+.fruitSelectFooter{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:13px;padding-top:11px;border-top:1px solid rgba(140,170,207,.22)}
+#fruitSelectHint{color:#d7e8fb;font-size:.8rem;font-weight:800;text-align:left}
+#confirmFruitBtn{min-width:190px;border:0;background:linear-gradient(100deg,#65d8ed,#7c8cff);color:#071526;box-shadow:0 5px 22px rgba(60,173,255,.2);font-weight:950}
+#confirmFruitBtn:disabled{opacity:.5;cursor:default}
+.adminFruitField{margin-top:10px}
+
+/* El borde listo, el brillo de furia y ambos medidores heredan el color de la fruta equipada. */
+.gameStage{--fruit-color:#39d98a;--fruit-light:#c3ffe1;--fruit-dark:#0c7453;--fruit-rgb:57,217,138;--fruit-glow:rgba(57,217,138,.3)}
+.gameStage>.stats .fury{background:linear-gradient(90deg,var(--fruit-dark),var(--fruit-color),var(--fruit-light))!important;box-shadow:0 0 9px var(--fruit-glow)!important}
+#transformBar{background:linear-gradient(90deg,var(--fruit-dark),var(--fruit-color),var(--fruit-light))!important;box-shadow:0 0 8px var(--fruit-glow)!important}
+.gameStage.fury-ready::after,.gameStage.fury-active::after{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;border:3px solid rgba(var(--fruit-rgb),.74)!important;background:radial-gradient(ellipse at center,rgba(var(--fruit-rgb),0) 35%,rgba(var(--fruit-rgb),.018) 54%,rgba(var(--fruit-rgb),.055) 74%,rgba(var(--fruit-rgb),.13) 100%)!important;box-shadow:inset 0 0 14px rgba(var(--fruit-rgb),.13),inset 0 0 50px rgba(var(--fruit-rgb),.075),0 0 10px rgba(var(--fruit-rgb),.16)!important;animation:fruitFuryReady 1.45s ease-in-out infinite!important}
+.gameStage.fury-active::after{border-color:rgba(var(--fruit-rgb),.46)!important;animation:fruitFuryActive 2s ease-in-out infinite!important}
+@keyframes fruitFuryReady{0%,100%{opacity:.48;border-color:rgba(var(--fruit-rgb),.48)!important;box-shadow:inset 0 0 10px rgba(var(--fruit-rgb),.08),inset 0 0 38px rgba(var(--fruit-rgb),.045),0 0 6px rgba(var(--fruit-rgb),.08)!important}50%{opacity:.92;border-color:rgba(var(--fruit-rgb),.95)!important;box-shadow:inset 0 0 18px rgba(var(--fruit-rgb),.2),inset 0 0 62px rgba(var(--fruit-rgb),.11),0 0 15px rgba(var(--fruit-rgb),.24)!important}}
+@keyframes fruitFuryActive{0%,100%{opacity:.42}50%{opacity:.78}}
+.gameStage.paused::after,.gameStage.paused.fury-ready::after,.gameStage.paused.fury-active::after{animation-play-state:paused!important}
+@media(max-width:700px){.fruitSelectScreen{padding:5px}.fruitSelectCard{padding:9px;max-height:calc(100% - 4px)}.fruitSelectIntro{font-size:.68rem;margin:3px 0 6px}.fruitGroups{gap:4px}.fruitGroup{padding:4px}.fruitGroup h3{font-size:.58rem;margin-bottom:4px}.fruitOption{grid-template-columns:1fr;gap:3px;padding:4px;text-align:center}.fruitArtwork{width:100%;height:55px}.fruitName{font-size:.7rem}.fruitForm{font-size:.49rem;margin:1px 0 3px}.fruitStats{font-size:.5rem;gap:1px 3px}.fruitSelectFooter{margin-top:6px;padding-top:6px}#fruitSelectHint{font-size:.62rem}#confirmFruitBtn{min-width:145px;padding:7px;font-size:.67rem}}
+@media(max-width:420px){.fruitArtwork{height:43px}.fruitOption{padding:3px}.fruitStats{font-size:.46rem}.fruitName{font-size:.64rem}.fruitForm{font-size:.44rem}.fruitSelectCard h2{font-size:1rem}.fruitSelectEyebrow{font-size:.56rem}}
+@media(prefers-reduced-motion:reduce){.fruitOption{transition:none}.gameStage.fury-ready::after,.gameStage.fury-active::after{animation:none!important;opacity:.82}}
+
+
+/* La selección usa toda la pantalla también en móviles verticales. */
+.fruitSelectScreen{position:fixed!important;inset:0!important;width:100vw;height:100vh;height:100dvh;overflow-y:auto;overscroll-behavior:contain;}
+.fruitSelectCard{max-height:calc(100dvh - 24px)!important;}
+
+/* Arte de transformaciones ampliado para que el diseño de cada fruta se lea en el selector. */
+.fruitOption{grid-template-columns:88px minmax(0,1fr)!important;}
+.fruitArtwork{width:88px;height:88px;}
+.fruitArtwork svg{filter:drop-shadow(0 0 8px var(--fruit-glow,rgba(255,80,110,.42)));}
+@media(max-width:700px){.fruitOption{grid-template-columns:1fr!important}.fruitArtwork{width:100%;height:64px;}}
+@media(max-width:420px){.fruitArtwork{height:52px;}}
+
+/* Beta visual: identidad rojo neón compartida entre inicio, selección y Admin Panel. */
+.startCard{
+ border:1px solid rgba(255,76,103,.82)!important;
+ background:linear-gradient(145deg,rgba(35,7,18,.98),rgba(67,8,25,.98))!important;
+ box-shadow:0 0 18px rgba(255,43,75,.25),0 0 48px rgba(255,39,68,.16),inset 0 0 24px rgba(255,67,92,.06)!important;
+}
+.startCard h2{color:#ff8798!important;text-shadow:0 0 9px rgba(255,57,85,.7),0 0 22px rgba(255,35,70,.36)!important;}
+.startCard button{
+ border:1px solid #ff9aa8!important;
+ outline:1px solid rgba(255,52,82,.45);
+ outline-offset:3px;
+ background:linear-gradient(100deg,#ff3658,#c61035 58%,#7d0c2a)!important;
+ color:#fff!important;
+ letter-spacing:.12em;
+ box-shadow:0 0 10px rgba(255,49,78,.65),0 0 24px rgba(255,38,66,.38),inset 0 1px 0 rgba(255,255,255,.22)!important;
+}
+.startCard button:hover{filter:brightness(1.16);box-shadow:0 0 14px rgba(255,63,91,.82),0 0 32px rgba(255,38,66,.52)!important;}
+.fruitSelectScreen{
+ background:radial-gradient(ellipse at 50% 12%,rgba(105,12,34,.74),rgba(25,5,16,.96) 52%,rgba(3,5,14,.98))!important;
+}
+.fruitSelectCard{
+ border:1px solid rgba(255,75,104,.72)!important;
+ background:linear-gradient(145deg,rgba(28,7,19,.99),rgba(48,8,23,.99) 58%,rgba(23,7,18,.99))!important;
+ box-shadow:0 0 18px rgba(255,42,76,.2),0 0 48px rgba(255,32,66,.13),inset 0 0 32px rgba(255,69,98,.035)!important;
+}
+.fruitSelectEyebrow{color:#ff768b!important;text-shadow:0 0 10px rgba(255,52,86,.45);}
+.fruitSelectCard h2{color:#fff3f5!important;text-shadow:0 0 8px rgba(255,58,88,.32),0 0 18px rgba(255,52,80,.2)!important;}
+.fruitSelectIntro{color:#e9cbd2!important;}
+.fruitGroup{
+ border:1px solid rgba(255,91,115,.23)!important;
+ background:linear-gradient(145deg,rgba(35,9,22,.82),rgba(14,7,17,.9))!important;
+ box-shadow:inset 0 0 18px rgba(255,48,79,.035);
+}
+.fruitGroup h3,.fruitGroup[data-group="speed"] h3,.fruitGroup[data-group="defense"] h3,.fruitGroup[data-group="attack"] h3{
+ color:#ff9aa8!important;text-shadow:0 0 9px rgba(255,56,86,.34);
+}
+.fruitOption{
+ border:1px solid rgba(255,104,125,.27)!important;
+ background:linear-gradient(145deg,rgba(58,17,34,.88),rgba(20,8,20,.96))!important;
+}
+.fruitOption:hover{border-color:rgba(255,115,135,.7)!important;box-shadow:0 0 12px rgba(255,49,80,.19);}
+.fruitOption.selected{
+ border-color:var(--fruit-color,#ff647c)!important;
+ box-shadow:0 0 0 1px var(--fruit-color,#ff647c),0 0 17px var(--fruit-glow,rgba(255,73,102,.35)),inset 0 0 14px rgba(255,46,78,.08)!important;
+ background:linear-gradient(145deg,rgba(73,19,39,.96),rgba(28,8,22,.98))!important;
+}
+.fruitArtwork{background:radial-gradient(circle,rgba(255,94,120,.13),rgba(9,6,17,.88) 72%)!important;}
+.fruitSelectFooter{border-top:1px solid rgba(255,91,115,.28)!important;}
+#fruitSelectHint{color:#ffe0e5!important;}
+#confirmFruitBtn{
+ border:1px solid rgba(255,168,180,.85)!important;
+ background:linear-gradient(100deg,#ff4968,#d71942 58%,#8f1030)!important;
+ color:#fff!important;
+ box-shadow:0 0 10px rgba(255,48,80,.5),0 0 24px rgba(255,38,73,.28)!important;
+}
+#confirmFruitBtn:hover{filter:brightness(1.13);}
+.adminFruitField .adminLevelPreview{line-height:1.4;}
+
 </style>
+<!-- ÉTER: ASCENSIÓN — Beta 7: hitboxes ajustadas y daño enemigo -10%. -->
 </head>
 <body>
-<header><div><h1>ÉTERDRACO: <span>LOS 21 MUNDOS</span></h1><p>Un poder ancestral. Veinte mundos. Un viaje sin fin.</p></div></header>
+<header><div><h1>ÉTER: <span>ASCENSIÓN</span></h1><p>Un poder ancestral. Veinte mundos. Un viaje sin fin.</p></div></header>
 <main class="layout">
 <section>
  <div class="box"><div class="gameStage"><button id="pauseBtn" type="button" aria-label="Pausar partida" disabled>Ⅱ PAUSA</button><canvas id="game" width="900" height="540" aria-label="Juego de aventura 2D"></canvas>
@@ -536,40 +646,41 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
   <div class="stat hud-spacer" aria-hidden="true"></div>
   <div class="stat"><small>Vida</small><strong id="hpText">120 / 120</strong><div class="bar"><div class="fill hp" id="hpBar"></div></div></div>
   <div class="stat"><small id="furyLabel">Furia dracónica</small><strong id="furyText">0%</strong><div class="bar"><div class="fill fury" id="furyBar"></div></div></div>
- </div><div class="startScreen" id="startScreen"><div class="startCard"><h2>ÉTERDRACO</h2><p>Eres un joven con poderes de dragón que se embarca en una aventura por islas de todo tipo, enfrentando enemigos, élites y jefes. ¿Aceptas el desafío?</p><button id="startBtn">START</button></div></div><div class="islandTransition hidden" id="islandTransition" role="dialog" aria-modal="true" aria-labelledby="transitionTitle"><div class="islandTransitionCard"><div class="eyebrow" id="transitionEyebrow">NUEVO REINO DESCUBIERTO</div><h2 id="transitionTitle">Preparando el viaje...</h2><p id="transitionDescription">Una nueva aventura te espera.</p><button id="goIslandBtn">IR AL SIGUIENTE REINO</button></div></div><div id="pauseScreen" class="pauseScreen hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle"><div class="pauseCard"><div class="pauseIcon">Ⅱ</div><h2 id="pauseTitle">PAUSA</h2><p>La partida está detenida.</p><button id="resumeBtn" type="button">▶ CONTINUAR</button></div></div><div id="gameOverScreen" class="gameOverScreen hidden" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle"><div class="gameOverCard"><div class="gameOverMark">✦</div><p class="gameOverEyebrow">LA AVENTURA SE DETUVO</p><h2 id="gameOverTitle">GAME OVER</h2><p>Los reinos aún esperan tu regreso.</p><button id="reloadBtn" type="button">↻ VOLVER A EMPEZAR</button></div></div><div id="campaignCompleteScreen" class="campaignCompleteScreen hidden" role="dialog" aria-modal="true" aria-labelledby="campaignCompleteTitle"><div class="campaignCompleteCard"><p class="campaignEyebrow">HISTORIA PRINCIPAL COMPLETADA</p><h2 id="campaignCompleteTitle">¡FELICIDADES!</h2><p>Has alcanzado el nivel 100, conquistado los 20 mundos y demostrado que puedes dominar el poder del dragón.</p><div class="campaignDivider"></div><h3>Tu viaje todavía no termina.</h3><p>Continúa en la <strong>Dimensión Rainbow</strong>, un mundo de postgame donde los enemigos, los jefes y tu poder siguen creciendo sin límite.</p><button id="continueInfiniteBtn" type="button">CONTINUAR EN LA DIMENSIÓN RAINBOW</button></div></div><div id="adminScreen" class="adminScreen hidden" role="dialog" aria-modal="true" aria-labelledby="adminTitle"><div class="adminCard"><p class="adminEyebrow">ACCESO ESPECIAL · ÉTERDRACO</p><h2 id="adminTitle">MODO ADMIN</h2><p>Hola VH. Escoge tu mundo:</p><div class="adminField"><label for="adminWorld">Mundo de destino</label><select id="adminWorld"></select><small id="adminLevelPreview" class="adminLevelPreview">Nivel inicial: 1</small></div><div class="adminActions"><button id="adminTeleportBtn" type="button">TELETRANSPORTAR</button><button id="adminBackBtn" type="button">VOLVER</button></div></div></div></div><div class="foot"><span id="islandLabel">ISLA 1 · PUERTO ROCKET</span><span id="status" class="visuallyHidden">Pulsa START para jugar</span></div>
+ </div><div class="startScreen" id="startScreen"><div class="startCard"><h2>ÉTER: ASCENSIÓN</h2><p>Eres un joven que despierta el poder de una fruta ancestral y se embarca en una aventura por islas de todo tipo, enfrentando enemigos, élites y jefes. ¿Aceptas el desafío?</p><button id="startBtn">DESPERTAR</button></div></div><div id="fruitSelectScreen" class="fruitSelectScreen hidden" role="dialog" aria-modal="true" aria-labelledby="fruitSelectTitle"><div class="fruitSelectCard"><p class="fruitSelectEyebrow">ELIGE TU PODER ANCESTRAL</p><h2 id="fruitSelectTitle">SELECCIÓN DE FRUTA</h2><p class="fruitSelectIntro">Cada fruta tiene una forma de furia distinta. Escoge la que mejor se adapte a tu estilo.</p><div id="fruitGroups" class="fruitGroups"></div><div class="fruitSelectFooter"><span id="fruitSelectHint">Seleccionada: Dragon</span><button id="confirmFruitBtn" type="button">CONFIRMAR Y JUGAR</button></div></div></div><div class="islandTransition hidden" id="islandTransition" role="dialog" aria-modal="true" aria-labelledby="transitionTitle"><div class="islandTransitionCard"><div class="eyebrow" id="transitionEyebrow">NUEVO REINO DESCUBIERTO</div><h2 id="transitionTitle">Preparando el viaje...</h2><p id="transitionDescription">Una nueva aventura te espera.</p><button id="goIslandBtn">IR AL SIGUIENTE REINO</button></div></div><div id="pauseScreen" class="pauseScreen hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle"><div class="pauseCard"><div class="pauseIcon">Ⅱ</div><h2 id="pauseTitle">PAUSA</h2><p>La partida está detenida.</p><button id="resumeBtn" type="button">▶ CONTINUAR</button></div></div><div id="gameOverScreen" class="gameOverScreen hidden" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle"><div class="gameOverCard"><div class="gameOverMark">✦</div><p class="gameOverEyebrow">LA AVENTURA SE DETUVO</p><h2 id="gameOverTitle">GAME OVER</h2><p>Los reinos aún esperan tu regreso.</p><button id="reloadBtn" type="button">↻ VOLVER A EMPEZAR</button></div></div><div id="campaignCompleteScreen" class="campaignCompleteScreen hidden" role="dialog" aria-modal="true" aria-labelledby="campaignCompleteTitle"><div class="campaignCompleteCard"><p class="campaignEyebrow">HISTORIA PRINCIPAL COMPLETADA</p><h2 id="campaignCompleteTitle">¡FELICIDADES!</h2><p>Has alcanzado el nivel 100, conquistado los 20 mundos y demostrado que puedes dominar el poder de tu fruta.</p><div class="campaignDivider"></div><h3>Tu viaje todavía no termina.</h3><p>Continúa en la <strong>Dimensión Rainbow</strong>, un mundo de postgame donde los enemigos, los jefes y tu poder siguen creciendo sin límite.</p><button id="continueInfiniteBtn" type="button">CONTINUAR EN LA DIMENSIÓN RAINBOW</button></div></div><div id="adminScreen" class="adminScreen hidden" role="dialog" aria-modal="true" aria-labelledby="adminTitle"><div class="adminCard"><p class="adminEyebrow">ACCESO ESPECIAL · ÉTER: ASCENSIÓN</p><h2 id="adminTitle">MODO ADMIN</h2><p>Hola VH. Escoge tu mundo:</p><div class="adminField"><label for="adminWorld">Mundo de destino</label><select id="adminWorld"></select><small id="adminLevelPreview" class="adminLevelPreview">Nivel inicial: 1</small></div><div class="adminField adminFruitField"><label for="adminFruit">Poder / fruta equipada</label><select id="adminFruit"></select><small class="adminLevelPreview">El cambio de fruta se aplica al instante, sin reiniciar la partida.</small></div><div class="adminActions"><button id="adminTeleportBtn" type="button">TELETRANSPORTAR</button><button id="adminBackBtn" type="button">VOLVER</button></div></div></div></div><div class="foot"><span id="islandLabel">ISLA 1 · PUERTO ROCKET</span><span id="status" class="visuallyHidden">Pulsa DESPERTAR para jugar</span></div>
  <div class="mobile"><div class="mobileActions">
- <button id="mobileSpace" type="button" aria-label="Rugido: tocar o pulsar espacio para atacar"><span class="controlKey">CLICK / ESPACIO</span><span class="attackName">Rugido</span><small class="cooldownLabel" data-cd="m1">LISTO</small></button>
- <button type="button" data-ability="z"><span class="controlKey">Z</span><span class="attackName">Hiperrayo</span><small class="cooldownLabel" data-cd="z">LISTO</small></button>
- <button type="button" data-ability="x"><span class="controlKey">X</span><span class="attackName">Placaje ígneo</span><small class="cooldownLabel" data-cd="x">LISTO</small></button>
- <button type="button" data-ability="c"><span class="controlKey">C</span><span class="attackName">Lluvia de meteoros</span><small class="cooldownLabel" data-cd="c">LISTO</small></button>
- <button type="button" data-ability="v"><span class="controlKey">V</span><span class="attackName">Transformación</span><small class="cooldownLabel" data-cd="v">0%</small></button>
- <button id="mobileF" type="button"><span class="controlKey">F</span><span class="attackName">Propulsión</span><small class="cooldownLabel" data-cd="f">LISTO</small></button>
+ <button id="mobileSpace" type="button" aria-label="Rugido: tocar o pulsar espacio para atacar"><span class="controlKey">CLICK / ESPACIO</span><span class="attackName" data-attack-name="m1">Rugido Dracónico</span><small class="cooldownLabel" data-cd="m1">LISTO</small></button>
+ <button type="button" data-ability="z"><span class="controlKey">Z</span><span class="attackName" data-attack-name="z">Aliento Ígneo</span><small class="cooldownLabel" data-cd="z">LISTO</small></button>
+ <button type="button" data-ability="x"><span class="controlKey">X</span><span class="attackName" data-attack-name="x">Embestida Dracónica</span><small class="cooldownLabel" data-cd="x">LISTO</small></button>
+ <button type="button" data-ability="c"><span class="controlKey">C</span><span class="attackName" data-attack-name="c">Lluvia de Meteoros</span><small class="cooldownLabel" data-cd="c">LISTO</small></button>
+ <button type="button" data-ability="v"><span class="controlKey">V</span><span class="attackName" data-attack-name="v">Despertar Ancestral</span><small class="cooldownLabel" data-cd="v">0%</small></button>
+ <button id="mobileF" type="button"><span class="controlKey">F</span><span class="attackName" data-attack-name="f">Vuelo Dracónico</span><small class="cooldownLabel" data-cd="f">LISTO</small></button>
 </div></div>
 </section>
 <aside class="panel">
  <h2 class="wide">AVENTURERO</h2>
 
- <div class="wide"><h2>TRANSFORMACIÓN</h2><div class="stat"><div class="bar"><div class="fill time" id="transformBar" style="width:0%"></div></div><small id="transformText">Carga la furia derrotando enemigos. Forma dragón: 30 segundos.</small></div></div>
- <div class="wide"><h2>MISIÓN DE LA ISLA</h2><div class="quest" id="quest">Cada nivel requiere 1000 XP. Derrota enemigos, élites y jefes para ganar experiencia y fortalecer tus poderes dracónicos. Cambias de isla cada 5 niveles.</div></div>
+ <div class="wide"><h2>TRANSFORMACIÓN</h2><div class="stat"><div class="bar"><div class="fill time" id="transformBar" style="width:0%"></div></div><small id="transformText">Carga la furia derrotando enemigos. Forma de furia: 30 segundos.</small></div></div>
+ <div class="wide"><h2>MISIÓN DE LA ISLA</h2><div class="quest" id="quest">Cada nivel requiere 1000 XP. Derrota enemigos, élites y jefes para ganar experiencia y fortalecer el poder de tu fruta. Cambias de isla cada 5 niveles.</div></div>
  <div class="wide"><h2>HABILIDADES</h2>
-  <div class="ability"><span><b>Hiperrayo</b><br><small>Rayo de energía que apunta al enemigo · CD 3 s</small></span><span class="key">Z</span></div>
-  <div class="ability"><span><b>Placaje ígneo</b><br><small>Embiste hacia el objetivo y explota al impactar · CD 5 s</small></span><span class="key">X</span></div>
-  <div class="ability"><span><b>Lluvia de meteoros</b><br><small>Mayor daño y gran área · CD 6 s</small></span><span class="key">C</span></div>
-  <div class="ability"><span><b>Transformación</b><br><small>Activa o reanuda la forma dragón</small></span><span class="key">V</span></div>
-  <div class="ability"><span><b>Propulsión</b><br><small>Impulso de 3 s; cooldown de 4 s al terminar</small></span><span class="key">F</span></div>
+  <div class="ability"><span><b data-attack-name-panel="m1">Rugido Dracónico</b><br><small>Ataque básico de área pequeña · CD 1 s</small></span><span class="key">M1</span></div>
+  <div class="ability"><span><b data-attack-name-panel="z">Aliento Ígneo</b><br><small>Ataque en línea dirigido al enemigo más cercano · CD 3 s</small></span><span class="key">Z</span></div>
+  <div class="ability"><span><b data-attack-name-panel="x">Embestida Dracónica</b><br><small>Avanza hacia el objetivo y golpea a los enemigos cercanos · CD 5 s</small></span><span class="key">X</span></div>
+  <div class="ability"><span><b data-attack-name-panel="c">Lluvia de Meteoros</b><br><small>Ataque de gran alcance y daño en área · CD 6 s</small></span><span class="key">C</span></div>
+  <div class="ability"><span><b data-attack-name-panel="v">Despertar Ancestral</b><br><small>Activa o desactiva la forma de furia durante 30 s</small></span><span class="key">V</span></div>
+  <div class="ability"><span><b data-attack-name-panel="f">Vuelo Dracónico</b><br><small>Impulso de 3 s; recarga 4 s después de terminar</small></span><span class="key">F</span></div>
  </div>
- <div class="wide"><h2>BITÁCORA</h2><div class="log" id="log">¡La fruta Dragon ha despertado! Derrota enemigos para cargar tu furia.</div></div>
+ <div class="wide"><h2>BITÁCORA</h2><div class="log" id="log">¡Tu fruta ancestral ha despertado! Derrota enemigos para cargar tu furia.</div></div>
  <div class="buttons wide abilityHotbar">
- <button id="desktopM1" type="button" aria-label="Rugido: clic izquierdo o espacio para atacar" title="Clic izquierdo o barra espaciadora en el campo de juego"><span class="controlKey">CLIC / ESPACIO</span><span class="attackName">Rugido</span><small class="cooldownLabel" data-cd="m1">LISTO</small></button>
- <button id="zBtn" type="button"><span class="controlKey">Z</span><span class="attackName">Hiperrayo</span><small class="cooldownLabel" data-cd="z">LISTO</small></button>
- <button id="xBtn" type="button"><span class="controlKey">X</span><span class="attackName">Placaje ígneo</span><small class="cooldownLabel" data-cd="x">LISTO</small></button>
- <button id="cBtn" type="button"><span class="controlKey">C</span><span class="attackName">Lluvia de meteoros</span><small class="cooldownLabel" data-cd="c">LISTO</small></button>
- <button id="vBtn" class="hot" type="button"><span class="controlKey">V</span><span class="attackName">Transformación</span><small class="cooldownLabel" data-cd="v">0%</small></button>
- <button id="fBtn" type="button"><span class="controlKey">F</span><span class="attackName">Propulsión</span><small class="cooldownLabel" data-cd="f">LISTO</small></button>
+ <button id="desktopM1" type="button" aria-label="Rugido: clic izquierdo o espacio para atacar" title="Clic izquierdo o barra espaciadora en el campo de juego"><span class="controlKey">CLIC / ESPACIO</span><span class="attackName" data-attack-name="m1">Rugido Dracónico</span><small class="cooldownLabel" data-cd="m1">LISTO</small></button>
+ <button id="zBtn" type="button"><span class="controlKey">Z</span><span class="attackName" data-attack-name="z">Aliento Ígneo</span><small class="cooldownLabel" data-cd="z">LISTO</small></button>
+ <button id="xBtn" type="button"><span class="controlKey">X</span><span class="attackName" data-attack-name="x">Embestida Dracónica</span><small class="cooldownLabel" data-cd="x">LISTO</small></button>
+ <button id="cBtn" type="button"><span class="controlKey">C</span><span class="attackName" data-attack-name="c">Lluvia de Meteoros</span><small class="cooldownLabel" data-cd="c">LISTO</small></button>
+ <button id="vBtn" class="hot" type="button"><span class="controlKey">V</span><span class="attackName" data-attack-name="v">Despertar Ancestral</span><small class="cooldownLabel" data-cd="v">0%</small></button>
+ <button id="fBtn" type="button"><span class="controlKey">F</span><span class="attackName" data-attack-name="f">Vuelo Dracónico</span><small class="cooldownLabel" data-cd="f">LISTO</small></button>
 </div>
- <p class="tip wide">Controles: START para comenzar; WASD o flechas para moverte; clic izquierdo, ESPACIO o toque en el campo de juego: Rugido; Z: Hiperrayo con autoapuntado; X: Placaje ígneo; C: Lluvia de meteoros de gran alcance; V: Transformación al llegar al 100% de furia; F: Propulsión. Cambias de isla cada 5 niveles. Tras el nivel 100 se abre la Dimensión Rainbow. La vida máxima y la regeneración pasiva aumentan al subir de nivel, pero la vida actual no se rellena al subir.</p>
+ <p class="tip wide">Controles: DESPERTAR para comenzar; WASD o flechas para moverte; clic izquierdo, ESPACIO o toque en el campo: M1 (ataque básico); Z: ataque en línea; X: embestida; C: ataque de área; V: transformación al llegar al 100% de furia; F: movimiento especial. Los nombres de las habilidades cambian según la fruta equipada. Cambias de isla cada 5 niveles. Tras el nivel 100 se abre la Dimensión Rainbow. La vida máxima y la regeneración pasiva aumentan al subir de nivel, pero la vida actual no se rellena al subir.</p>
 </aside></main>
-<footer>ÉTERDRACO: Los 21 Mundos · Aventura 2D original inspirada libremente en juegos de acción de islas.</footer>
+<footer>ÉTER: ASCENSIÓN · Los 21 Mundos · Aventura 2D original inspirada libremente en juegos de acción de islas.</footer>
 <script>
 (()=>{
 const cv=document.getElementById('game'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height,$=id=>document.getElementById(id);
@@ -625,6 +736,114 @@ const themes=[
 ];
 const MAX_ENEMIES_ON_SCREEN=7, MAX_PURPLE_BOSSES_ON_SCREEN=3, RESPAWN_DELAY_FRAMES=180, EMPTY_SCREEN_REFILL_FRAMES=300, EMPTY_SCREEN_REFILL_STEP=EMPTY_SCREEN_REFILL_FRAMES/MAX_ENEMIES_ON_SCREEN; // 7 enemigos como máximo, incluidos hasta 3 jefes morados; reposición normal cada 3 s
 let keys={},player,enemies,particles,level,xp,xpNeed,island,islandKills,fury,transformed,transformFrames,attackCD,cds,frame,gameOver,shake,started=false,furyauraCD=0,spawnCounter=0,spawnClock=0,emptyRefillUntil=-1,emptyRefillNextFrame=0,transitionPending=false,paused=false,postGame=false,campaignCompleteShown=false;
+const FRUITS={
+ lightning:{name:'Lightning',group:'speed',form:'Avatar del rayo ancestral',speed:1.32,damage:.97,normalTaken:.90,transformedTaken:.66,primary:'#38a8ff',light:'#c4f0ff',dark:'#1659bc',rgb:'56,168,255',speedText:'Muy alta'},
+ kitsune:{name:'Kitsune',group:'speed',form:'Kitsune celestial · nueve colas',speed:1.46,damage:.86,normalTaken:.86,transformedTaken:.62,primary:'#a46bff',light:'#efd7ff',dark:'#6333bb',rgb:'164,107,255',speedText:'Extrema'},
+ dragon:{name:'Dragon',group:'defense',form:'Dragón oriental ancestral',speed:1.00,damage:1.24,normalTaken:.65,transformedTaken:.42,primary:'#39d98a',light:'#c3ffe1',dark:'#0c7453',rgb:'57,217,138',speedText:'Media'},
+ buddha:{name:'Buddha',group:'defense',form:'Titán dorado de perfil',speed:.66,damage:1.02,normalTaken:.35,transformedTaken:.22,primary:'#f5c542',light:'#fff2a8',dark:'#aa7610',rgb:'245,197,66',speedText:'Muy baja'},
+ dough:{name:'Dough',group:'attack',form:'Rueda de masa con púas',speed:.90,damage:1.32,normalTaken:.82,transformedTaken:.58,primary:'#f4f5ff',light:'#ffffff',dark:'#9eafd0',rgb:'244,245,255',speedText:'Baja'},
+ pain:{name:'Pain',group:'attack',form:'Soberano de la gravedad',speed:.78,damage:1.50,normalTaken:.95,transformedTaken:.70,primary:'#f0445c',light:'#ffbbc5',dark:'#971c37',rgb:'240,68,92',speedText:'Muy baja'}
+};
+const FRUIT_ORDER={speed:['lightning','kitsune'],defense:['dragon','buddha'],attack:['dough','pain']};
+const FRUIT_ATTACK_NAMES={
+ lightning:{m1:'Pulso de Trueno',z:'Rayo Fulminante',x:'Impacto Eléctrico',c:'Tempestad Eléctrica',v:'Sobrecarga Total',f:'Paso Relámpago'},
+ kitsune:{m1:'Destello Kitsune',z:'Orbe Ancestral',x:'Embestida Salvaje',c:'Llamarada Celestial',v:'Despertar de las Nueve Colas',f:'Paso del Zorro'},
+ dragon:{m1:'Rugido Dracónico',z:'Aliento Ígneo',x:'Embestida Dracónica',c:'Lluvia de Meteoros',v:'Despertar Ancestral',f:'Vuelo Dracónico'},
+ buddha:{m1:'Pisotón Titánico',z:'Rayo Dorado',x:'Puño Colosal',c:'Terremoto Divino',v:'Avatar de la Gran Divinidad',f:'Paso Colosal'},
+ dough:{m1:'Golpe Pegajoso',z:'Misil de Masa',x:'Puño de Masa',c:'Ruptura de Masa',v:'Rueda Colosal',f:'Deslizamiento de Masa'},
+ pain:{m1:'Pulso de Dolor',z:'Rayo de Agonía',x:'Golpe Repulsivo',c:'Onda Devastadora',v:'Despertar de la Gran Agonía',f:'Desplazamiento Espectral'}
+};
+let selectedFruit='dragon';
+function fruitInfo(){return FRUITS[selectedFruit]||FRUITS.dragon;}
+// Hitboxes follow the solid body of each awakened form, not its decorative aura.
+// This keeps big forms (Buddha/Dough/Kitsune) from behaving like the tiny base avatar.
+const FRUIT_HITBOXES={
+ lightning:{radius:25,padX:40,padY:70},
+ kitsune:{radius:28,padX:72,padY:78},
+ dragon:{radius:27,padX:40,padY:76},
+ buddha:{radius:29,padX:68,padY:110},
+ dough:{radius:29,padX:68,padY:68},
+ pain:{radius:28,padX:76,padY:96}
+};
+function playerHitboxRadius(){return transformed?(FRUIT_HITBOXES[selectedFruit]||FRUIT_HITBOXES.dragon).radius:(player?.r||14);}
+function playerVisualPadding(){return transformed?(FRUIT_HITBOXES[selectedFruit]||FRUIT_HITBOXES.dragon):{padX:18,padY:35};}
+function clampPlayerToStage(){const padding=playerVisualPadding();player.x=clamp(player.x,padding.padX,W-padding.padX);player.y=clamp(player.y,padding.padY,H-padding.padY);}
+function facingAngle(){return Math.atan2(player.dy,player.dx)+Math.PI/2;}
+function currentAttackNames(){return FRUIT_ATTACK_NAMES[selectedFruit]||FRUIT_ATTACK_NAMES.dragon;}
+function attackName(key){return currentAttackNames()[key]||key.toUpperCase();}
+function updateAttackLabels(){
+ const names=currentAttackNames();
+ document.querySelectorAll('[data-attack-name]').forEach(node=>{const key=node.dataset.attackName;if(names[key])node.textContent=names[key];});
+ document.querySelectorAll('[data-attack-name-panel]').forEach(node=>{const key=node.dataset.attackNamePanel;if(names[key])node.textContent=names[key];});
+ if($('mobileSpace'))$('mobileSpace').setAttribute('aria-label',names.m1+': tocar o pulsar espacio para atacar');
+ if($('desktopM1'))$('desktopM1').setAttribute('aria-label',names.m1+': clic izquierdo o espacio para atacar');
+}
+function fruitSvg(id){
+ const f=FRUITS[id],p=f.primary,l=f.light,d=f.dark;
+ const defs=`<defs>
+  <radialGradient id="${id}Glow"><stop offset="0" stop-color="${l}" stop-opacity=".55"/><stop offset="1" stop-color="${p}" stop-opacity="0"/></radialGradient>
+  <linearGradient id="${id}Body" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${l}"/><stop offset=".52" stop-color="${p}"/><stop offset="1" stop-color="${d}"/></linearGradient>
+  <linearGradient id="${id}Gold" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff4b3"/><stop offset=".45" stop-color="#f6c94f"/><stop offset="1" stop-color="#a66b12"/></linearGradient>
+  <linearGradient id="${id}Dough" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffdfd"/><stop offset=".55" stop-color="#f3eaff"/><stop offset="1" stop-color="#aab6d3"/></linearGradient>
+ </defs><circle cx="60" cy="60" r="57" fill="url(#${id}Glow)"/>`;
+ let art='';
+ if(id==='dragon'){
+  art=`<path d="M63 19 C91 17 94 37 72 44 C47 51 34 59 47 71 C57 80 83 72 82 88 C81 101 61 103 58 112" fill="none" stroke="#102f43" stroke-width="18" stroke-linecap="round"/><path d="M63 19 C91 17 94 37 72 44 C47 51 34 59 47 71 C57 80 83 72 82 88 C81 101 61 103 58 112" fill="none" stroke="url(#${id}Body)" stroke-width="12" stroke-linecap="round"/><path d="M53 23 Q43 4 36 11 Q43 24 50 30 M70 22 Q80 4 87 12 Q79 24 73 30" fill="none" stroke="#d4ffe4" stroke-width="4" stroke-linecap="round"/><path d="M48 43 L34 36 M73 45 L88 37 M42 64 L29 60 M79 81 L94 78" stroke="#c3ffe1" stroke-width="3" stroke-linecap="round"/><path d="M51 24 Q60 12 68 25 L72 33 L60 40 L48 33Z" fill="#1b5960" stroke="#c3ffe1" stroke-width="2"/><path d="M53 30 L60 34 L67 30" fill="none" stroke="#fff" stroke-width="2"/><circle cx="55" cy="27" r="2" fill="#fff"/><circle cx="66" cy="27" r="2" fill="#fff"/><path d="M56 102 l-9 9 M59 103 l2 12 M63 101 l10 9" stroke="#c3ffe1" stroke-width="2" stroke-linecap="round"/>`;
+ }else if(id==='lightning'){
+  art=`<g stroke="#c4f0ff" stroke-linejoin="round" stroke-linecap="round"><path d="M56 34 L40 7 L45 34 L26 27 L43 54" fill="none" stroke-width="4"/><path d="M68 32 L84 5 L78 35 L98 26 L79 57" fill="none" stroke-width="4"/><path d="M60 8 L48 38 L61 35 L51 68 L78 37 L64 39 L72 8Z" fill="url(#${id}Body)" stroke-width="2.5"/></g><path d="M46 49 Q60 40 74 49 L83 77 L73 91 L68 108 L51 108 L46 90 L37 77Z" fill="url(#${id}Body)" stroke="#dffaff" stroke-width="2.5"/><path d="M45 54 L29 71 L38 79 L48 68 M75 54 L91 70 L82 80 L73 68" fill="none" stroke="${d}" stroke-width="8" stroke-linecap="round"/><path d="M52 76 L68 76 L65 99 L55 99Z" fill="#173b81" stroke="#c4f0ff" stroke-width="2"/><path d="M52 58 L60 63 L68 58" fill="none" stroke="#fff" stroke-width="2.5"/><path d="M53 66 L58 64 M62 64 L67 66" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M20 48 Q10 61 22 74 M100 49 Q111 62 98 76 M18 91 L29 85 M102 91 L91 84" fill="none" stroke="${l}" stroke-width="3" stroke-linecap="round"/>`;
+ }else if(id==='kitsune'){
+  const tails=Array.from({length:9},(_,i)=>{
+   const tips=[[8,28],[10,44],[13,61],[20,81],[34,96],[47,104],[35,15],[18,9],[5,55]][i];
+   const [x,y]=tips;return `<path d="M61 79 Q${48-i%3*3} 70 ${x+9} ${y+22} Q${x-4} ${y+8} ${x} ${y}" fill="none" stroke="#442078" stroke-width="11" stroke-linecap="round"/><path d="M61 79 Q${48-i%3*3} 70 ${x+9} ${y+22} Q${x-4} ${y+8} ${x} ${y}" fill="none" stroke="${i%2?'#a879f5':'#ead4ff'}" stroke-width="7" stroke-linecap="round"/><path d="M61 79 Q${45-i%3*2} 69 ${x+6} ${y+20}" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="1.5"/>`;
+  }).join('');
+  art=`${tails}<path d="M49 69 L42 90 L49 108 L61 101 L73 108 L81 90 L73 68Z" fill="url(#${id}Body)" stroke="#f5e8ff" stroke-width="2.5"/><path d="M50 73 L38 82 L35 95 M72 73 L84 82 L82 94" fill="none" stroke="#7541b8" stroke-width="7" stroke-linecap="round"/><path d="M49 40 Q49 23 64 21 Q78 23 78 42 L72 63 L59 67 L48 56Z" fill="url(#${id}Body)" stroke="#f8eaff" stroke-width="2.5"/><path d="M49 37 L40 12 L58 27 L66 14 L73 28 L91 17 L80 46" fill="${d}" stroke="#fff0ff" stroke-width="2.5"/><path d="M64 38 Q78 34 91 43 L86 54 L70 53Z" fill="#fff5ff" stroke="#fff" stroke-width="1.5"/><circle cx="76" cy="38" r="3" fill="#fff"/><circle cx="77" cy="38" r="1.4" fill="#4b2677"/><path d="M86 48 L92 46" stroke="#4b2677" stroke-width="2.5" stroke-linecap="round"/><path d="M59 25 L65 17 L71 25 L65 32Z" fill="#ffe08b" stroke="#fff5ce" stroke-width="1.5"/><path d="M54 97 L48 114 M70 97 L76 114" stroke="#fff0ff" stroke-width="5" stroke-linecap="round"/>`;
+ }else if(id==='buddha'){
+  art=`<g stroke="#ffe9a0" stroke-width="2" fill="none" opacity=".95"><circle cx="60" cy="54" r="49"/><circle cx="60" cy="54" r="40" stroke-dasharray="3 5"/><path d="M60 1 V10 M60 98 V108 M8 54 H17 M103 54 H112 M23 17 L30 24 M90 84 L98 92 M97 17 L90 24 M30 84 L23 92"/></g><path d="M26 71 Q17 52 30 45 L41 38 L47 29 L76 29 L83 40 L96 48 L101 68 L89 83 L84 109 L68 116 L60 100 L51 116 L35 109 L34 84Z" fill="#9d6713" stroke="#fff2b4" stroke-width="3"/><path d="M30 62 Q60 79 91 62 L83 91 L69 109 L60 96 L50 109 L37 91Z" fill="url(#${id}Gold)" stroke="#fff1ad" stroke-width="2"/><path d="M43 54 L60 69 L78 54 L82 78 Q60 95 37 78Z" fill="#d99f25" stroke="#fff1ad" stroke-width="2"/><path d="M50 52 L60 63 L70 52 L66 88 L60 96 L54 88Z" fill="#fff0a3" stroke="#a66b12" stroke-width="2"/><path d="M36 47 L22 58 L29 78 M84 47 L99 57 L91 78" fill="none" stroke="#f5c84b" stroke-width="9" stroke-linecap="round"/><path d="M45 17 Q59 3 74 17 L78 34 Q85 42 82 54 L72 65 L56 61 L46 52 Q39 39 45 17Z" fill="url(#${id}Gold)" stroke="#fff3bd" stroke-width="2.5"/><path d="M69 28 Q83 31 84 40 L93 45 L83 50 L80 57 L67 53" fill="#ffda62" stroke="#a66b12" stroke-width="2"/><path d="M69 37 L79 35" stroke="#633d0b" stroke-width="3" stroke-linecap="round"/><path d="M44 18 Q60 0 75 18" fill="none" stroke="#fff4bf" stroke-width="5" stroke-linecap="round"/><path d="M59 13 L65 4 L71 13 L65 20Z" fill="#fff5c9" stroke="#b9811c" stroke-width="1.5"/><circle cx="62" cy="25" r="3.6" fill="#fff5c9"/>`;
+ }else if(id==='pain'){
+  const spikes=Array.from({length:16},(_,i)=>{const a=i*Math.PI*2/16;const x1=60+Math.cos(a)*34,y1=57+Math.sin(a)*34,x2=60+Math.cos(a)*56,y2=57+Math.sin(a)*56,x3=60+Math.cos(a+.1)*34,y3=57+Math.sin(a+.1)*34;return `<path d="M${x1} ${y1} L${x2} ${y2} L${x3} ${y3}Z" fill="${i%2?'#ff8494':d}" stroke="#ffccd3" stroke-width="1.4"/>`}).join('');
+  art=`<circle cx="60" cy="57" r="55" fill="none" stroke="${p}" stroke-width="2.5" stroke-dasharray="6 5"/><circle cx="60" cy="57" r="45" fill="none" stroke="#ff9ba9" stroke-width="2"/>${spikes}<path d="M43 67 L22 74 L16 94 L36 90 L42 111 L54 116 L60 105 L68 116 L80 111 L85 90 L104 94 L98 74 L77 67 L68 81 L60 76 L52 81Z" fill="#64142b" stroke="#ffc7cf" stroke-width="2.5"/><path d="M43 77 L60 87 L77 77 L72 106 L60 99 L48 106Z" fill="url(#${id}Body)" stroke="#ff9ba9" stroke-width="2"/><path d="M39 36 L25 18 L46 26 L53 11 L60 23 L68 11 L75 26 L96 18 L82 39 L85 57 L72 70 L60 75 L48 70 L35 57Z" fill="url(#${id}Body)" stroke="#ffc7cf" stroke-width="2.5"/><path d="M38 42 L52 49 L58 45 M82 42 L68 49 L62 45" stroke="#641126" stroke-width="4.5" stroke-linecap="round"/><path d="M40 37 L55 49 M80 37 L65 49" stroke="#fff1f3" stroke-width="3.5" stroke-linecap="round"/><path d="M52 58 Q60 53 68 58 L64 65 L56 65Z" fill="#541020" stroke="#ffbbc5" stroke-width="1.5"/><circle cx="60" cy="91" r="8" fill="#ffbbc5" stroke="#7d122d" stroke-width="2"/><circle cx="60" cy="91" r="3.5" fill="#a91337"/><path d="M60 1 V12 M60 102 V118 M4 57 H15 M105 57 H116" stroke="#ffbbc5" stroke-width="4" stroke-linecap="round"/>`;
+ }else if(id==='dough'){
+  const spikes=Array.from({length:12},(_,i)=>{const a=i*Math.PI/6;const x1=60+Math.cos(a)*39,y1=60+Math.sin(a)*39,x2=60+Math.cos(a)*57,y2=60+Math.sin(a)*57,x3=60+Math.cos(a+.16)*39,y3=60+Math.sin(a+.16)*39;return `<path d="M${x1} ${y1} L${x2} ${y2} L${x3} ${y3}Z" fill="${i%2?'#f6efff':'#d9dff1'}" stroke="#fff" stroke-width="1.7"/>`}).join('');
+  art=`<circle cx="60" cy="60" r="46" fill="none" stroke="#7e88a7" stroke-width="21"/><circle cx="60" cy="60" r="46" fill="none" stroke="url(#${id}Dough)" stroke-width="16"/><circle cx="60" cy="60" r="35" fill="none" stroke="#fff" stroke-width="2.5" stroke-dasharray="3 7"/>${spikes}<path d="M49 53 Q60 46 71 53 L75 84 L45 84Z" fill="url(#${id}Dough)" stroke="#8794b4" stroke-width="2"/><path d="M49 48 Q48 33 60 31 Q72 33 71 48 L68 57 L52 57Z" fill="#fffdfd" stroke="#a4aec8" stroke-width="2"/><path d="M53 46 L58 45 M63 45 L68 46" stroke="#52617f" stroke-width="2.6" stroke-linecap="round"/><path d="M54 53 Q60 56 66 53" fill="none" stroke="#8d526e" stroke-width="2"/><path d="M71 60 L84 82 M84 82 L84 32 M84 32 L76 43 M84 32 L92 43 M84 39 L84 25" fill="none" stroke="#a56e3a" stroke-width="3.5" stroke-linecap="round"/><path d="M75 27 Q84 19 93 27" fill="none" stroke="#f7d89c" stroke-width="2"/>`;
+ }
+ return `<svg viewBox="0 0 120 120" role="img" aria-label="${f.name}, ${f.form}" xmlns="http://www.w3.org/2000/svg">${defs}${art}</svg>`;
+}
+function fruitStatText(f){
+ const speed=Math.round((f.speed-1)*100),damage=Math.round((f.damage-1)*100),defense=Math.round((1-f.normalTaken)*100);
+ const signed=value=>(value>0?'+':'')+value+'%';
+ return `<span>Velocidad <b>${signed(speed)}</b></span><span>Daño <b>${signed(damage)}</b></span><span>Defensa <b>+${defense}%</b></span><span>Furia <b>30 s</b></span>`;
+}
+function renderFruitSelect(){
+ const groups=[['speed','VELOCIDAD'],['defense','DEFENSA'],['attack','ATAQUE']];
+ $('fruitGroups').innerHTML=groups.map(([group,label])=>`<section class="fruitGroup" data-group="${group}"><h3>${label}</h3><div class="fruitOptions">${FRUIT_ORDER[group].map(id=>{const f=FRUITS[id];return `<button type="button" class="fruitOption" data-fruit="${id}" style="--fruit-color:${f.primary};--fruit-glow:${f.primary}55"><span class="fruitArtwork">${fruitSvg(id)}</span><span class="fruitInfo"><span class="fruitName">${f.name}</span><span class="fruitForm">${f.form}</span><span class="fruitStats">${fruitStatText(f)}</span></span></button>`;}).join('')}</div></section>`).join('');
+ updateFruitSelectionUI();
+}
+function updateFruitSelectionUI(){
+ document.querySelectorAll('.fruitOption').forEach(btn=>btn.classList.toggle('selected',btn.dataset.fruit===selectedFruit));
+ if($('fruitSelectHint'))$('fruitSelectHint').textContent='Seleccionada: '+fruitInfo().name+' · '+fruitInfo().form;
+}
+function applyFruitTheme(){
+ const f=fruitInfo(),stage=cv.parentElement;
+ stage.style.setProperty('--fruit-color',f.primary);stage.style.setProperty('--fruit-light',f.light);stage.style.setProperty('--fruit-dark',f.dark);stage.style.setProperty('--fruit-rgb',f.rgb);stage.style.setProperty('--fruit-glow',`rgba(${f.rgb},.3)`);
+ if($('adminFruit'))$('adminFruit').value=selectedFruit;
+ updateFruitSelectionUI();updateAttackLabels();
+}
+function setSelectedFruit(id,writeLog=false){
+ if(!FRUITS[id])return;
+ selectedFruit=id;applyFruitTheme();
+ if(writeLog&&$('log'))log('Poder equipado: fruta '+fruitInfo().name+'. Su furia, ataques y medidor ahora usan su color.');
+ updateUI();
+}
+function startAdventure(){
+ if(gameOver)return;
+ getSfxAudioContext();spawnClock=0;started=true;paused=false;transitionPending=false;
+ document.body.classList.remove('game-transition','game-paused');document.body.classList.add('game-started');
+ $('startScreen').classList.add('hidden');$('fruitSelectScreen').classList.add('hidden');$('islandTransition').classList.add('hidden');
+ $('status').textContent='Explorando '+areaName();syncPauseButtonVisibility();
+ log('¡Aventura iniciada con la fruta '+fruitInfo().name+' en '+areaName()+'! Hay hasta siete enemigos en pantalla y los jefes conservan sus límites habituales.');updateUI();
+}
+function applyAdminFruit(){setSelectedFruit($('adminFruit').value,true);}
+
 let adminCodeIndex=0,adminReturnTo='start',adminOverrideActive=false;
 const adminCode=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a','Enter'];
 let propulsionHitState=new Map(); // Por uso: máximo seis pulsos de daño por enemigo.
@@ -689,7 +908,7 @@ function syncPauseButtonVisibility(){
  $('pauseBtn').disabled=!visible;
 }
 function currentTheme(){return themes[Math.min(island,20)];}
-function reset(){adminCodeIndex=0;adminOverrideActive=false;document.body.classList.remove('game-started','game-paused','game-transition','game-over','campaign-complete');started=false;paused=false;postGame=false;campaignCompleteShown=false;keys={};transitionPending=false;$('islandTransition').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('startScreen').classList.remove('hidden');$('pauseBtn').disabled=true;$('pauseBtn').style.display='none';$('pauseBtn').textContent='Ⅱ PAUSA';$('game').parentElement.classList.remove('paused');$('status').textContent='Pulsa START para jugar';player={x:W/2,y:H/2,r:14,hp:120,maxHp:120,speed:3.1,dx:1,dy:0,inv:0,soarFrames:0};enemies=[];particles=[];level=1;xp=0;xpNeed=1000;island=0;islandKills=0;fury=0;furyPending=0;transformed=false;transformFrames=0;attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};frame=0;gameOver=false;shake=0;furyauraCD=0;spawnCounter=0;spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState=new Map();for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();$('log').textContent='Un joven descubre el poder de un dragón ancestral y parte a recorrer los reinos.';log('Cada reino ajusta enemigos y jefes al nivel medio del tramo: 3, 8, 13…98. En la Dimensión Rainbow la dificultad sigue tu nivel actual. Apariciones: normal 69% · élite 23.5% · jefe violeta 6.5% (máx. 3 a la vez) · jefe supremo rojo 1%. El Carmesí aparece con 1% de probabilidad; los demás NPC siguen apareciendo, pero solo puede existir un Carmesí activo. Daño recibido: 70% en forma normal y 52% en forma dragón. XP: normal 50 · élite 100 · jefe 500 · supremo 1000.');syncPauseButtonVisibility();updateUI();}
+function reset(){adminCodeIndex=0;adminOverrideActive=false;document.body.classList.remove('game-started','game-paused','game-transition','game-over','campaign-complete');started=false;paused=false;postGame=false;campaignCompleteShown=false;keys={};transitionPending=false;$('islandTransition').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('startScreen').classList.remove('hidden');$('pauseBtn').disabled=true;$('pauseBtn').style.display='none';$('pauseBtn').textContent='Ⅱ PAUSA';$('game').parentElement.classList.remove('paused');$('status').textContent='Pulsa DESPERTAR para jugar';player={x:W/2,y:H/2,r:14,hp:120,maxHp:120,speed:3.1,dx:1,dy:0,inv:0,soarFrames:0};enemies=[];particles=[];level=1;xp=0;xpNeed=1000;island=0;islandKills=0;fury=0;furyPending=0;transformed=false;transformFrames=0;attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};frame=0;gameOver=false;shake=0;furyauraCD=0;spawnCounter=0;spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState=new Map();for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();$('log').textContent='Un joven descubre el poder de una fruta ancestral y parte a recorrer los reinos.';log('Cada reino ajusta enemigos y jefes al nivel medio del tramo: 3, 8, 13…98. En la Dimensión Rainbow la dificultad sigue tu nivel actual. Apariciones: normal 69% · élite 23.5% · jefe violeta 6.5% (máx. 3 a la vez) · jefe supremo rojo 1%. El Carmesí aparece con 1% de probabilidad; los demás NPC siguen apareciendo, pero solo puede existir un Carmesí activo. El daño recibido y la fuerza de cada fruta dependen del poder equipado. XP: normal 50 · élite 100 · jefe 500 · supremo 1000.');syncPauseButtonVisibility();applyFruitTheme();updateUI();}
 function enemyBenchmarkLevel(){
  // Reinos de campaña: dificultad basada en el nivel medio del tramo (3, 8, 13...98).
  // Dimensión Rainbow: la dificultad sigue el nivel real del jugador.
@@ -747,23 +966,23 @@ function gainXP(n){
   if(level>=100&&!postGame&&!adminOverrideActive){showCampaignComplete();break;}
  }
 }
-function hurtPlayer(rawDamage,source='enemigo'){if(player.inv>0||gameOver)return false;if(source&&source.startsWith('M1'))playEnemyAttackSound(source.includes('jefe')?'boss':source.includes('élite')?'elite':'normal','contact');const damage=Math.max(1,Math.round(rawDamage*(transformed?.52:.70))); player.hp=Math.max(0,player.hp-damage);player.inv=26;burst(player.x,player.y,'#ff637b',12,4);if(source)log('💥 '+source+' te hizo '+damage+' de daño.');if(player.hp<=0){playGameOverSound();gameOver=true;paused=false;document.body.classList.remove('game-paused','game-transition');document.body.classList.add('game-over');keys={};$('status').textContent='Derrotado';syncPauseButtonVisibility();$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.remove('hidden');log('¡Te vencieron! La aventura terminó.');}return true;}
-function playerDamage(base){/* +10% adicional sobre el daño ya aumentado: se conserva el extra de 20% normal y 25% transformado. */return Math.round(base*1.21*(transformed?1.25:1.20)*(1+Math.max(0,level-1)*.035+Math.min(island,20)*.05));}
-function enemyAttackDamage(base,isBoss=false){const benchmarkLevel=enemyBenchmarkLevel();const scale=1+Math.max(0,benchmarkLevel-1)*.035+Math.min(island,20)*.05;return Math.round(base*.84*scale*(postGame?1.08:1)*(isBoss?1.20:1.05));}
+function hurtPlayer(rawDamage,source='enemigo'){if(player.inv>0||gameOver)return false;if(source&&source.startsWith('M1'))playEnemyAttackSound(source.includes('jefe')?'boss':source.includes('élite')?'elite':'normal','contact');const damage=Math.max(1,Math.round(rawDamage*(transformed?fruitInfo().transformedTaken:fruitInfo().normalTaken))); player.hp=Math.max(0,player.hp-damage);player.inv=26;burst(player.x,player.y,'#ff637b',12,4);if(source)log('💥 '+source+' te hizo '+damage+' de daño.');if(player.hp<=0){playGameOverSound();gameOver=true;paused=false;document.body.classList.remove('game-paused','game-transition');document.body.classList.add('game-over');keys={};$('status').textContent='Derrotado';syncPauseButtonVisibility();$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.remove('hidden');log('¡Te vencieron! La aventura terminó.');}return true;}
+function playerDamage(base){/* Conserva el escalado por nivel y añade el multiplicador de daño propio de cada fruta. */return Math.round(base*fruitInfo().damage*1.21*(transformed?1.32:1.20)*(1+Math.max(0,level-1)*.035+Math.min(island,20)*.05));}
+function enemyAttackDamage(base,isBoss=false){const benchmarkLevel=enemyBenchmarkLevel();const scale=1+Math.max(0,benchmarkLevel-1)*.035+Math.min(island,20)*.05;return Math.round(base*.84*.90*scale*(postGame?1.08:1)*(isBoss?1.20:1.05));} // Todos los ataques especiales enemigos hacen un 10% menos de daño.
 const FURY_CHARGE_MULTIPLIER=.30; // La carga se genera al acertar golpes y se acumula con los impactos y permite llenar el medidor en unos 45 segundos de combate activo.
 function addFury(amount){if(!transformed&&transformFrames<=0&&fury<100)furyPending=Math.min(100-fury,furyPending+Math.max(0,amount)*FURY_CHARGE_MULTIPLIER);}
 function enemyContactDamage(e){
  // M1 enemigo reducido un 20%: normal 12, élite 20, jefe 40 como base.
  // El daño sigue escalando con el nivel medio del reino; Rainbow usa el nivel real.
  const benchmarkLevel=enemyBenchmarkLevel();
- const baseDamage=(e.boss?50:e.elite?25:15)*.74*(e.superBoss?1.4:1);
+ const baseDamage=(e.boss?50:e.elite?25:15)*.74*.90*(e.superBoss?1.4:1); // Contacto enemigo: -10% de daño global.
  const islandScale=1+Math.max(0,benchmarkLevel-3)*.0045;
  return Math.max(1,Math.round(baseDamage*islandScale));
 }
 function resolveBossAttack(e){if(!e.boss||gameOver)return;playEnemyAttackSound(e.superBoss?'carmesi':'boss',e.attackType);const rainbow=island>=20;const tx=e.targetX,ty=e.targetY;let dx=tx-e.x,dy=ty-e.y,dist=Math.hypot(dx,dy)||1,ux=dx/dist,uy=dy/dist;let raw=e.attackType==='z'?54:e.attackType==='x'?72:e.attackType==='c'?48:30;raw=enemyAttackDamage(raw*(e.superBoss?1.4:1),true);let hit=false;
- if(e.attackType==='z'){const range=(rainbow?620:470)*(e.superBoss?1.28:1),beamWidth=(rainbow?40:30)*(e.superBoss?1.2:1),ex=e.x+ux*range,ey=e.y+uy*range;particles.push({beam:true,x:e.x,y:e.y,ex,ey,width:beamWidth,color:e.superBoss?'#ff3038':'#bd74ff',life:20,max:20});const ax=player.x-e.x,ay=player.y-e.y,proj=ax*ux+ay*uy,perp=Math.abs(ax*uy-ay*ux);hit=proj>0&&proj<range&&perp< (rainbow?42:32)*(e.superBoss?1.2:1)+player.r;}
- else if(e.attackType==='x'||e.attackType==='f'){const oldX=e.x,oldY=e.y,travel=Math.min((e.attackType==='x'?(rainbow?230:180):(rainbow?180:130))*(e.superBoss?1.28:1),dist);e.x=clamp(e.x+ux*travel,20,W-20);e.y=clamp(e.y+uy*travel,35,H-20);particles.push({beam:true,x:oldX,y:oldY,ex:e.x,ey:e.y,width:(e.attackType==='x'?34:22)*(e.superBoss?1.25:1),color:e.superBoss?'#ff3038':'#bd74ff',life:18,max:18});const lineDx=e.x-oldX,lineDy=e.y-oldY,len2=lineDx*lineDx+lineDy*lineDy||1,t=clamp(((player.x-oldX)*lineDx+(player.y-oldY)*lineDy)/len2,0,1);const lineDistance=Math.hypot(player.x-(oldX+t*lineDx),player.y-(oldY+t*lineDy));hit=lineDistance<player.r+(e.attackType==='x'?36:26)*(e.superBoss?1.25:1)||Math.hypot(player.x-e.x,player.y-e.y)<(rainbow?105:82)*(e.superBoss?1.25:1);}
- else {const radius=(rainbow?225:170)*(e.superBoss?1.28:1);particles.push({ring:true,x:e.x,y:e.y,radius,color:e.superBoss?'#ff3038':'#bd74ff',life:24,max:24});hit=Math.hypot(player.x-e.x,player.y-e.y)<radius;}
+ if(e.attackType==='z'){const range=(rainbow?620:470)*(e.superBoss?1.28:1),beamWidth=(rainbow?40:30)*(e.superBoss?1.2:1),ex=e.x+ux*range,ey=e.y+uy*range;particles.push({beam:true,x:e.x,y:e.y,ex,ey,width:beamWidth,color:e.superBoss?'#ff3038':'#bd74ff',life:20,max:20});const ax=player.x-e.x,ay=player.y-e.y,proj=ax*ux+ay*uy,perp=Math.abs(ax*uy-ay*ux),playerRadius=playerHitboxRadius();hit=proj+playerRadius>0&&proj-playerRadius<range&&perp< (rainbow?42:32)*(e.superBoss?1.2:1)+playerRadius;}
+ else if(e.attackType==='x'||e.attackType==='f'){const oldX=e.x,oldY=e.y,travel=Math.min((e.attackType==='x'?(rainbow?230:180):(rainbow?180:130))*(e.superBoss?1.28:1),dist);e.x=clamp(e.x+ux*travel,20,W-20);e.y=clamp(e.y+uy*travel,35,H-20);particles.push({beam:true,x:oldX,y:oldY,ex:e.x,ey:e.y,width:(e.attackType==='x'?34:22)*(e.superBoss?1.25:1),color:e.superBoss?'#ff3038':'#bd74ff',life:18,max:18});const lineDx=e.x-oldX,lineDy=e.y-oldY,len2=lineDx*lineDx+lineDy*lineDy||1,t=clamp(((player.x-oldX)*lineDx+(player.y-oldY)*lineDy)/len2,0,1);const lineDistance=Math.hypot(player.x-(oldX+t*lineDx),player.y-(oldY+t*lineDy));hit=lineDistance<playerHitboxRadius()+(e.attackType==='x'?36:26)*(e.superBoss?1.25:1)||Math.hypot(player.x-e.x,player.y-e.y)<(rainbow?105:82)*(e.superBoss?1.25:1)+playerHitboxRadius();}
+ else {const radius=(rainbow?225:170)*(e.superBoss?1.28:1);particles.push({ring:true,x:e.x,y:e.y,radius,color:e.superBoss?'#ff3038':'#bd74ff',life:24,max:24});hit=Math.hypot(player.x-e.x,player.y-e.y)<radius+playerHitboxRadius();}
  if(hit)hurtPlayer(raw,'Ataque '+({z:'Z · Cañón',x:'X · Embestida',c:'C · Explosión',f:'F · Acelerón'}[e.attackType]||'del jefe'));else log('✨ Esquivaste el ataque '+e.attackType.toUpperCase()+' del jefe.');}
 function updateBossSkill(e,d){if(!e.boss)return false;if(e.castFrames>0){e.castFrames--;if(e.castFrames===0)resolveBossAttack(e);return true;}e.skillCd=Math.max(0,e.skillCd-1);const skillRange=(island>=20?650:510)*(e.superBoss?1.28:1);if(e.skillCd<=0&&d>46&&d<skillRange){e.attackType=['z','x','c','f'][Math.floor(rand(0,4))];e.targetX=player.x;e.targetY=player.y;e.castFrames=e.superBoss?27:32;e.skillCd=Math.floor(rand(island>=20?330:390,island>=20?480:540)*(e.superBoss ? 0.95 : 1));return true;}return false;}
 function resolveEliteAttack(e){
@@ -778,7 +997,7 @@ function resolveEliteAttack(e){
   const range=rainbow?360:300,beamWidth=rainbow?28:22;
   const ax=player.x-e.x,ay=player.y-e.y,proj=ax*ux+ay*uy,perp=Math.abs(ax*uy-ay*ux);
   particles.push({beam:true,x:e.x,y:e.y,ex:e.x+ux*range,ey:e.y+uy*range,width:beamWidth,color:'#55a7ff',life:18,max:18});
-  hit=proj>0&&proj<range&&perp<beamWidth+player.r;
+  const playerRadius=playerHitboxRadius();hit=proj+playerRadius>0&&proj-playerRadius<range&&perp<beamWidth+playerRadius;
  }else if(e.attackType==='x'){
   const oldX=e.x,oldY=e.y,travel=Math.min(rainbow?135:105,dist);
   e.x=clamp(e.x+ux*travel,20,W-20);e.y=clamp(e.y+uy*travel,35,H-20);
@@ -786,11 +1005,11 @@ function resolveEliteAttack(e){
   const lineDx=e.x-oldX,lineDy=e.y-oldY,len2=lineDx*lineDx+lineDy*lineDy||1;
   const t=clamp(((player.x-oldX)*lineDx+(player.y-oldY)*lineDy)/len2,0,1);
   const lineDistance=Math.hypot(player.x-(oldX+t*lineDx),player.y-(oldY+t*lineDy));
-  hit=lineDistance<player.r+23||Math.hypot(player.x-e.x,player.y-e.y)<(rainbow?72:62);
+  hit=lineDistance<playerHitboxRadius()+23||Math.hypot(player.x-e.x,player.y-e.y)<(rainbow?72:62)+playerHitboxRadius();
  }else{
   const radius=rainbow?125:105;
   particles.push({ring:true,x:e.x,y:e.y,radius,color:'#55a7ff',life:22,max:22});
-  hit=Math.hypot(player.x-e.x,player.y-e.y)<radius;
+  hit=Math.hypot(player.x-e.x,player.y-e.y)<radius+playerHitboxRadius();
  }
  if(hit)hurtPlayer(raw,'Ataque especial de élite');
  else log('Esquivaste el ataque especial de un élite.');
@@ -815,23 +1034,23 @@ function areaAttack(){
  playPlayerAttackSound('m1',transformed);
  attackCD=60; // 1 segundo entre golpes (60 FPS)
  const radius=transformed?150:104, damage=playerDamage(transformed?140:36);
- particles.push({ring:true,x:player.x,y:player.y,radius,color:transformed?'#ff542e':'#ffd166',life:18,max:18});
- burst(player.x+player.dx*24,player.y+player.dy*24,transformed?'#ff542e':'#ffb45c',transformed?22:13,transformed?6:4);
+ particles.push({ring:true,x:player.x,y:player.y,radius,color:fruitInfo().primary,life:18,max:18});
+ burst(player.x+player.dx*24,player.y+player.dy*24,fruitInfo().light,transformed?22:13,transformed?6:4);
  let hit=0;
  for(const e of [...enemies]){
   const d=Math.hypot(e.x-player.x,e.y-player.y);
   if(d<radius+e.r){hurtEnemy(e,damage,transformed?34:22);hit++;}
  }
- if(hit===0)log('Rugido: acércate a los enemigos para alcanzarles.');
- else log('Rugido alcanzó a '+hit+' enemigo(s).');
+ if(hit===0)log(attackName('m1')+': acércate a los enemigos para alcanzarles.');
+ else log(attackName('m1')+' alcanzó a '+hit+' enemigo(s).');
  shake=hit?4:1;
 }
 function nearestEnemy(){if(!enemies.length)return null;return enemies.reduce((best,e)=>!best||Math.hypot(e.x-player.x,e.y-player.y)<Math.hypot(best.x-player.x,best.y-player.y)?e:best,null);}
 function aimAtNearest(){const target=nearestEnemy();if(target){const dx=target.x-player.x,dy=target.y-player.y,len=Math.hypot(dx,dy)||1;player.dx=dx/len;player.dy=dy/len;}return target;}
-function fireLine(dmg,range,width,color,label){dmg=playerDamage(dmg);let hit=0;let vx=player.dx,vy=player.dy;let ex=player.x+vx*range,ey=player.y+vy*range;particles.push({beam:true,x:player.x,y:player.y,ex,ey,width,color,life:13,max:13});for(const e of [...enemies]){let ax=e.x-player.x,ay=e.y-player.y,proj=ax*vx+ay*vy,perp=Math.abs(ax*vy-ay*vx);if(proj>0&&proj<range&&perp<width+e.r){hurtEnemy(e,dmg,10);hit++;}}if(!hit)addFury(1);log(label+(hit?' golpeó a '+hit+' enemigo(s).':' cruzó la isla sin acertar.'));shake=4;}
-function ability(k){if(!started||paused||gameOver||transitionPending)return;if(k==='v'){transform();return;}if(cds[k]>0){return;}if(k==='z'){playPlayerAttackSound('z',transformed);cds.z=180;aimAtNearest();fireLine(transformed?195:65,transformed?600:390,transformed?42:24,'#ff6b35','Hiperrayo');burst(player.x+player.dx*30,player.y+player.dy*30,'#ff9a48',18,5);}
-if(k==='x'){playPlayerAttackSound('x',transformed);cds.x=300;const target=aimAtNearest();let oldX=player.x,oldY=player.y;if(target){const vx=target.x-player.x,vy=target.y-player.y,d=Math.hypot(vx,vy)||1,travel=Math.min(transformed?210:145,Math.max(0,d-30));player.x=clamp(player.x+vx/d*travel,20,W-20);player.y=clamp(player.y+vy/d*travel,35,H-20);}else{player.x=clamp(player.x+player.dx*(transformed?175:105),20,W-20);player.y=clamp(player.y+player.dy*(transformed?175:105),35,H-20);}particles.push({beam:true,x:oldX,y:oldY,ex:player.x,ey:player.y,width:transformed?48:30,color:'#ffdf6b',life:15,max:15});let hit=0;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<(transformed?145:100)){hurtEnemy(e,playerDamage(transformed?260:95),34); /* X: daño menor que C; cooldown de 5 s. */ hit++;}if(!hit)burst(player.x,player.y,'#ff8c46',24,6);log('Placaje ígneo: '+(hit?hit+' enemigo(s) golpeado(s).':'embestida sin impacto.'));shake=9;}
-if(k==='c'){playPlayerAttackSound('c',transformed);cds.c=360;const meteorRadius=transformed?390:275;burst(player.x,player.y,transformed?'#ff6a35':'#ff8c46',transformed?34:27,transformed?7:6);particles.push({ring:true,x:player.x,y:player.y,radius:meteorRadius,color:transformed?'#ff4b37':'#ff994e',life:28,max:28});let hit=0;for(const e of [...enemies]){let d=Math.hypot(e.x-player.x,e.y-player.y);if(d<meteorRadius+e.r){hurtEnemy(e,playerDamage(transformed?360:155),transformed?48:30);hit++;let mx=e.x,my=e.y;particles.push({beam:true,x:mx+rand(-38,22),y:my-100,ex:mx,ey:my,width:transformed?12:9,color:transformed?'#ff5b43':'#ffc05c',life:24,max:24});}}log('Lluvia de meteoros: '+hit+' objetivo(s) alcanzados.');shake=transformed?15:9;}}
+function fireLine(dmg,range,width,color,label){dmg=playerDamage(dmg);let hit=0;let vx=player.dx,vy=player.dy;let ex=player.x+vx*range,ey=player.y+vy*range;particles.push({beam:true,x:player.x,y:player.y,ex,ey,width,color,life:13,max:13});for(const e of [...enemies]){let ax=e.x-player.x,ay=e.y-player.y,proj=ax*vx+ay*vy,perp=Math.abs(ax*vy-ay*vx);if(proj+e.r>0&&proj-e.r<range&&perp<width+e.r){hurtEnemy(e,dmg,10);hit++;}}if(!hit)addFury(1);log(label+(hit?' golpeó a '+hit+' enemigo(s).':' cruzó la isla sin acertar.'));shake=4;}
+function ability(k){if(!started||paused||gameOver||transitionPending)return;if(k==='v'){transform();return;}if(cds[k]>0){return;}if(k==='z'){playPlayerAttackSound('z',transformed);cds.z=180;aimAtNearest();fireLine(transformed?195:65,transformed?600:390,transformed?42:24,fruitInfo().primary,attackName('z'));burst(player.x+player.dx*30,player.y+player.dy*30,fruitInfo().light,18,5);}
+if(k==='x'){playPlayerAttackSound('x',transformed);cds.x=300;const target=aimAtNearest();let oldX=player.x,oldY=player.y;if(target){const vx=target.x-player.x,vy=target.y-player.y,d=Math.hypot(vx,vy)||1,travel=Math.min(transformed?210:145,Math.max(0,d-30));player.x+=vx/d*travel;player.y+=vy/d*travel;}else{player.x+=player.dx*(transformed?175:105);player.y+=player.dy*(transformed?175:105);}clampPlayerToStage();particles.push({beam:true,x:oldX,y:oldY,ex:player.x,ey:player.y,width:transformed?48:30,color:fruitInfo().primary,life:15,max:15});let hit=0;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<(transformed?130:85)+e.r){hurtEnemy(e,playerDamage(transformed?260:95),34); /* X: daño menor que C; cooldown de 5 s. */ hit++;}if(!hit)burst(player.x,player.y,fruitInfo().primary,24,6);log(attackName('x')+': '+(hit?hit+' enemigo(s) golpeado(s).':'embestida sin impacto.'));shake=9;}
+if(k==='c'){playPlayerAttackSound('c',transformed);cds.c=360;const meteorRadius=transformed?390:275;burst(player.x,player.y,fruitInfo().primary,transformed?34:27,transformed?7:6);particles.push({ring:true,x:player.x,y:player.y,radius:meteorRadius,color:fruitInfo().light,life:28,max:28});let hit=0;for(const e of [...enemies]){let d=Math.hypot(e.x-player.x,e.y-player.y);if(d<meteorRadius+e.r){hurtEnemy(e,playerDamage(transformed?360:155),transformed?48:30);hit++;let mx=e.x,my=e.y;particles.push({beam:true,x:mx+rand(-38,22),y:my-100,ex:mx,ey:my,width:transformed?12:9,color:fruitInfo().light,life:24,max:24});}}log(attackName('c')+': '+hit+' objetivo(s) alcanzados.');shake=transformed?15:9;}}
 function propulsionHit(e){
  // Cada enemigo puede recibir como máximo seis impactos durante una activación,
  // con medio segundo entre pulsos. Evita el daño infinito por contacto continuo.
@@ -843,7 +1062,7 @@ function propulsionHit(e){
  state.hits++;
  state.lastFrame=frame;
  propulsionHitState.set(e,state);
- burst(e.x,e.y,transformed?'#ffb347':'#ffc078',5,2.2);
+ burst(e.x,e.y,fruitInfo().light,5,2.2);
  return true;
 }
 function soar(){
@@ -856,12 +1075,13 @@ function soar(){
  const oldX=player.x,oldY=player.y;
  // Impulso inicial y estela: el daño continúa durante los tres segundos activos.
  const dashDistance=72;
- player.x=clamp(player.x+player.dx*dashDistance,18,W-18);
- player.y=clamp(player.y+player.dy*dashDistance,35,H-18);
+ player.x+=player.dx*dashDistance;
+ player.y+=player.dy*dashDistance;
+ clampPlayerToStage();
  const vx=player.x-oldX,vy=player.y-oldY,len2=vx*vx+vy*vy||1;
- burst(oldX,oldY,'#ff8b45',12,4);
- burst(player.x,player.y,'#ffd166',14,4);
- particles.push({beam:true,x:oldX,y:oldY,ex:player.x,ey:player.y,width:transformed?25:20,color:transformed?'#ffad42':'#f2a65a',life:12,max:12});
+ burst(oldX,oldY,fruitInfo().primary,12,4);
+ burst(player.x,player.y,fruitInfo().light,14,4);
+ particles.push({beam:true,x:oldX,y:oldY,ex:player.x,ey:player.y,width:transformed?25:20,color:fruitInfo().primary,life:12,max:12});
  let hit=0;
  const hitRadiusBoost=transformed?18:14;
  for(const e of [...enemies]){
@@ -870,8 +1090,8 @@ function soar(){
   const hitRadius=e.r+player.r+hitRadiusBoost;
   if(lineDist<=hitRadius&&propulsionHit(e))hit++;
  }
- log('Propulsión: impulso y daño continuo durante 3 segundos. Cada enemigo puede recibir hasta 6 impactos, con intervalo de 0,5 segundos; después espera 4 segundos para recargarse.'+(hit?' Alcanzaste a '+hit+' enemigo(s) en la trayectoria inicial.':''));
- $('status').textContent='Propulsión activa';
+ log(attackName('f')+': impulso y daño continuo durante 3 segundos. Cada enemigo puede recibir hasta 6 impactos, con intervalo de 0,5 segundos; después espera 4 segundos para recargarse.'+(hit?' Alcanzaste a '+hit+' enemigo(s) en la trayectoria inicial.':''));
+ $('status').textContent=attackName('f')+' activa';
 }
 function transform(){
  if(!started||paused||gameOver||transitionPending)return;
@@ -882,23 +1102,23 @@ function transform(){
   transformFrames=0;
   fury=remainingPct;furyPending=0;
   cds.v=300;
-  log('Transformación desactivada al '+remainingPct+'%. Debes volver a cargar la furia al 100% para transformarte; V tiene 5 segundos de enfriamiento.');
-  burst(player.x,player.y,'#bd8a9e',18,4);
+  log(attackName('v')+' desactivado al '+remainingPct+'%. Debes volver a cargar la furia al 100% para activarlo; V tiene 5 segundos de enfriamiento.');
+  burst(player.x,player.y,fruitInfo().primary,18,4);
   $('status').textContent='Furia restante · '+remainingPct+'%';
   updateUI();return;
  }
- if(cds.v>0){log('Transformación disponible en '+(cds.v/60).toFixed(1)+' s.');return;}
+ if(cds.v>0){log(attackName('v')+' disponible en '+(cds.v/60).toFixed(1)+' s.');return;}
  // No se puede reanudar con una carga parcial: todas las activaciones requieren 100%.
- if(fury<100){log('Necesitas el 100% de furia para activar la transformación. Carga el medidor derrotando enemigos.');return;}
+ if(fury<100){log('Necesitas el 100% de furia para activar '+attackName('v')+'. Carga el medidor derrotando enemigos.');return;}
  transformed=true;
  playPlayerAttackSound('transform',true);
  transformFrames=1800;
  fury=100;furyPending=0;
  cds.v=0;
  player.hp=Math.min(player.maxHp,player.hp+25);
- log('Dragon Fury activada. Duración: 30 segundos.');
- $('status').textContent='Dragon Fury activada';
- burst(player.x,player.y,'#ff542e',55,7);shake=15;updateUI();
+ const furyDefenseBonus=Math.round((1-(fruitInfo().transformedTaken/fruitInfo().normalTaken))*100);log(attackName('v')+' activado por 30 segundos: daño +10%, velocidad +26% y daño recibido -'+furyDefenseBonus+'%.');
+ $('status').textContent=attackName('v')+' activado';
+ burst(player.x,player.y,fruitInfo().primary,55,7);shake=15;updateUI();
 }
 function togglePause(force){
  if(!started||gameOver||transitionPending||(campaignCompleteShown&&!postGame))return;
@@ -925,8 +1145,10 @@ function updateAdminLevelPreview(){
 function openAdminPanel(returnTo){
  adminReturnTo=returnTo;
  $('adminWorld').value=String(island||0);
+ $('adminFruit').value=selectedFruit;
  updateAdminLevelPreview();
  if(returnTo==='start')$('startScreen').classList.add('hidden');
+ else if(returnTo==='selection')$('fruitSelectScreen').classList.add('hidden');
  else $('pauseScreen').classList.add('hidden');
  $('adminScreen').classList.remove('hidden');
  $('adminWorld').focus();
@@ -934,6 +1156,7 @@ function openAdminPanel(returnTo){
 function closeAdminPanel(){
  $('adminScreen').classList.add('hidden');
  if(adminReturnTo==='start')$('startScreen').classList.remove('hidden');
+ else if(adminReturnTo==='selection')$('fruitSelectScreen').classList.remove('hidden');
  else $('pauseScreen').classList.remove('hidden');
  adminCodeIndex=0;
 }
@@ -949,7 +1172,7 @@ function applyAdminTeleport(){
  islandKills=0;transitionPending=false;paused=false;gameOver=false;started=true;keys={};attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};
  enemies=[];particles=[];spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState.clear();
  for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();
- $('startScreen').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('islandTransition').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('adminScreen').classList.add('hidden');
+ $('startScreen').classList.add('hidden');$('fruitSelectScreen').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('islandTransition').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('adminScreen').classList.add('hidden');
  document.body.classList.remove('game-paused','game-transition','game-over','campaign-complete');document.body.classList.add('game-started');
  $('status').textContent='Modo admin · '+areaName();syncPauseButtonVisibility();
  log('⚙ MODO ADMIN: destino '+areaName()+' · nivel inicial '+level+'. La progresión normal continuará desde este reino.');
@@ -958,35 +1181,35 @@ function applyAdminTeleport(){
 function updateUI(){
  $('level').textContent=level;$('xpText').textContent=Math.floor(xp)+' / 1000 XP';$('xpBar').style.width=(xp/1000*100)+'%';$('hpText').textContent=Math.ceil(player.hp)+' / '+player.maxHp;$('hpBar').style.width=(player.hp/player.maxHp*100)+'%';
  const furyPct=clamp(transformFrames>0?transformFrames/1800*100:fury,0,100);
- if(transformed){$('furyLabel').textContent='Furia dracónica · activa';$('furyText').textContent=Math.ceil(furyPct)+'%';}
+ if(transformed){$('furyLabel').textContent='Furia '+fruitInfo().name+' · activa';$('furyText').textContent=Math.ceil(furyPct)+'%';}
  else if(transformFrames>0){$('furyLabel').textContent='Furia guardada';$('furyText').textContent=Math.ceil(furyPct)+'%';}
- else{$('furyLabel').textContent='Furia dracónica';$('furyText').textContent=Math.floor(fury)+'%'+(fury>=100?' · LISTA':'');}
+ else{$('furyLabel').textContent='Furia '+fruitInfo().name;$('furyText').textContent=Math.floor(fury)+'%'+(fury>=100?' · LISTA':'');}
  $('furyBar').style.width=furyPct+'%';
  $('transformBar').style.width=furyPct+'%';
- $('transformText').textContent=transformed?'TRANSFORMACIÓN ACTIVA · '+Math.ceil(furyPct)+'% de duración restante':('La furia se carga gradualmente durante el combate: puede llegar al 100% en unos 45 segundos de combate activo. Carga actual: '+Math.floor(fury)+'%. Si cancelas la forma, debes volver al 100% para activarla.');
+ const furyDefenseBonus=Math.round((1-(fruitInfo().transformedTaken/fruitInfo().normalTaken))*100);$('transformText').textContent=transformed?'FORMA '+fruitInfo().name.toUpperCase()+' ACTIVA · Daño +10% · Velocidad +26% · Daño recibido -'+furyDefenseBonus+'% · '+Math.ceil(furyPct)+'% de duración restante':('La furia de '+fruitInfo().name+' se carga gradualmente durante el combate: puede llegar al 100% en unos 45 segundos de combate activo. Carga actual: '+Math.floor(fury)+'%. Al activarla durante 30 segundos, aumenta el daño (+10%), la velocidad (+26%) y reduce el daño recibido (aprox. 23–26%). Si cancelas la forma, debes volver al 100% para activarla.');
  cv.parentElement.classList.toggle('fury-ready',!transformed&&fury>=100&&cds.v<=0);cv.parentElement.classList.toggle('fury-active',transformed);
  $('islandLabel').textContent=postGame?'DIMENSIÓN RAINBOW · POSTGAME':(island>=20?'DIMENSIÓN RAINBOW':'ISLA '+(island+1)+' · '+areaName().toUpperCase());$('quest').textContent=postGame?'POSTGAME INFINITO: derrota jefes que escalan sin límite. Sigue subiendo niveles, aumenta tu poder y busca cuánto puedes llegar. XP: normal 50 · élite 100 · jefe 500.':(island>=20?'Dimensión Rainbow: derrota jefes dimensionales. XP: normal 50 · élite 100 · jefe 500.':'Derrota enemigos: '+islandKills+'/4. Cambias de isla cada 5 niveles; 1000 XP por nivel. XP: normal 50 · élite 100 · jefe 500.');
  const cdState={m1:attackCD,z:cds.z,x:cds.x,c:cds.c,f:cds.f,v:cds.v};
  document.querySelectorAll('[data-cd]').forEach(node=>{const key=node.dataset.cd;let label='LISTO',remaining=cdState[key]||0;if(key==='f'&&player.soarFrames>0)label='ACTIVA';else if(key==='v'&&transformed)label='ACTIVA';else if(key==='v'&&remaining>0)label=(Math.ceil(remaining/6)/10).toFixed(1)+' s';else if(key==='v'&&fury>=100)label='LISTA';else if(key==='v')label=Math.floor(fury)+'%';else if(remaining>0)label=Math.ceil(remaining/60)+' s';node.textContent=label;node.classList.toggle('cooling',remaining>0&&!(key==='v'&&transformed));});
 }
-function update(){if(!started||paused||gameOver||transitionPending)return;frame++;if(!transformed&&furyPending>0){const furyFrameGain=Math.min(furyPending,100/2700,100-fury);fury+=furyFrameGain;furyPending-=furyFrameGain;if(fury>=100)furyPending=0;}attackCD=Math.max(0,attackCD-1);for(let k of ['z','x','c','v'])cds[k]=Math.max(0,cds[k]-1);if(cds.f>0)cds.f=Math.max(0,cds.f-1);player.inv=Math.max(0,player.inv-1);const wasPropelling=player.soarFrames>0;player.soarFrames=Math.max(0,player.soarFrames-1);if(wasPropelling&&player.soarFrames===0){cds.f=240;propulsionHitState.clear();log('Propulsión finalizada. Enfriamiento de 4 segundos.');$('status').textContent='Propulsión en enfriamiento';}shake=Math.max(0,shake*.86);
-let dx=0,dy=0;if(keys.ArrowLeft||keys.a||keys.A)dx--;if(keys.ArrowRight||keys.d||keys.D)dx++;if(keys.ArrowUp||keys.w||keys.W)dy--;if(keys.ArrowDown||keys.s||keys.S)dy++;if(dx||dy){let l=Math.hypot(dx,dy);dx/=l;dy/=l;let boost=player.soarFrames>0?2.15:1;player.x+=dx*player.speed*(transformed?1.18:1)*boost;player.y+=dy*player.speed*(transformed?1.18:1)*boost;player.dx=dx;player.dy=dy;if(frame%5===0)particles.push({x:player.x,y:player.y+10,vx:rand(-1,1),vy:rand(-1,1),life:12,max:12,color:transformed?'#ff8545':'#e6faff',r:2});}
-player.x=clamp(player.x,18,W-18);player.y=clamp(player.y,35,H-18);
+function update(){if(!started||paused||gameOver||transitionPending)return;frame++;if(!transformed&&furyPending>0){const furyFrameGain=Math.min(furyPending,100/2700,100-fury);fury+=furyFrameGain;furyPending-=furyFrameGain;if(fury>=100)furyPending=0;}attackCD=Math.max(0,attackCD-1);for(let k of ['z','x','c','v'])cds[k]=Math.max(0,cds[k]-1);if(cds.f>0)cds.f=Math.max(0,cds.f-1);player.inv=Math.max(0,player.inv-1);const wasPropelling=player.soarFrames>0;player.soarFrames=Math.max(0,player.soarFrames-1);if(wasPropelling&&player.soarFrames===0){cds.f=240;propulsionHitState.clear();log(attackName('f')+' finalizado. Enfriamiento de 4 segundos.');$('status').textContent=attackName('f')+' en enfriamiento';}shake=Math.max(0,shake*.86);
+let dx=0,dy=0;if(keys.ArrowLeft||keys.a||keys.A)dx--;if(keys.ArrowRight||keys.d||keys.D)dx++;if(keys.ArrowUp||keys.w||keys.W)dy--;if(keys.ArrowDown||keys.s||keys.S)dy++;if(dx||dy){let l=Math.hypot(dx,dy);dx/=l;dy/=l;let boost=player.soarFrames>0?2.15:1;player.x+=dx*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost;player.y+=dy*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost;player.dx=dx;player.dy=dy;if(frame%5===0)particles.push({x:player.x,y:player.y+10,vx:rand(-1,1),vy:rand(-1,1),life:12,max:12,color:transformed?fruitInfo().light:fruitInfo().primary,r:2});}
+clampPlayerToStage();
 // Propulsión mantiene una hitbox moderada alrededor del personaje durante 3 s.
 // Se aplica un pulso como máximo cada 30 frames por objetivo y hasta seis veces.
 if(player.soarFrames>0){
  const activeRadiusBonus=transformed?18:14;
  for(const e of [...enemies]){
-  if(Math.hypot(e.x-player.x,e.y-player.y)<=player.r+e.r+activeRadiusBonus)propulsionHit(e);
+  if(Math.hypot(e.x-player.x,e.y-player.y)<=playerHitboxRadius()+e.r+activeRadiusBonus)propulsionHit(e);
  }
  if(frame%6===0){
-  particles.push({x:player.x-player.dx*rand(8,18),y:player.y-player.dy*rand(8,18),vx:rand(-.45,.45),vy:rand(-.45,.45),life:10,max:10,color:transformed?'#ff9b32':'#ffc078',r:rand(2.5,4.5)});
+  particles.push({x:player.x-player.dx*rand(8,18),y:player.y-player.dy*rand(8,18),vx:rand(-.45,.45),vy:rand(-.45,.45),life:10,max:10,color:fruitInfo().light,r:rand(2.5,4.5)});
  }
 }
-if(transformed){transformFrames=Math.max(0,transformFrames-1);fury=transformFrames/1800*100;if(transformFrames<=0){transformed=false;fury=0;furyPending=0;cds.v=600;log('La forma dragón terminó. La furia volvió a 0% y V tendrá 10 segundos de enfriamiento antes de volver a activarse.');$('status').textContent='Explorando';}}
+if(transformed){transformFrames=Math.max(0,transformFrames-1);fury=transformFrames/1800*100;if(transformFrames<=0){transformed=false;fury=0;furyPending=0;cds.v=600;log('La forma '+fruitInfo().name+' terminó. La furia volvió a 0% y V tendrá 10 segundos de enfriamiento antes de volver a activarse.');$('status').textContent='Explorando';}}
 // Regeneración natural +20%: aumenta con cada nivel, igual que la vida máxima (sin límite artificial en nivel 75).
-const naturalRegen=(0.045+level*.001)*1.20;player.hp=Math.min(player.maxHp,player.hp+naturalRegen);if(transformed){player.hp=Math.min(player.maxHp,player.hp+(.035*1.20));furyauraCD--;if(furyauraCD<=0){furyauraCD=30;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<100){hurtEnemy(e,playerDamage(32),8);burst(e.x,e.y,'#ff6b35',5,3);}}}
-for(const e of [...enemies]){if(!enemies.includes(e))continue;e.phase+=.05;e.hit=Math.max(0,e.hit-1);e.cd=Math.max(0,e.cd-1);let ex=player.x-e.x,ey=player.y-e.y,d=Math.hypot(ex,ey)||1;const casting=updateBossSkill(e,d)||updateEliteSkill(e,d);if(casting){continue;}if(d>(transformed?48:30)){e.x+=ex/d*e.speed;e.y+=ey/d*e.speed;}else if(e.cd<=0&&player.inv<=0){const dmg=enemyContactDamage(e);hurtPlayer(dmg,e.boss?'M1 de jefe':e.elite?'M1 de élite':'M1 enemigo');e.cd=e.boss?72:e.elite?55:45;}e.x=clamp(e.x,15,W-15);e.y=clamp(e.y,35,H-15);}
+const naturalRegen=(0.045+level*.001)*1.20;player.hp=Math.min(player.maxHp,player.hp+naturalRegen);if(transformed){player.hp=Math.min(player.maxHp,player.hp+(.035*1.20));furyauraCD--;if(furyauraCD<=0){furyauraCD=30;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<100){hurtEnemy(e,playerDamage(32),8);burst(e.x,e.y,fruitInfo().primary,5,3);}}}
+for(const e of [...enemies]){if(!enemies.includes(e))continue;e.phase+=.05;e.hit=Math.max(0,e.hit-1);e.cd=Math.max(0,e.cd-1);let ex=player.x-e.x,ey=player.y-e.y,d=Math.hypot(ex,ey)||1;const casting=updateBossSkill(e,d)||updateEliteSkill(e,d);if(casting){continue;}if(d>playerHitboxRadius()+e.r+2){e.x+=ex/d*e.speed;e.y+=ey/d*e.speed;}else if(e.cd<=0&&player.inv<=0){const dmg=enemyContactDamage(e);hurtPlayer(dmg,e.boss?'M1 de jefe':e.elite?'M1 de élite':'M1 enemigo');e.cd=e.boss?72:e.elite?55:45;}e.x=clamp(e.x,15,W-15);e.y=clamp(e.y,35,H-15);}
 // Reposición equilibrada y activa incluso cuando está invocado el Sagrado Carmesí.
 // El Carmesí no bloquea la aparición de NPC; spawnEnemy impide crear otro mientras exista uno.
 // Si queda algún enemigo, reaparece uno cada 3 s. Si la pantalla queda vacía, los siete regresan gradualmente en un máximo de 5 s.
@@ -1229,6 +1452,172 @@ function drawEnemySprite(e){
  
  ctx.restore();
 }
+function drawFruitTransformation(ctx,id,f,frame){
+ const pulse=.55+.45*Math.sin(frame*.11),p=f.primary,l=f.light,d=f.dark;
+ const aura=ctx.createRadialGradient(0,0,5,0,0,id==='buddha'?100:78);
+ aura.addColorStop(0,`rgba(${f.rgb},.28)`);aura.addColorStop(.52,`rgba(${f.rgb},.14)`);aura.addColorStop(1,`rgba(${f.rgb},0)`);
+ ctx.fillStyle=aura;ctx.beginPath();ctx.ellipse(0,0,id==='buddha'?72:60,id==='buddha'?94:78,0,0,Math.PI*2);ctx.fill();
+ ctx.save();ctx.lineCap='round';ctx.lineJoin='round';ctx.shadowColor=p;ctx.shadowBlur=15+9*pulse;
+ if(id==='lightning'){
+  ctx.rotate(Math.atan2(player.dy,player.dx)+Math.PI/2);
+  // Avatar eléctrico: armadura humanoide, cresta de rayos y descargas que envuelven el cuerpo.
+  for(let i=0;i<8;i++){const a=i*Math.PI/4+frame*.012;ctx.save();ctx.rotate(a);ctx.strokeStyle=i%2?l:p;ctx.lineWidth=3.2;ctx.beginPath();ctx.moveTo(0,-35);ctx.lineTo(-8,-47);ctx.lineTo(3,-51);ctx.lineTo(-4,-67);ctx.stroke();ctx.restore();}
+  const body=ctx.createLinearGradient(-25,-28,25,53);body.addColorStop(0,l);body.addColorStop(.45,p);body.addColorStop(1,d);
+  ctx.fillStyle=d;ctx.beginPath();ctx.moveTo(-17,-2);ctx.lineTo(-27,10);ctx.lineTo(-20,25);ctx.lineTo(-13,20);ctx.lineTo(-15,50);ctx.lineTo(-5,57);ctx.lineTo(0,43);ctx.lineTo(7,57);ctx.lineTo(17,50);ctx.lineTo(15,20);ctx.lineTo(22,25);ctx.lineTo(28,9);ctx.lineTo(16,-2);ctx.closePath();ctx.fill();
+  ctx.fillStyle=body;ctx.beginPath();ctx.moveTo(-12,-7);ctx.lineTo(-21,5);ctx.lineTo(-13,17);ctx.lineTo(-10,43);ctx.lineTo(0,48);ctx.lineTo(10,43);ctx.lineTo(13,17);ctx.lineTo(21,5);ctx.lineTo(12,-7);ctx.closePath();ctx.fill();
+  ctx.fillStyle='#173a85';rr(-11,-8,22,18,7);ctx.fillStyle=l;ctx.beginPath();ctx.arc(0,-22,13,0,Math.PI*2);ctx.fill();ctx.fillStyle=d;ctx.beginPath();ctx.moveTo(-12,-26);ctx.lineTo(-8,-41);ctx.lineTo(0,-32);ctx.lineTo(9,-42);ctx.lineTo(13,-24);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#fff';ctx.lineWidth=2.4;ctx.beginPath();ctx.moveTo(-7,-23);ctx.lineTo(-2,-21);ctx.moveTo(2,-21);ctx.lineTo(7,-23);ctx.stroke();
+  ctx.fillStyle='#153b86';ctx.strokeStyle=l;ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(-12,2);ctx.lineTo(0,-4);ctx.lineTo(12,2);ctx.lineTo(8,17);ctx.lineTo(0,22);ctx.lineTo(-8,17);ctx.closePath();ctx.fill();ctx.stroke();
+  ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(0,1);ctx.lineTo(-5,10);ctx.lineTo(1,9);ctx.lineTo(-2,17);ctx.lineTo(7,7);ctx.lineTo(2,8);ctx.stroke();
+  ctx.strokeStyle=l;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-20,-1);ctx.lineTo(-34,-15);ctx.lineTo(-28,-20);ctx.moveTo(20,-1);ctx.lineTo(34,-15);ctx.lineTo(28,-20);ctx.stroke();
+  ctx.strokeStyle='#fff';ctx.lineWidth=1.7;for(let i=0;i<4;i++){const x=-30+i*20;ctx.beginPath();ctx.moveTo(x,34);ctx.lineTo(x+5,25);ctx.lineTo(x+1,18);ctx.stroke();}
+ }else if(id==='kitsune'){
+  // Forma erguida como Dough: no se inclina al avanzar arriba/abajo; solo se refleja al mirar a izquierda/derecha.
+  if(player.dx<-.15)ctx.scale(-1,1);
+  // Nueve colas en abanico detrás del guardián. Cada una tiene borde oscuro, degradado y punta luminosa.
+  const tailTips=[[-62,-48],[-69,-31],[-72,-12],[-68,8],[-60,28],[-48,45],[-34,55],[-22,-57],[-43,-61]];
+  tailTips.forEach(([tx,ty],i)=>{
+   const sx=-8,sy=13+(i%3)*2;
+   ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
+   ctx.strokeStyle='#3b1a69';ctx.lineWidth=14;ctx.beginPath();ctx.moveTo(sx,sy);ctx.bezierCurveTo(tx*.22,-4,tx*.72,ty+22,tx,ty);ctx.stroke();
+   const tg=ctx.createLinearGradient(sx,sy,tx,ty);tg.addColorStop(0,i%2?'#8c55e9':'#c89aff');tg.addColorStop(.58,i%3?'#b77aff':'#f0d9ff');tg.addColorStop(1,'#fff8ff');
+   ctx.strokeStyle=tg;ctx.lineWidth=9;ctx.beginPath();ctx.moveTo(sx,sy);ctx.bezierCurveTo(tx*.22,-4,tx*.72,ty+22,tx,ty);ctx.stroke();
+   ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(sx,sy);ctx.quadraticCurveTo(tx*.63,ty+18,tx,ty+4);ctx.stroke();
+   // Motivo de llama en cada punta.
+   ctx.fillStyle=i%2?'#fff4ff':'#ffe7ae';ctx.beginPath();ctx.arc(tx,ty,2.3+(i%2)*.6,0,Math.PI*2);ctx.fill();ctx.restore();
+  });
+  // Silueta humanoide compacta y erguida, con capa corta y placas violetas.
+  const fur=ctx.createLinearGradient(-18,-43,22,48);fur.addColorStop(0,'#fff4ff');fur.addColorStop(.38,'#c99cff');fur.addColorStop(.75,p);fur.addColorStop(1,d);
+  ctx.fillStyle='#41206d';ctx.beginPath();ctx.moveTo(-12,-7);ctx.lineTo(-22,4);ctx.lineTo(-18,31);ctx.lineTo(-9,40);ctx.lineTo(0,35);ctx.lineTo(9,40);ctx.lineTo(18,31);ctx.lineTo(22,4);ctx.lineTo(12,-7);ctx.closePath();ctx.fill();
+  ctx.fillStyle=fur;ctx.beginPath();ctx.moveTo(-10,-8);ctx.lineTo(-16,5);ctx.lineTo(-12,28);ctx.lineTo(0,34);ctx.lineTo(12,28);ctx.lineTo(16,5);ctx.lineTo(10,-8);ctx.closePath();ctx.fill();
+  // Brazos y guantes de energía.
+  ctx.strokeStyle='#6335a5';ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(-12,-1);ctx.lineTo(-26,12);ctx.lineTo(-22,23);ctx.moveTo(12,-1);ctx.lineTo(24,10);ctx.lineTo(20,22);ctx.stroke();
+  ctx.strokeStyle='#f4ddff';ctx.lineWidth=2.2;ctx.beginPath();ctx.moveTo(-26,12);ctx.lineTo(-22,23);ctx.moveTo(24,10);ctx.lineTo(20,22);ctx.stroke();
+  // Piernas y botas.
+  ctx.fillStyle='#56308a';ctx.beginPath();ctx.moveTo(-11,27);ctx.lineTo(-13,46);ctx.lineTo(-2,47);ctx.lineTo(0,33);ctx.lineTo(5,47);ctx.lineTo(16,45);ctx.lineTo(11,26);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#e7ccff';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-13,43);ctx.lineTo(-3,43);ctx.moveTo(6,43);ctx.lineTo(16,42);ctx.stroke();
+  // Cabeza de zorro de perfil hacia la derecha; la reflexión permite mirar al lado contrario.
+  ctx.fillStyle='#51257e';ctx.beginPath();ctx.moveTo(-15,-31);ctx.lineTo(-23,-56);ctx.lineTo(-5,-45);ctx.lineTo(1,-52);ctx.lineTo(7,-43);ctx.lineTo(23,-51);ctx.lineTo(18,-27);ctx.quadraticCurveTo(13,-12,0,-13);ctx.quadraticCurveTo(-13,-15,-15,-31);ctx.closePath();ctx.fill();
+  ctx.fillStyle=fur;ctx.beginPath();ctx.moveTo(-12,-31);ctx.lineTo(-19,-51);ctx.lineTo(-5,-41);ctx.lineTo(1,-47);ctx.lineTo(7,-39);ctx.lineTo(19,-46);ctx.lineTo(15,-28);ctx.quadraticCurveTo(11,-16,0,-17);ctx.quadraticCurveTo(-11,-18,-12,-31);ctx.closePath();ctx.fill();
+  // Hocico, nariz y ojo expresivo lateral.
+  ctx.fillStyle='#fff7ff';ctx.beginPath();ctx.moveTo(5,-30);ctx.quadraticCurveTo(18,-32,25,-26);ctx.lineTo(20,-19);ctx.lineTo(7,-20);ctx.closePath();ctx.fill();
+  ctx.fillStyle='#48216f';ctx.beginPath();ctx.arc(24,-26,2.5,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(7,-31,3.2,4,-.2,0,Math.PI*2);ctx.fill();ctx.fillStyle='#35114f';ctx.beginPath();ctx.ellipse(8,-31,1.5,3,0,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#4a1d73';ctx.lineWidth=2.8;ctx.beginPath();ctx.moveTo(3,-37);ctx.lineTo(12,-40);ctx.stroke();
+  // Diadema, gema frontal y marcas espirituales.
+  ctx.strokeStyle='#ffe4a8';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-11,-39);ctx.quadraticCurveTo(1,-47,15,-39);ctx.stroke();
+  ctx.fillStyle='#ffe6a8';ctx.beginPath();ctx.moveTo(1,-45);ctx.lineTo(6,-39);ctx.lineTo(1,-33);ctx.lineTo(-4,-39);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#fff0ff';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-7,-18);ctx.lineTo(-3,-12);ctx.moveTo(0,-17);ctx.lineTo(4,-11);ctx.stroke();
+  // Pequeñas llamas orbitan el cuerpo sin tapar la silueta.
+  for(let i=0;i<5;i++){const a=frame*.035+i*Math.PI*2/5;const x=27+Math.cos(a)*5,y=-7+Math.sin(a)*24;ctx.fillStyle=i%2?'#fff':'#f8dca4';ctx.globalAlpha=.65+.25*Math.sin(frame*.08+i);ctx.beginPath();ctx.arc(x,y,2.1,0,Math.PI*2);ctx.fill();}
+  ctx.globalAlpha=1;
+ }else if(id==='buddha'){
+  if(player.dx<-.15)ctx.scale(-1,1);
+  // Gran avatar dorado de perfil: la silueta permanece vertical y solo cambia de lado al girar horizontalmente.
+  for(let r=48;r<=84;r+=12){ctx.strokeStyle=`rgba(${f.rgb},${.52-(r-48)*.0028})`;ctx.lineWidth=2.4;ctx.beginPath();ctx.arc(0,-27,r,0,Math.PI*2);ctx.stroke();}
+  for(let i=0;i<20;i++){const a=i*Math.PI/10+frame*.0015;ctx.save();ctx.rotate(a);ctx.strokeStyle='rgba(255,244,190,.72)';ctx.lineWidth=i%2?2:3;ctx.beginPath();ctx.moveTo(0,-83);ctx.lineTo(0,-101);ctx.stroke();ctx.restore();}
+  // Halo central y pequeños discos sagrados.
+  ctx.fillStyle='rgba(255,239,160,.16)';ctx.beginPath();ctx.arc(0,-27,43,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#fff0a7';ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,-27,42,0,Math.PI*2);ctx.stroke();
+  for(let i=0;i<8;i++){const a=i*Math.PI/4;ctx.fillStyle=i%2?'#fff6c9':'#d99b23';ctx.beginPath();ctx.arc(Math.cos(a)*42,-27+Math.sin(a)*42,2.8,0,Math.PI*2);ctx.fill();}
+  const gold=ctx.createLinearGradient(-52,-62,54,69);gold.addColorStop(0,'#fff9cf');gold.addColorStop(.3,'#f8d86b');gold.addColorStop(.62,'#d99b25');gold.addColorStop(1,'#87530b');
+  const darkGold='#81500d';
+  // Piernas robustas y grebas.
+  ctx.fillStyle=darkGold;ctx.beginPath();ctx.moveTo(-29,30);ctx.lineTo(-25,62);ctx.lineTo(-5,67);ctx.lineTo(0,48);ctx.lineTo(8,67);ctx.lineTo(30,62);ctx.lineTo(34,29);ctx.closePath();ctx.fill();
+  ctx.fillStyle=gold;ctx.beginPath();ctx.moveTo(-20,34);ctx.lineTo(-17,59);ctx.lineTo(-5,61);ctx.lineTo(0,45);ctx.lineTo(8,61);ctx.lineTo(23,58);ctx.lineTo(25,34);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#fff2b5';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-21,53);ctx.lineTo(-7,56);ctx.moveTo(9,56);ctx.lineTo(24,52);ctx.stroke();
+  // Capa y torso ancho de titán.
+  ctx.fillStyle=darkGold;ctx.beginPath();ctx.moveTo(-19,-21);ctx.lineTo(-43,-18);ctx.lineTo(-54,5);ctx.lineTo(-43,35);ctx.lineTo(-31,47);ctx.lineTo(31,47);ctx.lineTo(43,35);ctx.lineTo(54,5);ctx.lineTo(43,-18);ctx.lineTo(18,-21);ctx.closePath();ctx.fill();
+  ctx.fillStyle=gold;ctx.beginPath();ctx.moveTo(-17,-23);ctx.quadraticCurveTo(-42,-22,-45,3);ctx.lineTo(-34,31);ctx.lineTo(-25,40);ctx.lineTo(25,40);ctx.lineTo(35,30);ctx.lineTo(46,3);ctx.quadraticCurveTo(41,-22,17,-23);ctx.lineTo(12,-35);ctx.lineTo(-12,-35);ctx.closePath();ctx.fill();
+  // Placas pectorales y faja central.
+  ctx.fillStyle='#a96f12';ctx.beginPath();ctx.moveTo(-15,-22);ctx.lineTo(0,-7);ctx.lineTo(15,-22);ctx.lineTo(10,22);ctx.lineTo(0,30);ctx.lineTo(-10,22);ctx.closePath();ctx.fill();
+  ctx.fillStyle='#ffe9a0';ctx.beginPath();ctx.moveTo(-10,-20);ctx.lineTo(0,-8);ctx.lineTo(10,-20);ctx.lineTo(6,17);ctx.lineTo(0,23);ctx.lineTo(-6,17);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#fff6cf';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(-33,-2);ctx.quadraticCurveTo(-18,12,0,19);ctx.quadraticCurveTo(18,12,33,-2);ctx.stroke();
+  ctx.fillStyle='#9c6410';ctx.beginPath();ctx.arc(0,5,7,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff1a8';ctx.beginPath();ctx.arc(0,5,4,0,Math.PI*2);ctx.fill();
+  // Hombros enormes con bordes y remaches.
+  for(const side of [-1,1]){ctx.save();ctx.scale(side,1);ctx.fillStyle='#a86d12';ctx.beginPath();ctx.moveTo(30,-19);ctx.lineTo(44,-29);ctx.lineTo(57,-15);ctx.lineTo(49,9);ctx.lineTo(34,8);ctx.closePath();ctx.fill();ctx.fillStyle=gold;ctx.beginPath();ctx.moveTo(32,-18);ctx.lineTo(44,-25);ctx.lineTo(52,-14);ctx.lineTo(45,4);ctx.lineTo(34,3);ctx.closePath();ctx.fill();ctx.fillStyle='#fff4bd';ctx.beginPath();ctx.arc(43,-13,3,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#fff0a7';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(49,-19);ctx.lineTo(60,-27);ctx.lineTo(55,-10);ctx.stroke();ctx.restore();}
+  // Brazos colosales, brazaletes y puños cerrados.
+  ctx.strokeStyle='#94600f';ctx.lineWidth=13;ctx.beginPath();ctx.moveTo(-40,-3);ctx.lineTo(-48,20);ctx.lineTo(-40,33);ctx.moveTo(40,-3);ctx.lineTo(49,18);ctx.lineTo(42,32);ctx.stroke();
+  ctx.strokeStyle='#ffe89b';ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(-48,17);ctx.lineTo(-42,25);ctx.moveTo(49,15);ctx.lineTo(44,24);ctx.stroke();
+  ctx.fillStyle=gold;ctx.beginPath();ctx.arc(-40,34,7,0,Math.PI*2);ctx.arc(42,33,7,0,Math.PI*2);ctx.fill();
+  // Cabeza de perfil, con nariz marcada, ceja, oreja y moño superior.
+  ctx.fillStyle='#a86a14';ctx.beginPath();ctx.ellipse(3,-52,21,23,0,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#ffe9a0';ctx.beginPath();ctx.ellipse(3,-54,18,20,0,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#f1c34f';ctx.beginPath();ctx.moveTo(0,-71);ctx.quadraticCurveTo(21,-76,22,-57);ctx.lineTo(19,-48);ctx.lineTo(31,-42);ctx.lineTo(19,-36);ctx.lineTo(16,-29);ctx.lineTo(1,-31);ctx.lineTo(-12,-42);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#fff5c5';ctx.lineWidth=2.2;ctx.beginPath();ctx.moveTo(0,-71);ctx.quadraticCurveTo(18,-78,23,-60);ctx.stroke();
+  ctx.fillStyle='#68400c';ctx.beginPath();ctx.ellipse(15,-53,3.4,2.2,0,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#8b4d0a';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(18,-39);ctx.quadraticCurveTo(24,-35,29,-40);ctx.stroke();
+  ctx.fillStyle='#fff5c6';ctx.beginPath();ctx.arc(-1,-74,7,0,Math.PI*2);ctx.fill();
+  // Corona baja, joya frontal y marcas sagradas.
+  ctx.fillStyle='#9b6514';ctx.beginPath();ctx.moveTo(-13,-69);ctx.lineTo(-18,-82);ctx.lineTo(-7,-77);ctx.lineTo(0,-88);ctx.lineTo(7,-77);ctx.lineTo(18,-82);ctx.lineTo(14,-66);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#fff3b5';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(-13,-69);ctx.lineTo(-18,-82);ctx.lineTo(-7,-77);ctx.lineTo(0,-88);ctx.lineTo(7,-77);ctx.lineTo(18,-82);ctx.lineTo(14,-66);ctx.stroke();
+  ctx.fillStyle='#fff4b3';ctx.beginPath();ctx.moveTo(0,-83);ctx.lineTo(5,-77);ctx.lineTo(0,-71);ctx.lineTo(-5,-77);ctx.closePath();ctx.fill();
+  ctx.fillStyle='#b77714';ctx.beginPath();ctx.arc(-12,-51,5,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#fff2ae';ctx.lineWidth=2;ctx.beginPath();ctx.arc(-12,-51,8,0,Math.PI*2);ctx.stroke();
+  // Collar y colgante de energía bajo el cuello.
+  ctx.strokeStyle='#fff2af';ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,-26,14,.15,Math.PI-.15);ctx.stroke();
+  ctx.fillStyle='#fff0a0';ctx.beginPath();ctx.moveTo(-6,39);ctx.lineTo(0,48);ctx.lineTo(6,39);ctx.strokeStyle='#fff0a0';ctx.lineWidth=2.5;ctx.stroke();
+ }else if(id==='pain'){
+  if(player.dx<-.15)ctx.scale(-1,1);
+  // Coloso carmesí de la gravedad, erguido y reflejado solo al cambiar de lado: coraza por capas, corona agresiva y núcleo brillante.
+  for(let r=38;r<=66;r+=9){ctx.strokeStyle=`rgba(${f.rgb},${.48-(r-38)*.003})`;ctx.lineWidth=2.2;ctx.beginPath();ctx.arc(0,-3,r,0,Math.PI*2);ctx.stroke();}
+  // Corona de espinas con puntas alternadas y brillo.
+  for(let i=0;i<16;i++){const a=i*Math.PI*2/16+frame*.004;ctx.save();ctx.rotate(a);ctx.strokeStyle=i%2?'#ff9bab':p;ctx.lineWidth=i%2?3.2:4.5;ctx.beginPath();ctx.moveTo(0,-45);ctx.lineTo(0,-68-(i%3)*5);ctx.stroke();ctx.fillStyle='#ffd6dd';ctx.beginPath();ctx.arc(0,-70-(i%3)*5,2.6,0,Math.PI*2);ctx.fill();ctx.restore();}
+  const armor=ctx.createLinearGradient(-42,-44,42,58);armor.addColorStop(0,'#ffb1bd');armor.addColorStop(.25,'#fa7189');armor.addColorStop(.58,p);armor.addColorStop(1,d);
+  // Capa de sombra y torso blindado, más ancho que el personaje normal.
+  ctx.fillStyle='#541026';ctx.beginPath();ctx.moveTo(-18,-19);ctx.lineTo(-42,-31);ctx.lineTo(-57,-12);ctx.lineTo(-43,14);ctx.lineTo(-36,42);ctx.lineTo(-18,55);ctx.lineTo(0,46);ctx.lineTo(18,55);ctx.lineTo(36,42);ctx.lineTo(43,14);ctx.lineTo(57,-12);ctx.lineTo(42,-31);ctx.lineTo(18,-19);ctx.closePath();ctx.fill();
+  ctx.fillStyle=armor;ctx.beginPath();ctx.moveTo(-17,-20);ctx.lineTo(-34,-24);ctx.lineTo(-31,7);ctx.lineTo(-23,35);ctx.lineTo(0,47);ctx.lineTo(23,35);ctx.lineTo(31,7);ctx.lineTo(34,-24);ctx.lineTo(17,-20);ctx.lineTo(0,-7);ctx.closePath();ctx.fill();
+  // Placas del pecho y líneas angulares rojas.
+  ctx.fillStyle='#6f1530';ctx.beginPath();ctx.moveTo(-15,-13);ctx.lineTo(0,-1);ctx.lineTo(15,-13);ctx.lineTo(9,26);ctx.lineTo(0,34);ctx.lineTo(-9,26);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#ffc2cb';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-23,-9);ctx.lineTo(-11,8);ctx.lineTo(0,14);ctx.lineTo(11,8);ctx.lineTo(23,-9);ctx.stroke();
+  ctx.strokeStyle='#ffccd3';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-19,28);ctx.lineTo(-6,37);ctx.lineTo(0,30);ctx.lineTo(6,37);ctx.lineTo(19,28);ctx.stroke();
+  // Hombros con púas laterales y remaches luminosos.
+  for(const side of [-1,1]){ctx.save();ctx.scale(side,1);ctx.fillStyle='#82152f';ctx.beginPath();ctx.moveTo(29,-20);ctx.lineTo(48,-29);ctx.lineTo(60,-12);ctx.lineTo(47,11);ctx.lineTo(31,6);ctx.closePath();ctx.fill();ctx.fillStyle='#f45b76';ctx.beginPath();ctx.moveTo(32,-18);ctx.lineTo(47,-25);ctx.lineTo(54,-12);ctx.lineTo(44,3);ctx.closePath();ctx.fill();ctx.fillStyle='#ffd7dc';ctx.beginPath();ctx.arc(44,-12,3,0,Math.PI*2);ctx.fill();ctx.fillStyle='#ff9dab';ctx.beginPath();ctx.moveTo(48,-19);ctx.lineTo(67,-37);ctx.lineTo(59,-11);ctx.closePath();ctx.fill();ctx.restore();}
+  // Brazos blindados y puños cerrados.
+  ctx.strokeStyle='#681329';ctx.lineWidth=13;ctx.beginPath();ctx.moveTo(-40,-5);ctx.lineTo(-49,18);ctx.lineTo(-40,33);ctx.moveTo(40,-5);ctx.lineTo(50,17);ctx.lineTo(41,33);ctx.stroke();
+  ctx.strokeStyle='#ff9bab';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(-50,17);ctx.lineTo(-43,25);ctx.moveTo(50,16);ctx.lineTo(44,25);ctx.stroke();
+  // Máscara/casco con cuernos y rostro feroz.
+  ctx.fillStyle='#4c1024';ctx.beginPath();ctx.moveTo(-18,-46);ctx.lineTo(-26,-70);ctx.lineTo(-7,-59);ctx.lineTo(0,-84);ctx.lineTo(8,-59);ctx.lineTo(27,-70);ctx.lineTo(18,-43);ctx.lineTo(22,-28);ctx.lineTo(0,-17);ctx.lineTo(-22,-28);ctx.closePath();ctx.fill();
+  ctx.fillStyle=armor;ctx.beginPath();ctx.moveTo(-15,-48);ctx.quadraticCurveTo(0,-64,15,-48);ctx.lineTo(13,-29);ctx.lineTo(0,-21);ctx.lineTo(-13,-29);ctx.closePath();ctx.fill();
+  // Cejas descendentes y ojos encendidos.
+  ctx.strokeStyle='#fff2f4';ctx.lineWidth=4.2;ctx.beginPath();ctx.moveTo(-13,-45);ctx.lineTo(-2,-38);ctx.moveTo(13,-45);ctx.lineTo(2,-38);ctx.stroke();
+  ctx.fillStyle='#551024';ctx.beginPath();ctx.ellipse(-7,-40,3.5,2.8,0,0,Math.PI*2);ctx.ellipse(7,-40,3.5,2.8,0,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#fff';ctx.shadowColor='#fff';ctx.shadowBlur=10;ctx.fillRect(-8,-41,2,3);ctx.fillRect(6,-41,2,3);ctx.shadowBlur=0;
+  ctx.strokeStyle='#541025';ctx.lineWidth=3.2;ctx.beginPath();ctx.moveTo(-7,-29);ctx.lineTo(0,-25);ctx.lineTo(7,-29);ctx.stroke();
+  // Núcleo de gravedad en el abdomen y grietas energéticas.
+  ctx.fillStyle='#fff0f3';ctx.shadowColor=p;ctx.shadowBlur=18;ctx.beginPath();ctx.arc(0,15,10+2*pulse,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+  ctx.fillStyle='#a91337';ctx.beginPath();ctx.arc(0,15,5,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#ffd0d7';ctx.lineWidth=2.2;ctx.beginPath();ctx.moveTo(-31,8);ctx.lineTo(-22,18);ctx.lineTo(-29,29);ctx.moveTo(31,8);ctx.lineTo(22,18);ctx.lineTo(29,29);ctx.stroke();
+  // Manto inferior en puntas y placas de piernas.
+  ctx.fillStyle='#681329';ctx.beginPath();ctx.moveTo(-29,34);ctx.lineTo(-22,56);ctx.lineTo(-8,49);ctx.lineTo(0,65);ctx.lineTo(8,49);ctx.lineTo(22,56);ctx.lineTo(29,34);ctx.lineTo(14,42);ctx.lineTo(0,37);ctx.lineTo(-14,42);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#ff9dab';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(-19,43);ctx.lineTo(-17,57);ctx.moveTo(19,43);ctx.lineTo(17,57);ctx.stroke();
+  for(let i=0;i<7;i++){const a=i*Math.PI/3+frame*.01;ctx.fillStyle=i%2?l:'#fff';ctx.beginPath();ctx.arc(Math.cos(a)*70,Math.sin(a)*70,2.5,0,Math.PI*2);ctx.fill();}
+ }else if(id==='dough'){
+  if(player.dx<-.15)ctx.scale(-1,1);
+  // Rueda de masa: corona circular gruesa con púas. Gira; el avatar interior y su cabeza permanecen rectos.
+  ctx.save();ctx.rotate(frame*.0035);
+  const dough=ctx.createLinearGradient(-58,-55,58,58);dough.addColorStop(0,'#fff');dough.addColorStop(.45,'#e9e9f7');dough.addColorStop(1,'#9ca9c8');
+  ctx.fillStyle='#65718f';ctx.beginPath();ctx.arc(0,0,52,0,Math.PI*2);ctx.arc(0,0,31,0,Math.PI*2,true);ctx.fill('evenodd');
+  ctx.fillStyle=dough;ctx.beginPath();ctx.arc(0,0,48,0,Math.PI*2);ctx.arc(0,0,31,0,Math.PI*2,true);ctx.fill('evenodd');
+  ctx.strokeStyle='#fff';ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(0,0,39,0,Math.PI*2);ctx.stroke();
+  ctx.strokeStyle='rgba(112,126,157,.72)';ctx.lineWidth=2;ctx.setLineDash([5,7]);ctx.beginPath();ctx.arc(0,0,34,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+  for(let i=0;i<14;i++){const a=i*Math.PI*2/14;ctx.save();ctx.rotate(a);ctx.fillStyle=i%2?'#d7dff0':'#fff';ctx.strokeStyle='#8995b4';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(-7,-41);ctx.lineTo(0,-65);ctx.lineTo(8,-41);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='rgba(255,255,255,.85)';ctx.beginPath();ctx.moveTo(-3,-45);ctx.lineTo(0,-59);ctx.lineTo(2,-44);ctx.closePath();ctx.fill();ctx.restore();}
+  for(let i=0;i<10;i++){const a=i*Math.PI/5;ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(Math.cos(a)*43,Math.sin(a)*43,2,0,Math.PI*2);ctx.fill();}
+  ctx.restore();
+  // Avatar humanoide frontal en el centro del aro, con cabeza fija al frente.
+  const body=ctx.createLinearGradient(-15,-25,15,43);body.addColorStop(0,'#fff');body.addColorStop(.55,'#e9eaf5');body.addColorStop(1,'#8e9ab9');
+  ctx.fillStyle='#68748f';ctx.beginPath();ctx.moveTo(-13,-5);ctx.lineTo(-20,8);ctx.lineTo(-15,32);ctx.lineTo(-7,39);ctx.lineTo(0,29);ctx.lineTo(7,39);ctx.lineTo(15,32);ctx.lineTo(20,8);ctx.lineTo(13,-5);ctx.closePath();ctx.fill();
+  ctx.fillStyle=body;ctx.beginPath();ctx.moveTo(-12,-7);ctx.lineTo(-17,9);ctx.lineTo(-12,29);ctx.lineTo(0,35);ctx.lineTo(12,29);ctx.lineTo(17,9);ctx.lineTo(12,-7);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#aab4cb';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-13,3);ctx.lineTo(-19,14);ctx.moveTo(13,3);ctx.lineTo(19,14);ctx.stroke();ctx.fillStyle='#8996b5';ctx.fillRect(-11,8,22,5);ctx.fillStyle='#fff';ctx.fillRect(-7,9,14,2);
+  ctx.fillStyle='#fffdfd';ctx.beginPath();ctx.ellipse(0,-21,13,16,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#9aa6c4';ctx.lineWidth=2;ctx.stroke();
+  ctx.fillStyle='#43506e';ctx.beginPath();ctx.ellipse(-5,-22,2.1,3,0,0,Math.PI*2);ctx.ellipse(5,-22,2.1,3,0,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#9a506d';ctx.lineWidth=2.2;ctx.beginPath();ctx.moveTo(-4,-14);ctx.quadraticCurveTo(0,-11,4,-14);ctx.stroke();
+  ctx.fillStyle='#dce3f2';ctx.beginPath();ctx.moveTo(-10,-34);ctx.quadraticCurveTo(0,-42,10,-34);ctx.lineTo(8,-29);ctx.lineTo(-8,-29);ctx.closePath();ctx.fill();
+  // Tridente oscuro con tres puntas, a un lado del avatar.
+  ctx.strokeStyle='#67452f';ctx.lineWidth=4.5;ctx.beginPath();ctx.moveTo(27,37);ctx.lineTo(35,-49);ctx.stroke();ctx.strokeStyle='#f4d69b';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(34,-42);ctx.lineTo(34,-58);ctx.moveTo(34,-53);ctx.lineTo(24,-65);ctx.moveTo(34,-53);ctx.lineTo(44,-65);ctx.stroke();
+  ctx.fillStyle='#f4d69b';ctx.beginPath();ctx.arc(34,-52,3.2,0,Math.PI*2);ctx.fill();
+ }
+ ctx.shadowBlur=0;ctx.restore();
+}
 function draw(){ctx.save();if(shake>1)ctx.translate(rand(-shake,shake),rand(-shake,shake));let t=currentTheme();let grad=ctx.createLinearGradient(0,0,0,H);grad.addColorStop(0,t.sky);grad.addColorStop(1,t.water);ctx.fillStyle=grad;ctx.fillRect(0,0,W,H);
 for(let i=0;i<50;i++){let x=(i*97+frame*.25)%W,y=(i*61+Math.sin(frame*.02+i)*8)%H;ctx.strokeStyle=island>=20?'rgba(255,255,255,.42)':'rgba(255,255,255,.2)';ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+13,y-2);ctx.stroke();}
 ctx.fillStyle=t.sand;ctx.beginPath();ctx.ellipse(W/2,H/2+13,370,240,0,0,Math.PI*2);ctx.fill();ctx.fillStyle=t.grass;ctx.beginPath();ctx.ellipse(W/2,H/2,355,225,0,0,Math.PI*2);ctx.fill();ctx.fillStyle=t.deep;for(let i=0;i<22;i++){let x=70+(i*173)%760,y=65+(i*97)%410;ctx.beginPath();ctx.ellipse(x,y,18+(i%3)*4,8+(i%4)*2,.3,0,Math.PI*2);ctx.fill();}
@@ -1304,32 +1693,34 @@ for(const e of enemies){
 for(const p of particles){ctx.globalAlpha=Math.max(0,p.life/p.max);if(p.ring){ctx.strokeStyle=p.color;ctx.lineWidth=5*(p.life/p.max)+1;ctx.shadowColor=p.color;ctx.shadowBlur=16;ctx.beginPath();ctx.arc(p.x,p.y,p.radius*(1-p.life/p.max*.22),0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;}else if(p.beam){ctx.strokeStyle=p.color;ctx.lineWidth=p.width*(p.life/p.max);ctx.lineCap='round';ctx.shadowColor=p.color;ctx.shadowBlur=18;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.ex,p.ey);ctx.stroke();ctx.shadowBlur=0;}else{ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();}}ctx.globalAlpha=1;
 ctx.save();ctx.translate(player.x,player.y);if(player.inv>0&&Math.floor(frame/4)%2===0)ctx.globalAlpha=.45;
 ctx.fillStyle='rgba(0,0,0,.2)';ctx.beginPath();ctx.ellipse(0,13,16,6,0,0,Math.PI*2);ctx.fill();
-if(transformed){
+if(transformed&&selectedFruit!=='dragon'){
+ drawFruitTransformation(ctx,selectedFruit,fruitInfo(),frame);
+}else if(transformed){
  // Dragón oriental serpentino: cuerpo ondulado, escamas oscuras, bigotes y cuernos ramificados.
  ctx.rotate(Math.atan2(player.dy,player.dx)+Math.PI/2);
  const pulse=.5+.5*Math.sin(frame*.105);
  const aura=ctx.createRadialGradient(0,8,4,0,8,74);
- aura.addColorStop(0,'rgba(255,168,58,.18)');aura.addColorStop(.43,'rgba(255,113,37,.13)');aura.addColorStop(1,'rgba(255,91,35,0)');
+ aura.addColorStop(0,'rgba(57,217,138,.18)');aura.addColorStop(.43,'rgba(57,217,138,.13)');aura.addColorStop(1,'rgba(57,217,138,0)');
  ctx.fillStyle=aura;ctx.beginPath();ctx.ellipse(0,7,49,72,0,0,Math.PI*2);ctx.fill();
- // El cuerpo dibuja una S larga: la línea exterior da el borde anaranjado del dragón de referencia.
+ // El cuerpo dibuja una S larga; el giro de la forma acompaña las ocho direcciones de movimiento.
  const bodyPath=()=>{ctx.beginPath();ctx.moveTo(0,-31);ctx.bezierCurveTo(17,-29,23,-14,8,-7);ctx.bezierCurveTo(-12,1,-24,5,-17,14);ctx.bezierCurveTo(-9,22,16,16,15,28);ctx.bezierCurveTo(14,39,-7,39,-9,48);ctx.bezierCurveTo(-10,55,-3,59,2,62);};
- const bodyGlow=ctx.createLinearGradient(-22,-36,24,58);bodyGlow.addColorStop(0,'#ffdb72');bodyGlow.addColorStop(.28,'#ff8437');bodyGlow.addColorStop(.63,'#e95828');bodyGlow.addColorStop(1,'#ffcc66');
- ctx.save();ctx.lineCap='round';ctx.lineJoin='round';ctx.shadowColor='#ff8a2d';ctx.shadowBlur=16+10*pulse;ctx.strokeStyle=bodyGlow;ctx.lineWidth=21;bodyPath();ctx.stroke();
+ const bodyGlow=ctx.createLinearGradient(-22,-36,24,58);bodyGlow.addColorStop(0,'#b8ffd9');bodyGlow.addColorStop(.28,'#39d98a');bodyGlow.addColorStop(.63,'#0c7453');bodyGlow.addColorStop(1,'#9fffc6');
+ ctx.save();ctx.lineCap='round';ctx.lineJoin='round';ctx.shadowColor='#39d98a';ctx.shadowBlur=16+10*pulse;ctx.strokeStyle=bodyGlow;ctx.lineWidth=21;bodyPath();ctx.stroke();
  const bodyFill=ctx.createLinearGradient(-16,-32,18,55);bodyFill.addColorStop(0,'#153746');bodyFill.addColorStop(.42,'#255e5b');bodyFill.addColorStop(.75,'#183b4a');bodyFill.addColorStop(1,'#102638');ctx.shadowBlur=2;ctx.strokeStyle=bodyFill;ctx.lineWidth=15;bodyPath();ctx.stroke();
  // Línea dorsal luminosa y vientre dorado que sigue la curva.
- ctx.strokeStyle='rgba(255,198,87,.96)';ctx.lineWidth=3.2;bodyPath();ctx.stroke();
- ctx.strokeStyle='rgba(255,240,171,.8)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,-25);ctx.bezierCurveTo(12,-22,17,-13,7,-8);ctx.bezierCurveTo(-10,0,-18,6,-13,13);ctx.bezierCurveTo(-5,19,11,17,11,27);ctx.bezierCurveTo(11,36,-5,40,-5,48);ctx.stroke();
+ ctx.strokeStyle='rgba(195,255,225,.96)';ctx.lineWidth=3.2;bodyPath();ctx.stroke();
+ ctx.strokeStyle='rgba(222,255,238,.8)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,-25);ctx.bezierCurveTo(12,-22,17,-13,7,-8);ctx.bezierCurveTo(-10,0,-18,6,-13,13);ctx.bezierCurveTo(-5,19,11,17,11,27);ctx.bezierCurveTo(11,36,-5,40,-5,48);ctx.stroke();
  ctx.restore();
  // Escamas transversales en los recodos del cuerpo.
  const scales=[[-2,-26,.32],[8,-20,.55],[13,-13,.9],[4,-5,-.35],[-9,1,-.55],[-17,6,.15],[-15,13,.7],[-4,17,.2],[8,19,-.2],[14,25,-.8],[9,32,-.95],[0,37,-.45],[-7,43,.2],[-8,49,.7],[-3,55,.5]];
  for(let i=0;i<scales.length;i++){
   const [sx,sy,ang]=scales[i];ctx.save();ctx.translate(sx,sy);ctx.rotate(ang);
-  ctx.fillStyle=i%2?'#e6a845':'#f6c95b';ctx.strokeStyle='rgba(25,51,60,.85)';ctx.lineWidth=.8;
+  ctx.fillStyle=i%2?'#57d99a':'#a8ffd0';ctx.strokeStyle='rgba(25,51,60,.85)';ctx.lineWidth=.8;
   ctx.beginPath();ctx.ellipse(0,0,5.7,2.4,0,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.restore();
  }
  // Pequeñas espinas y mechones al viento a lo largo del lomo.
  const spines=[[-9,-15,-1],[-15,0,1],[-10,20,-1],[7,31,1],[-3,45,-1]];
- for(const [sx,sy,side] of spines){ctx.fillStyle='#1b2e3f';ctx.strokeStyle='#ff9b3e';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(sx-3,sy+3);ctx.quadraticCurveTo(sx+side*8,sy-2,sx+side*5,sy-8);ctx.quadraticCurveTo(sx+side*1,sy-2,sx-3,sy+3);ctx.closePath();ctx.fill();ctx.stroke();}
+ for(const [sx,sy,side] of spines){ctx.fillStyle='#1b2e3f';ctx.strokeStyle='#79f0b4';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(sx-3,sy+3);ctx.quadraticCurveTo(sx+side*8,sy-2,sx+side*5,sy-8);ctx.quadraticCurveTo(sx+side*1,sy-2,sx-3,sy+3);ctx.closePath();ctx.fill();ctx.stroke();}
  // Patitas cortas con tres garras, más propias de un dragón oriental que de uno alado.
  ctx.lineCap='round';ctx.strokeStyle='#1a3c4b';ctx.lineWidth=5;
  for(const [sx,sy,side] of [[-8,-7,-1],[9,20,1]]){
@@ -1338,23 +1729,23 @@ if(transformed){
   ctx.strokeStyle='#1a3c4b';ctx.lineWidth=5;
  }
  // Cola bifurcada en forma de pincel de fuego.
- const tailGrad=ctx.createLinearGradient(-3,52,8,72);tailGrad.addColorStop(0,'#214b54');tailGrad.addColorStop(.5,'#e75a31');tailGrad.addColorStop(1,'#ffd36a');
+ const tailGrad=ctx.createLinearGradient(-3,52,8,72);tailGrad.addColorStop(0,'#214b54');tailGrad.addColorStop(.5,'#24b879');tailGrad.addColorStop(1,'#c3ffe1');
  ctx.strokeStyle=tailGrad;ctx.lineWidth=7;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(2,61);ctx.quadraticCurveTo(7,68,1,72);ctx.moveTo(2,61);ctx.quadraticCurveTo(-7,68,-8,71);ctx.stroke();
  // Cabeza alargada, cejas, orejas y cuernos curvos tipo asta.
  const headGrad=ctx.createLinearGradient(-14,-54,14,-26);headGrad.addColorStop(0,'#3b8575');headGrad.addColorStop(.5,'#1e5960');headGrad.addColorStop(1,'#102f43');
- ctx.save();ctx.shadowColor='#ff983e';ctx.shadowBlur=10;ctx.fillStyle=headGrad;ctx.strokeStyle='#ffc65b';ctx.lineWidth=1.7;
+ ctx.save();ctx.shadowColor='#39d98a';ctx.shadowBlur=10;ctx.fillStyle=headGrad;ctx.strokeStyle='#baffd8';ctx.lineWidth=1.7;
  ctx.beginPath();ctx.moveTo(-11,-35);ctx.quadraticCurveTo(-16,-42,-11,-48);ctx.lineTo(-5,-47);ctx.quadraticCurveTo(1,-52,8,-47);ctx.quadraticCurveTo(15,-42,11,-35);ctx.lineTo(16,-30);ctx.quadraticCurveTo(10,-25,2,-28);ctx.quadraticCurveTo(-6,-25,-14,-30);ctx.closePath();ctx.fill();ctx.stroke();
  // Hocico fino hacia delante.
  ctx.beginPath();ctx.moveTo(-10,-37);ctx.quadraticCurveTo(-17,-42,-20,-38);ctx.quadraticCurveTo(-16,-32,-8,-32);ctx.lineTo(5,-32);ctx.quadraticCurveTo(13,-32,14,-36);ctx.lineTo(7,-40);ctx.closePath();ctx.fill();ctx.stroke();
  // Cuernos ramificados.
- ctx.strokeStyle='#f6d77a';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-7,-44);ctx.quadraticCurveTo(-13,-51,-12,-58);ctx.quadraticCurveTo(-6,-55,-5,-50);ctx.moveTo(-10,-52);ctx.quadraticCurveTo(-17,-55,-17,-60);ctx.moveTo(7,-44);ctx.quadraticCurveTo(13,-51,12,-58);ctx.quadraticCurveTo(6,-55,5,-50);ctx.moveTo(10,-52);ctx.quadraticCurveTo(17,-55,17,-60);ctx.stroke();
+ ctx.strokeStyle='#c8ffe0';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-7,-44);ctx.quadraticCurveTo(-13,-51,-12,-58);ctx.quadraticCurveTo(-6,-55,-5,-50);ctx.moveTo(-10,-52);ctx.quadraticCurveTo(-17,-55,-17,-60);ctx.moveTo(7,-44);ctx.quadraticCurveTo(13,-51,12,-58);ctx.quadraticCurveTo(6,-55,5,-50);ctx.moveTo(10,-52);ctx.quadraticCurveTo(17,-55,17,-60);ctx.stroke();
  // Bigotes largos y fluidos.
- ctx.strokeStyle='#ffba56';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-11,-36);ctx.bezierCurveTo(-23,-34,-23,-25,-35,-24);ctx.moveTo(11,-36);ctx.bezierCurveTo(23,-34,23,-25,35,-24);ctx.stroke();
+ ctx.strokeStyle='#8df5b9';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-11,-36);ctx.bezierCurveTo(-23,-34,-23,-25,-35,-24);ctx.moveTo(11,-36);ctx.bezierCurveTo(23,-34,23,-25,35,-24);ctx.stroke();
  ctx.strokeStyle='#d0f6c9';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(-8,-32);ctx.quadraticCurveTo(-20,-29,-25,-19);ctx.moveTo(8,-32);ctx.quadraticCurveTo(20,-29,25,-19);ctx.stroke();
  // Ojos dorados con pupila estrecha.
- ctx.shadowColor='#fff2a1';ctx.shadowBlur=7;ctx.fillStyle='#ffe78b';ctx.beginPath();ctx.ellipse(-6,-40,3.4,2.4,-.2,0,Math.PI*2);ctx.ellipse(6,-40,3.4,2.4,.2,0,Math.PI*2);ctx.fill();ctx.fillStyle='#132d37';ctx.fillRect(-6.4,-42,1.1,4);ctx.fillRect(5.4,-42,1.1,4);ctx.restore();
+ ctx.shadowColor='#dffff0';ctx.shadowBlur=7;ctx.fillStyle='#eafff4';ctx.beginPath();ctx.ellipse(-6,-40,3.4,2.4,-.2,0,Math.PI*2);ctx.ellipse(6,-40,3.4,2.4,.2,0,Math.PI*2);ctx.fill();ctx.fillStyle='#132d37';ctx.fillRect(-6.4,-42,1.1,4);ctx.fillRect(5.4,-42,1.1,4);ctx.restore();
  // Chispas cálidas y pequeñas motas de energía recorren la silueta sinuosa.
- for(let i=0;i<6;i++){const sy=-23+i*15;const sx=Math.sin(frame*.07+i*1.1)*(9+(i%2)*8);ctx.globalAlpha=.38+.36*pulse;ctx.fillStyle=i%2?'#ffe27a':'#ff8240';ctx.beginPath();ctx.arc(sx,sy,1.6+(i%2)*.7,0,Math.PI*2);ctx.fill();}
+ for(let i=0;i<6;i++){const sy=-23+i*15;const sx=Math.sin(frame*.07+i*1.1)*(9+(i%2)*8);ctx.globalAlpha=.38+.36*pulse;ctx.fillStyle=i%2?'#c3ffe1':'#39d98a';ctx.beginPath();ctx.arc(sx,sy,1.6+(i%2)*.7,0,Math.PI*2);ctx.fill();}
  ctx.globalAlpha=player.inv>0&&Math.floor(frame/4)%2===0?.45:1;ctx.shadowBlur=0;
 }
 else{ctx.fillStyle='#273c77';rr(-10,-4,20,19,6);ctx.fillStyle='#ffd6a1';ctx.beginPath();ctx.arc(0,-8,10,0,Math.PI*2);ctx.fill();ctx.fillStyle='#f0f4ff';ctx.beginPath();ctx.moveTo(-10,-13);ctx.lineTo(0,-25);ctx.lineTo(10,-13);ctx.closePath();ctx.fill();ctx.fillStyle='#d34e62';ctx.fillRect(-10,-14,20,4);ctx.strokeStyle='#fff1b0';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(player.dx*8,player.dy*8);ctx.lineTo(player.dx*22,player.dy*22);ctx.stroke();}ctx.restore();
@@ -1366,12 +1757,13 @@ window.addEventListener('keydown',e=>{
  const adminVisible=!$('adminScreen').classList.contains('hidden');
  if(adminVisible){if(k==='Escape'&&!e.repeat){e.preventDefault();closeAdminPanel();}return;}
  const startMenuVisible=!$('startScreen').classList.contains('hidden');
+ const selectionMenuVisible=!$('fruitSelectScreen').classList.contains('hidden');
  const pauseMenuVisible=started&&paused&&!$('pauseScreen').classList.contains('hidden');
- if((startMenuVisible||pauseMenuVisible)&&!e.repeat){
+ if((startMenuVisible||selectionMenuVisible||pauseMenuVisible)&&!e.repeat){
   const normalized=(k==='b'||k==='B')?'b':(k==='a'||k==='A')?'a':k;
   if(normalized===adminCode[adminCodeIndex]){
    adminCodeIndex++;
-   if(adminCodeIndex===adminCode.length){e.preventDefault();adminCodeIndex=0;openAdminPanel(startMenuVisible?'start':'pause');return;}
+   if(adminCodeIndex===adminCode.length){e.preventDefault();adminCodeIndex=0;openAdminPanel(selectionMenuVisible?'selection':startMenuVisible?'start':'pause');return;}
    if(normalized.startsWith('Arrow'))e.preventDefault();
   }else{
    adminCodeIndex=normalized===adminCode[0]?1:0;
@@ -1383,7 +1775,7 @@ window.addEventListener('keydown',e=>{
  // P pausa/reanuda durante la partida; se ignoran las pantallas de menú y fin.
  // Se permite P dentro de la pantalla de pausa para poder reanudar con el teclado.
  if(k.toLowerCase()==='p'&&!e.repeat){
-  const menuTarget=e.target&&e.target.closest&&e.target.closest('.startScreen,.islandTransition,.gameOverScreen,.campaignCompleteScreen');
+  const menuTarget=e.target&&e.target.closest&&e.target.closest('.startScreen,.fruitSelectScreen,.islandTransition,.gameOverScreen,.campaignCompleteScreen');
   if(menuTarget||!started||gameOver||transitionPending||(campaignCompleteShown&&!postGame))return;
   e.preventDefault();
   togglePause();
@@ -1392,7 +1784,7 @@ window.addEventListener('keydown',e=>{
  // Espacio activa Rugido solo sobre el campo de juego. Si el foco está en
  // un botón o menú, se conserva el comportamiento accesible del navegador.
  if(isSpace){
-  const uiTarget=e.target&&e.target.closest&&e.target.closest('.startScreen,.islandTransition,.pauseScreen,.gameOverScreen,.campaignCompleteScreen,.adminScreen,button,a,input,select,textarea,[role="button"],[role="dialog"],[contenteditable="true"]');
+  const uiTarget=e.target&&e.target.closest&&e.target.closest('.startScreen,.fruitSelectScreen,.islandTransition,.pauseScreen,.gameOverScreen,.campaignCompleteScreen,.adminScreen,button,a,input,select,textarea,[role="button"],[role="dialog"],[contenteditable="true"]');
   if(uiTarget)return;
   if(!started||paused||gameOver||transitionPending)return;
   e.preventDefault();
@@ -1414,11 +1806,11 @@ window.addEventListener('keydown',e=>{
 const gameStageEl=document.querySelector('.gameStage');
 // El clic derecho no tiene acción dentro del juego: evita el menú contextual del navegador.
 document.addEventListener('contextmenu',e=>{
- if(e.target&&e.target.closest&&e.target.closest('.gameStage,header,.mobile,.startScreen,.islandTransition,.pauseScreen,.gameOverScreen,.campaignCompleteScreen,.adminScreen'))e.preventDefault();
+ if(e.target&&e.target.closest&&e.target.closest('.gameStage,header,.mobile,.startScreen,.fruitSelectScreen,.islandTransition,.pauseScreen,.gameOverScreen,.campaignCompleteScreen,.adminScreen'))e.preventDefault();
 },{capture:true});
 // Evita que un pointerdown derecho alcance los controles de ataque.
 gameStageEl.addEventListener('pointerdown',e=>{if(e.button===2){e.preventDefault();e.stopPropagation();}},{capture:true});
-const rugidoUiSelector='.startScreen,.islandTransition,.pauseScreen,.gameOverScreen,.campaignCompleteScreen,.adminScreen,button,a,input,select,textarea,[role="button"],[role="dialog"]';
+const rugidoUiSelector='.startScreen,.fruitSelectScreen,.islandTransition,.pauseScreen,.gameOverScreen,.campaignCompleteScreen,.adminScreen,button,a,input,select,textarea,[role="button"],[role="dialog"]';
 gameStageEl.addEventListener('pointerdown',e=>{
  if(e.button!==0||e.isPrimary===false)return;
  if(!started||paused||gameOver||transitionPending)return;
@@ -1437,11 +1829,15 @@ document.querySelectorAll('[data-ability]').forEach(b=>b.onclick=()=>ability(b.d
 document.querySelectorAll('[data-key]').forEach(b=>{let k=b.dataset.key;let down=e=>{e.preventDefault();keys[k]=true},up=e=>{e.preventDefault();keys[k]=false};b.addEventListener('pointerdown',down);b.addEventListener('pointerup',up);b.addEventListener('pointerleave',up);b.addEventListener('pointercancel',up);});
 $('mobileF').onclick=soar;$('mobileSpace').onclick=areaAttack;$('desktopM1').onclick=areaAttack;$('pauseBtn').onclick=()=>togglePause();$('resumeBtn').onclick=()=>togglePause(false);$('reloadBtn').onclick=()=>window.location.reload();
 islandNames.concat(['Dimensión Rainbow']).forEach((name,index)=>{const option=document.createElement('option');option.value=String(index);option.textContent=(index+1)+'. '+name;$('adminWorld').appendChild(option);});
-$('adminWorld').addEventListener('change',updateAdminLevelPreview);$('adminTeleportBtn').onclick=applyAdminTeleport;$('adminBackBtn').onclick=closeAdminPanel;
+Object.entries(FRUITS).forEach(([id,fruit])=>{const option=document.createElement('option');option.value=id;option.textContent=fruit.name+' · '+({speed:'Velocidad',defense:'Defensa',attack:'Ataque'}[fruit.group]);$('adminFruit').appendChild(option);});
+renderFruitSelect();updateAttackLabels();
+$('fruitGroups').addEventListener('click',e=>{const option=e.target.closest('[data-fruit]');if(option)setSelectedFruit(option.dataset.fruit);});
+$('adminWorld').addEventListener('change',updateAdminLevelPreview);$('adminFruit').addEventListener('change',applyAdminFruit);$('adminTeleportBtn').onclick=applyAdminTeleport;$('adminBackBtn').onclick=closeAdminPanel;
+$('confirmFruitBtn').onclick=startAdventure;
 $('goIslandBtn').onclick=()=>{transitionPending=false;document.body.classList.remove('game-transition','game-paused');paused=false;$('islandTransition').classList.add('hidden');document.body.classList.add('game-started');syncPauseButtonVisibility();$('status').textContent=postGame?'Dimensión Rainbow':(island>=20?'Dimensión Rainbow':'Explorando '+areaName());log('Rumbo a '+areaName()+'. La aventura continúa.');updateUI();};
-$('startBtn').onclick=()=>{getSfxAudioContext();if(!gameOver){spawnClock=0;started=true;paused=false;transitionPending=false;document.body.classList.remove('game-transition','game-paused');document.body.classList.add('game-started');$('startScreen').classList.add('hidden');$('islandTransition').classList.add('hidden');$('status').textContent='Explorando '+areaName();syncPauseButtonVisibility();log('¡Aventura iniciada en '+areaName()+'! Hay hasta siete enemigos en pantalla, con un máximo de tres jefes morados a la vez; solo puede haber un Sagrado Carmesí activo a la vez y los demás NPC siguen apareciendo.');updateUI();}};
+$('startBtn').onclick=()=>{getSfxAudioContext();if(!gameOver){$('startScreen').classList.add('hidden');$('fruitSelectScreen').classList.remove('hidden');renderFruitSelect();}};
 // Superposiciones de pausa y Game Over a nivel de página para que no se recorten en pantallas pequeñas.
-document.body.appendChild($('pauseScreen'));document.body.appendChild($('gameOverScreen'));document.body.appendChild($('campaignCompleteScreen'));document.body.appendChild($('adminScreen'));
+document.body.appendChild($('fruitSelectScreen'));document.body.appendChild($('pauseScreen'));document.body.appendChild($('gameOverScreen'));document.body.appendChild($('campaignCompleteScreen'));document.body.appendChild($('adminScreen'));
 $('continueInfiniteBtn').onclick=enterInfiniteWorld;
 reset();loop();
 })();
