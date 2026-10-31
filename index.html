@@ -1,10 +1,10 @@
-<!-- ÉTER: ASCENSIÓN Beta 16 -->
+<!-- ÉTER: ASCENSIÓN Beta 17 -->
 <!-- ÉTER: ASCENSIÓN Beta 16 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="ÉTER: ASCENSIÓN es una aventura 2D original. Un joven despierta un poder ancestral y explora mundos llenos de enemigos, élites y jefes."><meta name="theme-color" content="#07101d"><title>ÉTER: ASCENSIÓN</title>
+<meta name="description" content="ÉTER: ASCENSIÓN es una aventura 2D original. Un joven despierta un poder ancestral y explora mundos llenos de enemigos, élites y jefes."><meta name="theme-color" content="#07101d"><title>ÉTER: ASCENSIÓN · Beta 17</title>
 <style>
 :root{--bg:#07101d;--panel:#101b2e;--line:#304764;--gold:#ffd166;--red:#ff5e4d;--cyan:#64e9ee;--muted:#aabbd2}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f2f6ff;font-family:system-ui,Arial,sans-serif}
@@ -935,6 +935,39 @@ let furyPending=0; // Carga pendiente liberada gradualmente durante el combate a
 const rand=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 // Audio procedural: sonidos originales generados con Web Audio, sin archivos externos.
 let sfxAudioContext=null,sfxMasterGain=null,sfxMuted=false;
+// Himno Nacional del Perú: grabación declarada de dominio público en Wikimedia Commons.
+const VH_ANTHEM_URL='https://upload.wikimedia.org/wikipedia/commons/e/e9/Peru.ogg';
+let vhAnthemAudio=null,vhAnthemLoadErrorReported=false;
+function getVHAnthemAudio(){
+ if(!vhAnthemAudio){
+  vhAnthemAudio=new Audio(VH_ANTHEM_URL);
+  vhAnthemAudio.loop=true;
+  vhAnthemAudio.preload='auto';
+  vhAnthemAudio.volume=.48;
+  vhAnthemAudio.muted=!!sfxMuted;
+  vhAnthemAudio.setAttribute('aria-hidden','true');
+  vhAnthemAudio.addEventListener('error',()=>{
+   if(!vhAnthemLoadErrorReported&&adminModes.vhMode){
+    vhAnthemLoadErrorReported=true;
+    if(typeof log==='function')log('No se pudo cargar el Himno Nacional. Comprueba tu conexión a internet.');
+   }
+  });
+ }
+ return vhAnthemAudio;
+}
+function syncVHAnthemPlayback(){
+ if(!adminModes.vhMode){
+  if(vhAnthemAudio){vhAnthemAudio.pause();try{vhAnthemAudio.currentTime=0;}catch(_e){}}
+  return;
+ }
+ const audio=getVHAnthemAudio();
+ audio.muted=!!sfxMuted;
+ if(!started||gameOver){audio.pause();try{audio.currentTime=0;}catch(_e){}return;}
+ const shouldPlay=!paused&&!transitionPending&&!(campaignCompleteShown&&!postGame)&&!sfxMuted;
+ if(shouldPlay){
+  if(audio.paused){const playAttempt=audio.play();if(playAttempt&&typeof playAttempt.catch==='function')playAttempt.catch(()=>{});}
+ }else audio.pause();
+}
 function getSfxAudioContext(){
  try{
   const AudioCtor=window.AudioContext||window.webkitAudioContext;
@@ -956,6 +989,7 @@ function toggleSound(){
  const ac=getSfxAudioContext();
  if(ac&&sfxMasterGain){const target=sfxMuted?0:1;try{sfxMasterGain.gain.setTargetAtTime(target,ac.currentTime,.015);}catch(err){sfxMasterGain.gain.value=target;}}
  updateSoundToggleButton();
+ syncVHAnthemPlayback();
 }
 function sfxTone(startHz,endHz,duration,wave='sine',volume=.055,delay=0){
  const ac=getSfxAudioContext();if(!ac)return;
@@ -1003,6 +1037,7 @@ function syncPauseButtonVisibility(){
  const visible=started&&!paused&&!gameOver&&!transitionPending&&!(campaignCompleteShown&&!postGame);
  $('pauseBtn').style.display=visible?'inline-flex':'none';
  $('pauseBtn').disabled=!visible;
+ syncVHAnthemPlayback();
 }
 function currentTheme(){return themes[Math.min(island,20)];}
 function reset(){activeGameElapsedMs=0;lastActiveUpdateAt=0;adminCodeIndex=0;adminOverrideActive=false;document.body.classList.remove('game-started','game-paused','game-transition','game-over','campaign-complete');started=false;paused=false;postGame=false;campaignCompleteShown=false;keys={};transitionPending=false;$('islandTransition').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('startScreen').classList.remove('hidden');$('pauseBtn').disabled=true;$('pauseBtn').style.display='none';$('pauseBtn').textContent='Ⅱ PAUSA';$('game').parentElement.classList.remove('paused');$('status').textContent='Pulsa DESPERTAR para jugar';player={x:W/2,y:H/2,r:14,hp:120,maxHp:120,speed:3.1,dx:1,dy:0,inv:0,soarFrames:0,regenPenaltyFrames:0};enemies=[];particles=[];level=1;xp=0;xpNeed=1000;island=0;islandKills=0;fury=0;furyPending=0;transformed=false;transformFrames=0;attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};frame=0;gameOver=false;shake=0;furyauraCD=0;spawnCounter=0;spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState=new Map();for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();$('log').textContent='Un joven descubre el poder de una fruta ancestral y parte a recorrer los reinos.';log('Cada reino ajusta enemigos y jefes al nivel medio del tramo: 3, 8, 13…98. En la Dimensión Rainbow la dificultad sigue tu nivel actual. Apariciones: normal 69% · élite 23.5% · jefe violeta 6.5% (máx. 3 a la vez) · jefe supremo rojo 1%. El Carmesí tiene 1% de probabilidad de aparecer después de 3 minutos de juego activo; el contador se detiene en pausa, transiciones y menú inicial. Los demás NPC siguen apareciendo, pero solo puede existir un Carmesí activo. El daño recibido y la fuerza de cada fruta dependen del poder equipado. XP: normal 50 · élite 100 · jefe 500 · supremo 1000.');syncPauseButtonVisibility();applyFruitTheme();updateUI();}
@@ -1288,11 +1323,11 @@ function startVhLockout(){
  },1000);
 }
 function handleVhModePassword(){
- if(adminModes.vhMode){adminModes.vhMode=false;syncAdminModeUI();updateAttackLabels();updateUI();log('VH mode desactivado. Se restauraron los nombres de la fruta equipada.');return;}
+ if(adminModes.vhMode){adminModes.vhMode=false;syncVHAnthemPlayback();syncAdminModeUI();updateAttackLabels();updateUI();log('VH mode desactivado. Se restauraron los nombres de la fruta equipada.');return;}
  const input=$('vhPasswordInput');
  if(input&&input.value.trim().toUpperCase()==='SOMOSLIBRES123'){
   adminModes.vhMode=true;fury=100;furyPending=0;
-  if(input)input.value='';syncAdminModeUI();updateAttackLabels();updateUI();
+  if(input)input.value='';syncAdminModeUI();updateAttackLabels();updateUI();syncVHAnthemPlayback();
   log('🇵🇪 VH MODE ACTIVADO: Countryball de Perú · 1000% en todos los atributos.');
  }else{if(input)input.value='';startVhLockout();}
 }
