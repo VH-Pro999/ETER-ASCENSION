@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="ÉTER: ASCENSIÓN es una aventura 2D original. Un joven despierta un poder ancestral y explora mundos llenos de enemigos, élites y jefes."><meta name="theme-color" content="#07101d"><title>ÉTER: ASCENSIÓN | Los 21 Mundos</title>
+<meta name="description" content="ÉTER: ASCENSIÓN es una aventura 2D original. Un joven despierta un poder ancestral y explora mundos llenos de enemigos, élites y jefes."><meta name="theme-color" content="#07101d"><title>ÉTER: ASCENSIÓN</title>
 <style>
 :root{--bg:#07101d;--panel:#101b2e;--line:#304764;--gold:#ffd166;--red:#ff5e4d;--cyan:#64e9ee;--muted:#aabbd2}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f2f6ff;font-family:system-ui,Arial,sans-serif}
@@ -544,8 +544,7 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
 .fruitArtwork svg{width:100%;height:100%;display:block;filter:drop-shadow(0 0 7px var(--fruit-glow,rgba(143,230,239,.4)))}
 .fruitInfo{min-width:0}.fruitName{display:block;font-size:.91rem;font-weight:950;color:#fff;line-height:1.2}.fruitForm{display:block;margin:2px 0 5px;color:#adbed7;font-size:.64rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
 .fruitStats{display:grid;grid-template-columns:1fr 1fr;gap:2px 7px;color:#c9d8eb;font-size:.64rem;line-height:1.25}.fruitStats b{color:#fff}
-.fruitSelectFooter{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:13px;padding-top:11px;border-top:1px solid rgba(140,170,207,.22)}
-#fruitSelectHint{color:#d7e8fb;font-size:.8rem;font-weight:800;text-align:left}
+.fruitSelectFooter{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:13px;padding-top:11px;border-top:1px solid rgba(140,170,207,.22)}
 #confirmFruitBtn{min-width:190px;border:0;background:linear-gradient(100deg,#65d8ed,#7c8cff);color:#071526;box-shadow:0 5px 22px rgba(60,173,255,.2);font-weight:950}
 #confirmFruitBtn:disabled{opacity:.5;cursor:default}
 .adminFruitField{margin-top:10px}
@@ -559,7 +558,7 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
 @keyframes fruitFuryReady{0%,100%{opacity:.48;border-color:rgba(var(--fruit-rgb),.48)!important;box-shadow:inset 0 0 10px rgba(var(--fruit-rgb),.08),inset 0 0 38px rgba(var(--fruit-rgb),.045),0 0 6px rgba(var(--fruit-rgb),.08)!important}50%{opacity:.92;border-color:rgba(var(--fruit-rgb),.95)!important;box-shadow:inset 0 0 18px rgba(var(--fruit-rgb),.2),inset 0 0 62px rgba(var(--fruit-rgb),.11),0 0 15px rgba(var(--fruit-rgb),.24)!important}}
 @keyframes fruitFuryActive{0%,100%{opacity:.42}50%{opacity:.78}}
 .gameStage.paused::after,.gameStage.paused.fury-ready::after,.gameStage.paused.fury-active::after{animation-play-state:paused!important}
-@media(max-width:700px){.fruitSelectScreen{padding:5px}.fruitSelectCard{padding:9px;max-height:calc(100% - 4px)}.fruitSelectIntro{font-size:.68rem;margin:3px 0 6px}.fruitGroups{gap:4px}.fruitGroup{padding:4px}.fruitGroup h3{font-size:.58rem;margin-bottom:4px}.fruitOption{grid-template-columns:1fr;gap:3px;padding:4px;text-align:center}.fruitArtwork{width:100%;height:55px}.fruitName{font-size:.7rem}.fruitForm{font-size:.49rem;margin:1px 0 3px}.fruitStats{font-size:.5rem;gap:1px 3px}.fruitSelectFooter{margin-top:6px;padding-top:6px}#fruitSelectHint{font-size:.62rem}#confirmFruitBtn{min-width:145px;padding:7px;font-size:.67rem}}
+@media(max-width:700px){.fruitSelectScreen{padding:5px}.fruitSelectCard{padding:9px;max-height:calc(100% - 4px)}.fruitSelectIntro{font-size:.68rem;margin:3px 0 6px}.fruitGroups{gap:4px}.fruitGroup{padding:4px}.fruitGroup h3{font-size:.58rem;margin-bottom:4px}.fruitOption{grid-template-columns:1fr;gap:3px;padding:4px;text-align:center}.fruitArtwork{width:100%;height:55px}.fruitName{font-size:.7rem}.fruitForm{font-size:.49rem;margin:1px 0 3px}.fruitStats{font-size:.5rem;gap:1px 3px}.fruitSelectFooter{margin-top:6px;padding-top:6px}#confirmFruitBtn{min-width:145px;padding:7px;font-size:.67rem}}
 @media(max-width:420px){.fruitArtwork{height:43px}.fruitOption{padding:3px}.fruitStats{font-size:.46rem}.fruitName{font-size:.64rem}.fruitForm{font-size:.44rem}.fruitSelectCard h2{font-size:1rem}.fruitSelectEyebrow{font-size:.56rem}}
 @media(prefers-reduced-motion:reduce){.fruitOption{transition:none}.gameStage.fury-ready::after,.gameStage.fury-active::after{animation:none!important;opacity:.82}}
 
@@ -623,7 +622,6 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
 }
 .fruitArtwork{background:radial-gradient(circle,rgba(255,94,120,.13),rgba(9,6,17,.88) 72%)!important;}
 .fruitSelectFooter{border-top:1px solid rgba(255,91,115,.28)!important;}
-#fruitSelectHint{color:#ffe0e5!important;}
 #confirmFruitBtn{
  border:1px solid rgba(255,168,180,.85)!important;
  background:linear-gradient(100deg,#ff4968,#d71942 58%,#8f1030)!important;
@@ -646,7 +644,7 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
   <div class="stat hud-spacer" aria-hidden="true"></div>
   <div class="stat"><small>Vida</small><strong id="hpText">120 / 120</strong><div class="bar"><div class="fill hp" id="hpBar"></div></div></div>
   <div class="stat"><small id="furyLabel">Furia dracónica</small><strong id="furyText">0%</strong><div class="bar"><div class="fill fury" id="furyBar"></div></div></div>
- </div><div class="startScreen" id="startScreen"><div class="startCard"><h2>ÉTER: ASCENSIÓN</h2><p>Eres un joven que despierta el poder de una fruta ancestral y se embarca en una aventura por islas de todo tipo, enfrentando enemigos, élites y jefes. ¿Aceptas el desafío?</p><button id="startBtn">DESPERTAR</button></div></div><div id="fruitSelectScreen" class="fruitSelectScreen hidden" role="dialog" aria-modal="true" aria-labelledby="fruitSelectTitle"><div class="fruitSelectCard"><p class="fruitSelectEyebrow">ELIGE TU PODER ANCESTRAL</p><h2 id="fruitSelectTitle">SELECCIÓN DE FRUTA</h2><p class="fruitSelectIntro">Cada fruta tiene una forma de furia distinta. Escoge la que mejor se adapte a tu estilo.</p><div id="fruitGroups" class="fruitGroups"></div><div class="fruitSelectFooter"><span id="fruitSelectHint">Seleccionada: Dragon</span><button id="confirmFruitBtn" type="button">CONFIRMAR Y JUGAR</button></div></div></div><div class="islandTransition hidden" id="islandTransition" role="dialog" aria-modal="true" aria-labelledby="transitionTitle"><div class="islandTransitionCard"><div class="eyebrow" id="transitionEyebrow">NUEVO REINO DESCUBIERTO</div><h2 id="transitionTitle">Preparando el viaje...</h2><p id="transitionDescription">Una nueva aventura te espera.</p><button id="goIslandBtn">IR AL SIGUIENTE REINO</button></div></div><div id="pauseScreen" class="pauseScreen hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle"><div class="pauseCard"><div class="pauseIcon">Ⅱ</div><h2 id="pauseTitle">PAUSA</h2><p>La partida está detenida.</p><button id="resumeBtn" type="button">▶ CONTINUAR</button></div></div><div id="gameOverScreen" class="gameOverScreen hidden" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle"><div class="gameOverCard"><div class="gameOverMark">✦</div><p class="gameOverEyebrow">LA AVENTURA SE DETUVO</p><h2 id="gameOverTitle">GAME OVER</h2><p>Los reinos aún esperan tu regreso.</p><button id="reloadBtn" type="button">↻ VOLVER A EMPEZAR</button></div></div><div id="campaignCompleteScreen" class="campaignCompleteScreen hidden" role="dialog" aria-modal="true" aria-labelledby="campaignCompleteTitle"><div class="campaignCompleteCard"><p class="campaignEyebrow">HISTORIA PRINCIPAL COMPLETADA</p><h2 id="campaignCompleteTitle">¡FELICIDADES!</h2><p>Has alcanzado el nivel 100, conquistado los 20 mundos y demostrado que puedes dominar el poder de tu fruta.</p><div class="campaignDivider"></div><h3>Tu viaje todavía no termina.</h3><p>Continúa en la <strong>Dimensión Rainbow</strong>, un mundo de postgame donde los enemigos, los jefes y tu poder siguen creciendo sin límite.</p><button id="continueInfiniteBtn" type="button">CONTINUAR EN LA DIMENSIÓN RAINBOW</button></div></div><div id="adminScreen" class="adminScreen hidden" role="dialog" aria-modal="true" aria-labelledby="adminTitle"><div class="adminCard"><p class="adminEyebrow">ACCESO ESPECIAL · ÉTER: ASCENSIÓN</p><h2 id="adminTitle">MODO ADMIN</h2><p>Hola VH. Escoge tu mundo:</p><div class="adminField"><label for="adminWorld">Mundo de destino</label><select id="adminWorld"></select><small id="adminLevelPreview" class="adminLevelPreview">Nivel inicial: 1</small></div><div class="adminField adminFruitField"><label for="adminFruit">Poder / fruta equipada</label><select id="adminFruit"></select><small class="adminLevelPreview">El cambio de fruta se aplica al instante, sin reiniciar la partida.</small></div><div class="adminActions"><button id="adminTeleportBtn" type="button">TELETRANSPORTAR</button><button id="adminBackBtn" type="button">VOLVER</button></div></div></div></div><div class="foot"><span id="islandLabel">ISLA 1 · PUERTO ROCKET</span><span id="status" class="visuallyHidden">Pulsa DESPERTAR para jugar</span></div>
+ </div><div class="startScreen" id="startScreen"><div class="startCard"><h2>ÉTER: ASCENSIÓN</h2><p>Eres un joven que despierta el poder de una fruta ancestral y se embarca en una aventura por islas de todo tipo, enfrentando enemigos, élites y jefes. ¿Aceptas el desafío?</p><button id="startBtn">DESPERTAR</button></div></div><div id="fruitSelectScreen" class="fruitSelectScreen hidden" role="dialog" aria-modal="true" aria-labelledby="fruitSelectTitle"><div class="fruitSelectCard"><p class="fruitSelectEyebrow">ELIGE TU PODER ANCESTRAL</p><h2 id="fruitSelectTitle">SELECCIÓN DE FRUTA</h2><p class="fruitSelectIntro">Cada fruta tiene una forma de furia distinta. Escoge la que mejor se adapte a tu estilo.</p><div id="fruitGroups" class="fruitGroups"></div><div class="fruitSelectFooter"><button id="confirmFruitBtn" type="button">CONFIRMAR Y JUGAR</button></div></div></div><div class="islandTransition hidden" id="islandTransition" role="dialog" aria-modal="true" aria-labelledby="transitionTitle"><div class="islandTransitionCard"><div class="eyebrow" id="transitionEyebrow">NUEVO REINO DESCUBIERTO</div><h2 id="transitionTitle">Preparando el viaje...</h2><p id="transitionDescription">Una nueva aventura te espera.</p><button id="goIslandBtn">IR AL SIGUIENTE REINO</button></div></div><div id="pauseScreen" class="pauseScreen hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle"><div class="pauseCard"><div class="pauseIcon">Ⅱ</div><h2 id="pauseTitle">PAUSA</h2><p>La partida está detenida.</p><button id="resumeBtn" type="button">▶ CONTINUAR</button></div></div><div id="gameOverScreen" class="gameOverScreen hidden" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle"><div class="gameOverCard"><div class="gameOverMark">✦</div><p class="gameOverEyebrow">LA AVENTURA SE DETUVO</p><h2 id="gameOverTitle">GAME OVER</h2><p>Los reinos aún esperan tu regreso.</p><button id="reloadBtn" type="button">↻ VOLVER A EMPEZAR</button></div></div><div id="campaignCompleteScreen" class="campaignCompleteScreen hidden" role="dialog" aria-modal="true" aria-labelledby="campaignCompleteTitle"><div class="campaignCompleteCard"><p class="campaignEyebrow">HISTORIA PRINCIPAL COMPLETADA</p><h2 id="campaignCompleteTitle">¡FELICIDADES!</h2><p>Has alcanzado el nivel 100, conquistado los 20 mundos y demostrado que puedes dominar el poder de tu fruta.</p><div class="campaignDivider"></div><h3>Tu viaje todavía no termina.</h3><p>Continúa en la <strong>Dimensión Rainbow</strong>, un mundo de postgame donde los enemigos, los jefes y tu poder siguen creciendo sin límite.</p><button id="continueInfiniteBtn" type="button">CONTINUAR EN LA DIMENSIÓN RAINBOW</button></div></div><div id="adminScreen" class="adminScreen hidden" role="dialog" aria-modal="true" aria-labelledby="adminTitle"><div class="adminCard"><p class="adminEyebrow">ACCESO ESPECIAL · ÉTER: ASCENSIÓN</p><h2 id="adminTitle">MODO ADMIN</h2><p>Hola VH. Escoge tu mundo:</p><div class="adminField"><label for="adminWorld">Mundo de destino</label><select id="adminWorld"></select><small id="adminLevelPreview" class="adminLevelPreview">Nivel inicial: 1</small></div><div class="adminField adminFruitField"><label for="adminFruit">Poder / fruta equipada</label><select id="adminFruit"></select><small class="adminLevelPreview">El cambio de fruta se aplica al instante, sin reiniciar la partida.</small></div><div class="adminActions"><button id="adminTeleportBtn" type="button">TELETRANSPORTAR</button><button id="adminBackBtn" type="button">VOLVER</button></div></div></div></div><div class="foot"><span id="islandLabel">ISLA 1 · PUERTO ROCKET</span><span id="status" class="visuallyHidden">Pulsa DESPERTAR para jugar</span></div>
  <div class="mobile"><div class="mobileActions">
  <button id="mobileSpace" type="button" aria-label="Rugido: tocar o pulsar espacio para atacar"><span class="controlKey">CLICK / ESPACIO</span><span class="attackName" data-attack-name="m1">Rugido Dracónico</span><small class="cooldownLabel" data-cd="m1">LISTO</small></button>
  <button type="button" data-ability="z"><span class="controlKey">Z</span><span class="attackName" data-attack-name="z">Aliento Ígneo</span><small class="cooldownLabel" data-cd="z">LISTO</small></button>
@@ -667,7 +665,7 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
   <div class="ability"><span><b data-attack-name-panel="x">Embestida Dracónica</b><br><small>Avanza hacia el objetivo y golpea a los enemigos cercanos · CD 5 s</small></span><span class="key">X</span></div>
   <div class="ability"><span><b data-attack-name-panel="c">Lluvia de Meteoros</b><br><small>Ataque de gran alcance y daño en área · CD 6 s</small></span><span class="key">C</span></div>
   <div class="ability"><span><b data-attack-name-panel="v">Despertar Ancestral</b><br><small>Activa o desactiva la forma de furia durante 30 s</small></span><span class="key">V</span></div>
-  <div class="ability"><span><b data-attack-name-panel="f">Vuelo Dracónico</b><br><small>Impulso de 3 s; recarga 4 s después de terminar</small></span><span class="key">F</span></div>
+  <div class="ability"><span><b data-attack-name-panel="f">Vuelo Dracónico</b><br><small>Impulso de 1,5 s; recarga 4 s después de terminar</small></span><span class="key">F</span></div>
  </div>
  <div class="wide"><h2>BITÁCORA</h2><div class="log" id="log">¡Tu fruta ancestral ha despertado! Derrota enemigos para cargar tu furia.</div></div>
  <div class="buttons wide abilityHotbar">
@@ -678,7 +676,7 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
  <button id="vBtn" class="hot" type="button"><span class="controlKey">V</span><span class="attackName" data-attack-name="v">Despertar Ancestral</span><small class="cooldownLabel" data-cd="v">0%</small></button>
  <button id="fBtn" type="button"><span class="controlKey">F</span><span class="attackName" data-attack-name="f">Vuelo Dracónico</span><small class="cooldownLabel" data-cd="f">LISTO</small></button>
 </div>
- <p class="tip wide">Controles: DESPERTAR para comenzar; WASD o flechas para moverte; clic izquierdo, ESPACIO o toque en el campo: M1 (ataque básico); Z: ataque en línea; X: embestida; C: ataque de área; V: transformación al llegar al 100% de furia; F: movimiento especial. Los nombres de las habilidades cambian según la fruta equipada. Cambias de isla cada 5 niveles. Tras el nivel 100 se abre la Dimensión Rainbow. La vida máxima y la regeneración pasiva aumentan al subir de nivel, pero la vida actual no se rellena al subir.</p>
+ <p class="tip wide">Controles: DESPERTAR para comenzar; WASD o flechas para moverte; clic izquierdo, ESPACIO o toque en el campo: M1 (ataque básico); Z: ataque en línea; X: embestida; C: ataque de área; V: transformación al llegar al 100% de furia; F: movimiento especial. Los nombres de las habilidades cambian según la fruta equipada. Cambias de isla cada 5 niveles. Tras el nivel 100 se abre la Dimensión Rainbow. La vida máxima y la regeneración pasiva aumentan al subir de nivel, pero la vida actual no se rellena al subir. Tras recibir daño, la regeneración pasiva se reduce un 50% durante 3 segundos.</p>
 </aside></main>
 <footer>ÉTER: ASCENSIÓN · Los 21 Mundos · Aventura 2D original inspirada libremente en juegos de acción de islas.</footer>
 <script>
@@ -737,12 +735,12 @@ const themes=[
 const MAX_ENEMIES_ON_SCREEN=7, MAX_PURPLE_BOSSES_ON_SCREEN=3, RESPAWN_DELAY_FRAMES=180, EMPTY_SCREEN_REFILL_FRAMES=300, EMPTY_SCREEN_REFILL_STEP=EMPTY_SCREEN_REFILL_FRAMES/MAX_ENEMIES_ON_SCREEN; // 7 enemigos como máximo, incluidos hasta 3 jefes morados; reposición normal cada 3 s
 let keys={},player,enemies,particles,level,xp,xpNeed,island,islandKills,fury,transformed,transformFrames,attackCD,cds,frame,gameOver,shake,started=false,furyauraCD=0,spawnCounter=0,spawnClock=0,emptyRefillUntil=-1,emptyRefillNextFrame=0,transitionPending=false,paused=false,postGame=false,campaignCompleteShown=false;
 const FRUITS={
- lightning:{name:'Lightning',group:'speed',form:'Avatar del rayo ancestral',speed:1.32,damage:.97,normalTaken:.90,transformedTaken:.66,primary:'#38a8ff',light:'#c4f0ff',dark:'#1659bc',rgb:'56,168,255',speedText:'Muy alta'},
- kitsune:{name:'Kitsune',group:'speed',form:'Kitsune celestial · nueve colas',speed:1.46,damage:.86,normalTaken:.86,transformedTaken:.62,primary:'#a46bff',light:'#efd7ff',dark:'#6333bb',rgb:'164,107,255',speedText:'Extrema'},
- dragon:{name:'Dragon',group:'defense',form:'Dragón oriental ancestral',speed:1.00,damage:1.24,normalTaken:.65,transformedTaken:.42,primary:'#39d98a',light:'#c3ffe1',dark:'#0c7453',rgb:'57,217,138',speedText:'Media'},
- buddha:{name:'Buddha',group:'defense',form:'Titán dorado de perfil',speed:.66,damage:1.02,normalTaken:.35,transformedTaken:.22,primary:'#f5c542',light:'#fff2a8',dark:'#aa7610',rgb:'245,197,66',speedText:'Muy baja'},
- dough:{name:'Dough',group:'attack',form:'Rueda de masa con púas',speed:.90,damage:1.32,normalTaken:.82,transformedTaken:.58,primary:'#f4f5ff',light:'#ffffff',dark:'#9eafd0',rgb:'244,245,255',speedText:'Baja'},
- pain:{name:'Pain',group:'attack',form:'Soberano de la gravedad',speed:.78,damage:1.50,normalTaken:.95,transformedTaken:.70,primary:'#f0445c',light:'#ffbbc5',dark:'#971c37',rgb:'240,68,92',speedText:'Muy baja'}
+ lightning:{name:'Lightning',group:'speed',form:'Avatar del rayo ancestral',speed:1.24,damage:.98,normalTaken:.88,transformedTaken:.66,primary:'#38a8ff',light:'#c4f0ff',dark:'#1659bc',rgb:'56,168,255',speedText:'Alta'},
+ kitsune:{name:'Kitsune',group:'speed',form:'Kitsune celestial · nueve colas',speed:1.31,damage:.92,normalTaken:.84,transformedTaken:.63,primary:'#a46bff',light:'#efd7ff',dark:'#6333bb',rgb:'164,107,255',speedText:'Muy alta'},
+ dragon:{name:'Dragon',group:'defense',form:'Dragón oriental ancestral',speed:1.00,damage:1.16,normalTaken:.72,transformedTaken:.54,primary:'#39d98a',light:'#c3ffe1',dark:'#0c7453',rgb:'57,217,138',speedText:'Media'},
+ buddha:{name:'Buddha',group:'defense',form:'Titán dorado de perfil',speed:.80,damage:1.04,normalTaken:.52,transformedTaken:.39,primary:'#f5c542',light:'#fff2a8',dark:'#aa7610',rgb:'245,197,66',speedText:'Baja'},
+ dough:{name:'Dough',group:'attack',form:'Rueda de masa con púas',speed:.94,damage:1.25,normalTaken:.78,transformedTaken:.58,primary:'#f4f5ff',light:'#ffffff',dark:'#9eafd0',rgb:'244,245,255',speedText:'Media-baja'},
+ pain:{name:'Pain',group:'attack',form:'Soberano de la gravedad',speed:.88,damage:1.34,normalTaken:.84,transformedTaken:.63,primary:'#f0445c',light:'#ffbbc5',dark:'#971c37',rgb:'240,68,92',speedText:'Baja'}
 };
 const FRUIT_ORDER={speed:['lightning','kitsune'],defense:['dragon','buddha'],attack:['dough','pain']};
 const FRUIT_ATTACK_NAMES={
@@ -760,7 +758,7 @@ function fruitInfo(){return FRUITS[selectedFruit]||FRUITS.dragon;}
 const FRUIT_HITBOXES={
  lightning:{radius:25,padX:40,padY:70},
  kitsune:{radius:28,padX:72,padY:78},
- dragon:{radius:27,padX:40,padY:76},
+ dragon:{radius:27,padX:46,padY:84},
  buddha:{radius:29,padX:68,padY:110},
  dough:{radius:29,padX:68,padY:68},
  pain:{radius:28,padX:76,padY:96}
@@ -820,7 +818,6 @@ function renderFruitSelect(){
 }
 function updateFruitSelectionUI(){
  document.querySelectorAll('.fruitOption').forEach(btn=>btn.classList.toggle('selected',btn.dataset.fruit===selectedFruit));
- if($('fruitSelectHint'))$('fruitSelectHint').textContent='Seleccionada: '+fruitInfo().name+' · '+fruitInfo().form;
 }
 function applyFruitTheme(){
  const f=fruitInfo(),stage=cv.parentElement;
@@ -908,7 +905,7 @@ function syncPauseButtonVisibility(){
  $('pauseBtn').disabled=!visible;
 }
 function currentTheme(){return themes[Math.min(island,20)];}
-function reset(){adminCodeIndex=0;adminOverrideActive=false;document.body.classList.remove('game-started','game-paused','game-transition','game-over','campaign-complete');started=false;paused=false;postGame=false;campaignCompleteShown=false;keys={};transitionPending=false;$('islandTransition').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('startScreen').classList.remove('hidden');$('pauseBtn').disabled=true;$('pauseBtn').style.display='none';$('pauseBtn').textContent='Ⅱ PAUSA';$('game').parentElement.classList.remove('paused');$('status').textContent='Pulsa DESPERTAR para jugar';player={x:W/2,y:H/2,r:14,hp:120,maxHp:120,speed:3.1,dx:1,dy:0,inv:0,soarFrames:0};enemies=[];particles=[];level=1;xp=0;xpNeed=1000;island=0;islandKills=0;fury=0;furyPending=0;transformed=false;transformFrames=0;attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};frame=0;gameOver=false;shake=0;furyauraCD=0;spawnCounter=0;spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState=new Map();for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();$('log').textContent='Un joven descubre el poder de una fruta ancestral y parte a recorrer los reinos.';log('Cada reino ajusta enemigos y jefes al nivel medio del tramo: 3, 8, 13…98. En la Dimensión Rainbow la dificultad sigue tu nivel actual. Apariciones: normal 69% · élite 23.5% · jefe violeta 6.5% (máx. 3 a la vez) · jefe supremo rojo 1%. El Carmesí aparece con 1% de probabilidad; los demás NPC siguen apareciendo, pero solo puede existir un Carmesí activo. El daño recibido y la fuerza de cada fruta dependen del poder equipado. XP: normal 50 · élite 100 · jefe 500 · supremo 1000.');syncPauseButtonVisibility();applyFruitTheme();updateUI();}
+function reset(){adminCodeIndex=0;adminOverrideActive=false;document.body.classList.remove('game-started','game-paused','game-transition','game-over','campaign-complete');started=false;paused=false;postGame=false;campaignCompleteShown=false;keys={};transitionPending=false;$('islandTransition').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('startScreen').classList.remove('hidden');$('pauseBtn').disabled=true;$('pauseBtn').style.display='none';$('pauseBtn').textContent='Ⅱ PAUSA';$('game').parentElement.classList.remove('paused');$('status').textContent='Pulsa DESPERTAR para jugar';player={x:W/2,y:H/2,r:14,hp:120,maxHp:120,speed:3.1,dx:1,dy:0,inv:0,soarFrames:0,regenPenaltyFrames:0};enemies=[];particles=[];level=1;xp=0;xpNeed=1000;island=0;islandKills=0;fury=0;furyPending=0;transformed=false;transformFrames=0;attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};frame=0;gameOver=false;shake=0;furyauraCD=0;spawnCounter=0;spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState=new Map();for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();$('log').textContent='Un joven descubre el poder de una fruta ancestral y parte a recorrer los reinos.';log('Cada reino ajusta enemigos y jefes al nivel medio del tramo: 3, 8, 13…98. En la Dimensión Rainbow la dificultad sigue tu nivel actual. Apariciones: normal 69% · élite 23.5% · jefe violeta 6.5% (máx. 3 a la vez) · jefe supremo rojo 1%. El Carmesí aparece con 1% de probabilidad; los demás NPC siguen apareciendo, pero solo puede existir un Carmesí activo. El daño recibido y la fuerza de cada fruta dependen del poder equipado. XP: normal 50 · élite 100 · jefe 500 · supremo 1000.');syncPauseButtonVisibility();applyFruitTheme();updateUI();}
 function enemyBenchmarkLevel(){
  // Reinos de campaña: dificultad basada en el nivel medio del tramo (3, 8, 13...98).
  // Dimensión Rainbow: la dificultad sigue el nivel real del jugador.
@@ -966,7 +963,7 @@ function gainXP(n){
   if(level>=100&&!postGame&&!adminOverrideActive){showCampaignComplete();break;}
  }
 }
-function hurtPlayer(rawDamage,source='enemigo'){if(player.inv>0||gameOver)return false;if(source&&source.startsWith('M1'))playEnemyAttackSound(source.includes('jefe')?'boss':source.includes('élite')?'elite':'normal','contact');const damage=Math.max(1,Math.round(rawDamage*(transformed?fruitInfo().transformedTaken:fruitInfo().normalTaken))); player.hp=Math.max(0,player.hp-damage);player.inv=26;burst(player.x,player.y,'#ff637b',12,4);if(source)log('💥 '+source+' te hizo '+damage+' de daño.');if(player.hp<=0){playGameOverSound();gameOver=true;paused=false;document.body.classList.remove('game-paused','game-transition');document.body.classList.add('game-over');keys={};$('status').textContent='Derrotado';syncPauseButtonVisibility();$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.remove('hidden');log('¡Te vencieron! La aventura terminó.');}return true;}
+function hurtPlayer(rawDamage,source='enemigo'){if(player.inv>0||gameOver)return false;if(source&&source.startsWith('M1'))playEnemyAttackSound(source.includes('jefe')?'boss':source.includes('élite')?'elite':'normal','contact');const damage=Math.max(1,Math.round(rawDamage*(transformed?fruitInfo().transformedTaken:fruitInfo().normalTaken))); player.hp=Math.max(0,player.hp-damage);player.regenPenaltyFrames=180;player.inv=26;burst(player.x,player.y,'#ff637b',12,4);if(source)log('💥 '+source+' te hizo '+damage+' de daño.');if(player.hp<=0){playGameOverSound();gameOver=true;paused=false;document.body.classList.remove('game-paused','game-transition');document.body.classList.add('game-over');keys={};$('status').textContent='Derrotado';syncPauseButtonVisibility();$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.remove('hidden');log('¡Te vencieron! La aventura terminó.');}return true;}
 function playerDamage(base){/* Conserva el escalado por nivel y añade el multiplicador de daño propio de cada fruta. */return Math.round(base*fruitInfo().damage*1.21*(transformed?1.32:1.20)*(1+Math.max(0,level-1)*.035+Math.min(island,20)*.05));}
 function enemyAttackDamage(base,isBoss=false){const benchmarkLevel=enemyBenchmarkLevel();const scale=1+Math.max(0,benchmarkLevel-1)*.035+Math.min(island,20)*.05;return Math.round(base*.84*.90*scale*(postGame?1.08:1)*(isBoss?1.20:1.05));} // Todos los ataques especiales enemigos hacen un 10% menos de daño.
 const FURY_CHARGE_MULTIPLIER=.30; // La carga se genera al acertar golpes y se acumula con los impactos y permite llenar el medidor en unos 45 segundos de combate activo.
@@ -1052,11 +1049,11 @@ function ability(k){if(!started||paused||gameOver||transitionPending)return;if(k
 if(k==='x'){playPlayerAttackSound('x',transformed);cds.x=300;const target=aimAtNearest();let oldX=player.x,oldY=player.y;if(target){const vx=target.x-player.x,vy=target.y-player.y,d=Math.hypot(vx,vy)||1,travel=Math.min(transformed?210:145,Math.max(0,d-30));player.x+=vx/d*travel;player.y+=vy/d*travel;}else{player.x+=player.dx*(transformed?175:105);player.y+=player.dy*(transformed?175:105);}clampPlayerToStage();particles.push({beam:true,x:oldX,y:oldY,ex:player.x,ey:player.y,width:transformed?48:30,color:fruitInfo().primary,life:15,max:15});let hit=0;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<(transformed?130:85)+e.r){hurtEnemy(e,playerDamage(transformed?260:95),34); /* X: daño menor que C; cooldown de 5 s. */ hit++;}if(!hit)burst(player.x,player.y,fruitInfo().primary,24,6);log(attackName('x')+': '+(hit?hit+' enemigo(s) golpeado(s).':'embestida sin impacto.'));shake=9;}
 if(k==='c'){playPlayerAttackSound('c',transformed);cds.c=360;const meteorRadius=transformed?390:275;burst(player.x,player.y,fruitInfo().primary,transformed?34:27,transformed?7:6);particles.push({ring:true,x:player.x,y:player.y,radius:meteorRadius,color:fruitInfo().light,life:28,max:28});let hit=0;for(const e of [...enemies]){let d=Math.hypot(e.x-player.x,e.y-player.y);if(d<meteorRadius+e.r){hurtEnemy(e,playerDamage(transformed?360:155),transformed?48:30);hit++;let mx=e.x,my=e.y;particles.push({beam:true,x:mx+rand(-38,22),y:my-100,ex:mx,ey:my,width:transformed?12:9,color:fruitInfo().light,life:24,max:24});}}log(attackName('c')+': '+hit+' objetivo(s) alcanzados.');shake=transformed?15:9;}}
 function propulsionHit(e){
- // Cada enemigo puede recibir como máximo seis impactos durante una activación,
+ // Cada enemigo puede recibir como máximo tres impactos durante una activación de 1,5 s,
  // con medio segundo entre pulsos. Evita el daño infinito por contacto continuo.
  let state=propulsionHitState.get(e);
  if(!state)state={hits:0,lastFrame:-99999};
- if(state.hits>=6||frame-state.lastFrame<30)return false;
+ if(state.hits>=3||frame-state.lastFrame<30)return false;
  const damage=playerDamage(transformed?45:27);
  hurtEnemy(e,damage,transformed?10:7);
  state.hits++;
@@ -1068,9 +1065,9 @@ function propulsionHit(e){
 function soar(){
  if(!started||paused||gameOver||transitionPending||cds.f>0||player.soarFrames>0)return;
  playPlayerAttackSound('f',transformed);
- // El cooldown empieza al finalizar los 3 segundos de impulso, no al activarlo.
+ // El cooldown empieza al finalizar el impulso de 1,5 segundos, no al activarlo.
  cds.f=0;
- player.soarFrames=180;
+ player.soarFrames=90;
  propulsionHitState=new Map();
  const oldX=player.x,oldY=player.y;
  // Impulso inicial y estela: el daño continúa durante los tres segundos activos.
@@ -1090,7 +1087,7 @@ function soar(){
   const hitRadius=e.r+player.r+hitRadiusBoost;
   if(lineDist<=hitRadius&&propulsionHit(e))hit++;
  }
- log(attackName('f')+': impulso y daño continuo durante 3 segundos. Cada enemigo puede recibir hasta 6 impactos, con intervalo de 0,5 segundos; después espera 4 segundos para recargarse.'+(hit?' Alcanzaste a '+hit+' enemigo(s) en la trayectoria inicial.':''));
+ log(attackName('f')+': impulso y daño continuo durante 1,5 segundos. Cada enemigo puede recibir hasta 3 impactos, con intervalo de 0,5 segundos; después espera 4 segundos para recargarse.'+(hit?' Alcanzaste a '+hit+' enemigo(s) en la trayectoria inicial.':''));
  $('status').textContent=attackName('f')+' activa';
 }
 function transform(){
@@ -1195,8 +1192,8 @@ function updateUI(){
 function update(){if(!started||paused||gameOver||transitionPending)return;frame++;if(!transformed&&furyPending>0){const furyFrameGain=Math.min(furyPending,100/2700,100-fury);fury+=furyFrameGain;furyPending-=furyFrameGain;if(fury>=100)furyPending=0;}attackCD=Math.max(0,attackCD-1);for(let k of ['z','x','c','v'])cds[k]=Math.max(0,cds[k]-1);if(cds.f>0)cds.f=Math.max(0,cds.f-1);player.inv=Math.max(0,player.inv-1);const wasPropelling=player.soarFrames>0;player.soarFrames=Math.max(0,player.soarFrames-1);if(wasPropelling&&player.soarFrames===0){cds.f=240;propulsionHitState.clear();log(attackName('f')+' finalizado. Enfriamiento de 4 segundos.');$('status').textContent=attackName('f')+' en enfriamiento';}shake=Math.max(0,shake*.86);
 let dx=0,dy=0;if(keys.ArrowLeft||keys.a||keys.A)dx--;if(keys.ArrowRight||keys.d||keys.D)dx++;if(keys.ArrowUp||keys.w||keys.W)dy--;if(keys.ArrowDown||keys.s||keys.S)dy++;if(dx||dy){let l=Math.hypot(dx,dy);dx/=l;dy/=l;let boost=player.soarFrames>0?2.15:1;player.x+=dx*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost;player.y+=dy*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost;player.dx=dx;player.dy=dy;if(frame%5===0)particles.push({x:player.x,y:player.y+10,vx:rand(-1,1),vy:rand(-1,1),life:12,max:12,color:transformed?fruitInfo().light:fruitInfo().primary,r:2});}
 clampPlayerToStage();
-// Propulsión mantiene una hitbox moderada alrededor del personaje durante 3 s.
-// Se aplica un pulso como máximo cada 30 frames por objetivo y hasta seis veces.
+// Propulsión mantiene una hitbox moderada alrededor del personaje durante 1,5 s.
+// Se aplica un pulso como máximo cada 30 frames por objetivo y hasta tres veces.
 if(player.soarFrames>0){
  const activeRadiusBonus=transformed?18:14;
  for(const e of [...enemies]){
@@ -1207,8 +1204,8 @@ if(player.soarFrames>0){
  }
 }
 if(transformed){transformFrames=Math.max(0,transformFrames-1);fury=transformFrames/1800*100;if(transformFrames<=0){transformed=false;fury=0;furyPending=0;cds.v=600;log('La forma '+fruitInfo().name+' terminó. La furia volvió a 0% y V tendrá 10 segundos de enfriamiento antes de volver a activarse.');$('status').textContent='Explorando';}}
-// Regeneración natural +20%: aumenta con cada nivel, igual que la vida máxima (sin límite artificial en nivel 75).
-const naturalRegen=(0.045+level*.001)*1.20;player.hp=Math.min(player.maxHp,player.hp+naturalRegen);if(transformed){player.hp=Math.min(player.maxHp,player.hp+(.035*1.20));furyauraCD--;if(furyauraCD<=0){furyauraCD=30;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<100){hurtEnemy(e,playerDamage(32),8);burst(e.x,e.y,fruitInfo().primary,5,3);}}}
+// Regeneración natural +20%: aumenta con cada nivel. Tras recibir daño, toda la regeneración pasiva se reduce un 50% durante 3 segundos (180 frames a 60 FPS).
+const naturalRegen=(0.045+level*.001)*1.20;const transformedRegen=transformed?(.035*1.20):0;const regenMultiplier=(player.regenPenaltyFrames||0)>0?.5:1;player.hp=Math.min(player.maxHp,player.hp+(naturalRegen+transformedRegen)*regenMultiplier);if(player.regenPenaltyFrames>0)player.regenPenaltyFrames--;if(transformed){furyauraCD--;if(furyauraCD<=0){furyauraCD=30;for(const e of [...enemies])if(Math.hypot(e.x-player.x,e.y-player.y)<100){hurtEnemy(e,playerDamage(32),8);burst(e.x,e.y,fruitInfo().primary,5,3);}}}
 for(const e of [...enemies]){if(!enemies.includes(e))continue;e.phase+=.05;e.hit=Math.max(0,e.hit-1);e.cd=Math.max(0,e.cd-1);let ex=player.x-e.x,ey=player.y-e.y,d=Math.hypot(ex,ey)||1;const casting=updateBossSkill(e,d)||updateEliteSkill(e,d);if(casting){continue;}if(d>playerHitboxRadius()+e.r+2){e.x+=ex/d*e.speed;e.y+=ey/d*e.speed;}else if(e.cd<=0&&player.inv<=0){const dmg=enemyContactDamage(e);hurtPlayer(dmg,e.boss?'M1 de jefe':e.elite?'M1 de élite':'M1 enemigo');e.cd=e.boss?72:e.elite?55:45;}e.x=clamp(e.x,15,W-15);e.y=clamp(e.y,35,H-15);}
 // Reposición equilibrada y activa incluso cuando está invocado el Sagrado Carmesí.
 // El Carmesí no bloquea la aparición de NPC; spawnEnemy impide crear otro mientras exista uno.
@@ -1697,6 +1694,8 @@ if(transformed&&selectedFruit!=='dragon'){
  drawFruitTransformation(ctx,selectedFruit,fruitInfo(),frame);
 }else if(transformed){
  // Dragón oriental serpentino: cuerpo ondulado, escamas oscuras, bigotes y cuernos ramificados.
+ // Escala visual +8%; la hitbox de combate permanece igual.
+ ctx.scale(1.08,1.08);
  ctx.rotate(Math.atan2(player.dy,player.dx)+Math.PI/2);
  const pulse=.5+.5*Math.sin(frame*.105);
  const aura=ctx.createRadialGradient(0,8,4,0,8,74);
