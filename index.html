@@ -712,6 +712,51 @@ body.youtuber-mode .campaignCompleteCard>*:not(button),
 body.youtuber-mode .gameOverCard>*:not(button){display:none!important;}
 body.youtuber-mode .campaignCompleteCard button,
 body.youtuber-mode .gameOverCard button{display:inline-flex!important;align-items:center;justify-content:center;}
+
+/* Controles táctiles dedicados: solo teléfonos y tablets con pantalla táctil. */
+.mobileJoystick{display:none}
+@media (pointer:coarse) and (max-width:1200px){
+ .panel>.buttons,.abilityHotbar{display:none!important}
+ .mobile{
+  display:flex!important;position:absolute!important;z-index:25!important;
+  left:0!important;right:0!important;bottom:max(8px,env(safe-area-inset-bottom))!important;
+  width:100%!important;padding:0 12px 4px!important;margin:0!important;
+  align-items:flex-end!important;justify-content:space-between!important;gap:10px!important;
+  border:0!important;border-radius:0!important;background:transparent!important;
+  backdrop-filter:none!important;pointer-events:none!important;
+ }
+ .mobileJoystick{display:flex!important;flex:0 0 auto;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:clamp(104px,19vw,154px);pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none}
+ .joystickRing{width:clamp(92px,17vw,132px);height:clamp(92px,17vw,132px);border-radius:50%;position:relative;display:grid;place-items:center;background:radial-gradient(circle,rgba(35,57,84,.48) 0 38%,rgba(9,22,41,.78) 40% 68%,rgba(143,176,217,.28) 70% 73%,rgba(8,18,34,.66) 75%);border:2px solid rgba(205,224,250,.42);box-shadow:0 5px 22px #0008,inset 0 0 18px #9ab8df22;touch-action:none}
+ .joystickKnob{position:absolute;left:50%;top:50%;width:42%;height:42%;border-radius:50%;transform:translate(-50%,-50%);background:linear-gradient(145deg,#dceaff,#7898c5 72%,#405b83);border:2px solid rgba(255,255,255,.72);box-shadow:0 4px 12px #0008,inset 0 2px 5px #fff9;pointer-events:none}
+ .joystickHint{font-size:.58rem;font-weight:950;letter-spacing:.16em;color:#d9e8ff;text-shadow:0 2px 5px #000;line-height:1}
+ .mobile .mobileActions{display:grid!important;grid-template-columns:repeat(2,minmax(64px,1fr))!important;grid-template-rows:repeat(3,minmax(48px,auto))!important;grid-auto-flow:row!important;gap:6px!important;width:min(43vw,250px)!important;flex:0 1 250px!important;align-items:stretch!important;justify-content:stretch!important;pointer-events:auto!important}
+ .mobile .mobileActions button{width:100%!important;min-width:0!important;min-height:48px!important;height:100%!important;padding:4px 3px!important;border-radius:10px!important;gap:3px!important;pointer-events:auto!important;touch-action:manipulation!important}
+ .mobile .controlKey{font-size:clamp(.52rem,1.2vw,.68rem)!important;min-height:15px!important}
+ .mobile .attackName{font-size:clamp(.53rem,1.35vw,.72rem)!important;line-height:1.05!important;min-height:1.7em!important}
+ .mobile .cooldownLabel{font-size:clamp(.48rem,1.15vw,.62rem)!important}
+ .mobile button:active{transform:scale(.96)!important;filter:brightness(1.22)!important}
+ .gameStage{touch-action:none}
+}
+@media (pointer:coarse) and (max-width:600px){
+ .mobile{padding:0 7px 3px!important;gap:5px!important}
+ .mobileJoystick{width:clamp(94px,27vw,116px)}
+ .joystickRing{width:clamp(84px,24vw,104px);height:clamp(84px,24vw,104px)}
+ .mobile .mobileActions{width:min(48vw,194px)!important;flex-basis:min(48vw,194px)!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:repeat(3,minmax(43px,auto))!important;gap:4px!important}
+ .mobile .mobileActions button{min-height:43px!important;padding:3px 2px!important;border-radius:8px!important}
+ .mobile .attackName{font-size:clamp(.46rem,2vw,.59rem)!important;min-height:1.6em!important}
+ .mobile .cooldownLabel{font-size:.46rem!important}
+ .mobile .controlKey{font-size:.5rem!important}
+}
+@media (pointer:coarse) and (max-width:380px){
+ .mobile .mobileActions{width:48vw!important;flex-basis:48vw!important;gap:3px!important}
+ .mobile .mobileActions button{min-height:39px!important}
+ .joystickRing{width:80px;height:80px}
+}
+
+/* En PC se oculta únicamente la palabra MOVER del joystick; las teclas de ataques se conservan. */
+@media (pointer:fine){
+ .joystickHint{display:none!important}
+}
 </style>
 <!-- ÉTER: ASCENSIÓN — Beta 7: hitboxes ajustadas y daño enemigo -10%. -->
 </head>
@@ -725,7 +770,7 @@ body.youtuber-mode .gameOverCard button{display:inline-flex!important;align-item
   <div class="stat hud-spacer" aria-hidden="true"></div>
   <div class="stat"><small>Vida</small><strong id="hpText">120 / 120</strong><div class="bar"><div class="fill hp" id="hpBar"></div></div></div>
   <div class="stat"><small id="furyLabel">Furia dracónica</small><strong id="furyText">0%</strong><div class="bar"><div class="fill fury" id="furyBar"></div></div></div>
- </div><div class="startScreen" id="startScreen"><div class="startCard"><h2>ÉTER: ASCENSIÓN</h2><p>Eres un joven que despierta el poder de una fruta ancestral y se embarca en una aventura por islas de todo tipo, enfrentando enemigos, élites y jefes. ¿Aceptas el desafío?</p><button id="startBtn">DESPERTAR</button></div></div><div id="fruitSelectScreen" class="fruitSelectScreen hidden" role="dialog" aria-modal="true" aria-labelledby="fruitSelectTitle"><div class="fruitSelectCard"><p class="fruitSelectEyebrow">ELIGE TU PODER ANCESTRAL</p><h2 id="fruitSelectTitle">SELECCIÓN DE FRUTA</h2><p class="fruitSelectIntro">Cada fruta destaca en un atributo, es equilibrada en otro y tiene una debilidad. Escoge tu estilo de combate.</p><div id="fruitGroups" class="fruitGroups"></div><div class="fruitSelectFooter"><button id="confirmFruitBtn" type="button">CONFIRMAR Y JUGAR</button></div></div></div><div class="islandTransition hidden" id="islandTransition" role="dialog" aria-modal="true" aria-labelledby="transitionTitle"><div class="islandTransitionCard"><div class="eyebrow" id="transitionEyebrow">NUEVO REINO DESCUBIERTO</div><h2 id="transitionTitle">Preparando el viaje...</h2><p id="transitionDescription">Una nueva aventura te espera.</p><button id="goIslandBtn">IR AL SIGUIENTE REINO</button></div></div><div id="pauseScreen" class="pauseScreen hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle"><div class="pauseCard"><button id="soundToggleBtn" class="soundToggleBtn" type="button" aria-label="Silenciar sonido" aria-pressed="false" title="Silenciar sonido">🔊</button><div class="pauseIcon">Ⅱ</div><h2 id="pauseTitle">PAUSA</h2><p>La partida está detenida.</p><button id="resumeBtn" type="button">▶ CONTINUAR</button></div></div><div id="invokerResultScreen" class="invokerResultScreen hidden" role="status" aria-live="assertive"><div class="invokerResultCard"><p class="invokerResultEyebrow">MODO ENTRENAMIENTO</p><h2 id="invokerResultTitle">DESAFÍO SUPERADO</h2><p id="invokerResultText">Has derrotado a todos los enemigos invocados.</p></div></div><div id="gameOverScreen" class="gameOverScreen hidden" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle"><div class="gameOverCard"><div class="gameOverMark">✦</div><p class="gameOverEyebrow">LA AVENTURA SE DETUVO</p><h2 id="gameOverTitle">GAME OVER</h2><p>Los reinos aún esperan tu regreso.</p><button id="reloadBtn" type="button">↻ VOLVER A EMPEZAR</button></div></div><div id="campaignCompleteScreen" class="campaignCompleteScreen hidden" role="dialog" aria-modal="true" aria-labelledby="campaignCompleteTitle"><div class="campaignCompleteCard"><p class="campaignEyebrow">HISTORIA PRINCIPAL COMPLETADA</p><h2 id="campaignCompleteTitle">¡FELICIDADES!</h2><p>Has alcanzado el nivel 100, conquistado los 20 mundos y demostrado que puedes dominar el poder de tu fruta.</p><div class="campaignDivider"></div><h3>Tu viaje todavía no termina.</h3><p>Continúa en la <strong>Dimensión Rainbow</strong>, un mundo de postgame donde los enemigos, los jefes y tu poder siguen creciendo sin límite.</p><button id="continueInfiniteBtn" type="button">CONTINUAR EN LA DIMENSIÓN RAINBOW</button></div></div><div id="adminScreen" class="adminScreen hidden" role="dialog" aria-modal="true" aria-labelledby="adminTitle"><div class="adminCard"><p class="adminEyebrow">ACCESO ESPECIAL · ÉTER: ASCENSIÓN</p><h2 id="adminTitle">MODO ADMIN</h2><p>Hola VH. Escoge tu mundo:</p><div class="adminField"><label for="adminWorld">Mundo de destino</label><select id="adminWorld"></select><small id="adminLevelPreview" class="adminLevelPreview">Nivel inicial: 1</small></div><div class="adminField adminFruitField"><label for="adminFruit">Poder / fruta equipada</label><select id="adminFruit"></select><small class="adminLevelPreview">El cambio de fruta se aplica al instante, sin reiniciar la partida.</small></div>
+ </div><div class="startScreen" id="startScreen"><div class="startCard"><h2>ÉTER: ASCENSIÓN</h2><p>Eres un joven que despierta el poder de una fruta ancestral y se embarca en una aventura por islas de todo tipo, enfrentando enemigos, élites y jefes. ¿Aceptas el desafío?</p><button id="startBtn" type="button">DESPERTAR</button></div></div><div id="fruitSelectScreen" class="fruitSelectScreen hidden" role="dialog" aria-modal="true" aria-labelledby="fruitSelectTitle"><div class="fruitSelectCard"><p class="fruitSelectEyebrow">ELIGE TU PODER ANCESTRAL</p><h2 id="fruitSelectTitle">SELECCIÓN DE FRUTA</h2><p class="fruitSelectIntro">Cada fruta destaca en un atributo, es equilibrada en otro y tiene una debilidad. Escoge tu estilo de combate.</p><div id="fruitGroups" class="fruitGroups"></div><div class="fruitSelectFooter"><button id="confirmFruitBtn" type="button">CONFIRMAR Y JUGAR</button></div></div></div><div class="islandTransition hidden" id="islandTransition" role="dialog" aria-modal="true" aria-labelledby="transitionTitle"><div class="islandTransitionCard"><div class="eyebrow" id="transitionEyebrow">NUEVO REINO DESCUBIERTO</div><h2 id="transitionTitle">Preparando el viaje...</h2><p id="transitionDescription">Una nueva aventura te espera.</p><button id="goIslandBtn">IR AL SIGUIENTE REINO</button></div></div><div id="pauseScreen" class="pauseScreen hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle"><div class="pauseCard"><button id="soundToggleBtn" class="soundToggleBtn" type="button" aria-label="Silenciar sonido" aria-pressed="false" title="Silenciar sonido">🔊</button><div class="pauseIcon">Ⅱ</div><h2 id="pauseTitle">PAUSA</h2><p>La partida está detenida.</p><button id="resumeBtn" type="button">▶ CONTINUAR</button></div></div><div id="invokerResultScreen" class="invokerResultScreen hidden" role="status" aria-live="assertive"><div class="invokerResultCard"><p class="invokerResultEyebrow">MODO ENTRENAMIENTO</p><h2 id="invokerResultTitle">DESAFÍO SUPERADO</h2><p id="invokerResultText">Has derrotado a todos los enemigos invocados.</p></div></div><div id="gameOverScreen" class="gameOverScreen hidden" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle"><div class="gameOverCard"><div class="gameOverMark">✦</div><p class="gameOverEyebrow">LA AVENTURA SE DETUVO</p><h2 id="gameOverTitle">GAME OVER</h2><p>Los reinos aún esperan tu regreso.</p><button id="reloadBtn" type="button">↻ VOLVER A EMPEZAR</button></div></div><div id="campaignCompleteScreen" class="campaignCompleteScreen hidden" role="dialog" aria-modal="true" aria-labelledby="campaignCompleteTitle"><div class="campaignCompleteCard"><p class="campaignEyebrow">HISTORIA PRINCIPAL COMPLETADA</p><h2 id="campaignCompleteTitle">¡FELICIDADES!</h2><p>Has alcanzado el nivel 100, conquistado los 20 mundos y demostrado que puedes dominar el poder de tu fruta.</p><div class="campaignDivider"></div><h3>Tu viaje todavía no termina.</h3><p>Continúa en la <strong>Dimensión Rainbow</strong>, un mundo de postgame donde los enemigos, los jefes y tu poder siguen creciendo sin límite.</p><button id="continueInfiniteBtn" type="button">CONTINUAR EN LA DIMENSIÓN RAINBOW</button></div></div><div id="adminScreen" class="adminScreen hidden" role="dialog" aria-modal="true" aria-labelledby="adminTitle"><div class="adminCard"><p class="adminEyebrow">ACCESO ESPECIAL · ÉTER: ASCENSIÓN</p><h2 id="adminTitle">MODO ADMIN</h2><p>Hola VH. Escoge tu mundo:</p><div class="adminField"><label for="adminWorld">Mundo de destino</label><select id="adminWorld"></select><small id="adminLevelPreview" class="adminLevelPreview">Nivel inicial: 1</small></div><div class="adminField adminFruitField"><label for="adminFruit">Poder / fruta equipada</label><select id="adminFruit"></select><small class="adminLevelPreview">El cambio de fruta se aplica al instante, sin reiniciar la partida.</small></div>
 <div class="adminModes">
  <h3>01 · PROGRESIÓN</h3>
  <label class="adminModeRow"><span><strong>x2 EXP</strong><small>Duplica la experiencia obtenida. Se multiplica con x5 y x10 si activas más de uno.</small></span><input id="modeDoubleXP" type="checkbox"></label>
@@ -760,7 +805,7 @@ body.youtuber-mode .gameOverCard button{display:inline-flex!important;align-item
   </label>
   <button id="invokeEnemiesBtn" type="button">INVOCAR ENEMIGOS</button>
   <small class="invokerCounts" id="invokerCounts">Normales + élites: 0/100 · Jefes: 0/50 · Carmesí: 0/25</small>
-  <small>Topes exclusivos del invocador: 100 enemigos normales y élites combinados, 50 jefes morados y 25 Sagrados Carmesí. Las reglas normales de aparición no se aplican.</small>
+  <small>Topes exclusivos: 100 normales y élites combinados, 50 jefes y 25 Carmesí. Si invocas desde el menú inicial, pulsa TELETRANSPORTAR: las invocaciones se conservarán y aparecerán en el mundo. Si vienes de pausa, vuelve y continúa la partida para verlas.</small>
  </div>
  <label class="adminModeRow"><span><strong>Modo Youtuber</strong><small>Oculta el HUD y las interfaces durante la partida. Conserva el botón de pausa y los botones para entrar al siguiente mundo.</small></span><input id="modeYoutuber" type="checkbox"></label>
 </div>
@@ -777,7 +822,12 @@ body.youtuber-mode .gameOverCard button{display:inline-flex!important;align-item
 <div class="adminActions"><button id="adminTeleportBtn" type="button">TELETRANSPORTAR</button><button id="adminBackBtn" type="button">VOLVER</button></div></div></div></div>
 <div id="vhLockoutScreen" class="vhLockoutScreen hidden" role="alertdialog" aria-modal="true"><div class="vhLockoutCard"><p>CONTRASEÑA INCORRECTA</p><h2 id="vhCountdown">AUTODESTRUCCIÓN EN 3</h2><small>ÉTER: ASCENSIÓN</small></div></div>
 <div class="foot"><span id="islandLabel">ISLA 1 · PUERTO ROCKET</span><span id="status" class="visuallyHidden">Pulsa DESPERTAR para jugar</span></div>
- <div class="mobile"><div class="mobileActions">
+ <div class="mobile">
+ <div class="mobileJoystick" id="mobileJoystick" aria-label="Joystick de movimiento" role="application">
+  <div class="joystickRing"><div class="joystickKnob" id="joystickKnob"></div></div>
+  <span class="joystickHint">MOVER</span>
+ </div>
+ <div class="mobileActions">
  <button id="mobileSpace" type="button" aria-label="Rugido: tocar o pulsar espacio para atacar"><span class="controlKey">CLICK / ESPACIO</span><span class="attackName" data-attack-name="m1">Rugido Dracónico</span><small class="cooldownLabel" data-cd="m1">LISTO</small></button>
  <button type="button" data-ability="z"><span class="controlKey">Z</span><span class="attackName" data-attack-name="z">Aliento Ígneo</span><small class="cooldownLabel" data-cd="z">LISTO</small></button>
  <button type="button" data-ability="x"><span class="controlKey">X</span><span class="attackName" data-attack-name="x">Embestida Dracónica</span><small class="cooldownLabel" data-cd="x">LISTO</small></button>
@@ -926,8 +976,8 @@ function cooldownFrames(normalFrames){return adminModes.noCooldowns?12:normalFra
 // Hitboxes follow the solid body of each awakened form, not its decorative aura.
 // This keeps big forms (Buddha/Dough/Kitsune) from behaving like the tiny base avatar.
 const FRUIT_HITBOXES={
- lightning:{radius:25,padX:40,padY:70},
- kitsune:{radius:28,padX:72,padY:78},
+ lightning:{radius:25,padX:78,padY:70},
+ kitsune:{radius:28,padX:130,padY:92},
  dragon:{radius:27,padX:46,padY:84},
  buddha:{radius:29,padX:68,padY:110},
  dough:{radius:29,padX:68,padY:68},
@@ -1124,13 +1174,13 @@ function syncPauseButtonVisibility(){
  syncVHAnthemPlayback();
 }
 function currentTheme(){return themes[Math.min(island,20)];}
-function reset(){activeGameElapsedMs=0;lastActiveUpdateAt=0;totalDamageDealt=0;totalDamageTaken=0;adminCodeIndex=0;adminOverrideActive=false;document.body.classList.remove('game-started','game-paused','game-transition','game-over','campaign-complete');started=false;paused=false;postGame=false;campaignCompleteShown=false;keys={};transitionPending=false;$('islandTransition').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('invokerResultScreen').classList.add('hidden');$('adminScreen').classList.add('hidden');$('startScreen').classList.remove('hidden');$('pauseBtn').disabled=true;$('pauseBtn').style.display='none';$('pauseBtn').textContent='Ⅱ PAUSA';$('game').parentElement.classList.remove('paused');$('status').textContent='Pulsa DESPERTAR para jugar';player={x:W/2,y:H/2,r:14,hp:120,maxHp:120,speed:3.1,dx:1,dy:0,inv:0,soarFrames:0,regenPenaltyFrames:0};enemies=[];particles=[];level=1;xp=0;xpNeed=1000;island=0;islandKills=0;fury=0;furyPending=0;transformed=false;transformFrames=0;attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};frame=0;gameOver=false;shake=0;furyauraCD=0;spawnCounter=0;spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState=new Map();for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();$('log').textContent='Un joven descubre el poder de una fruta ancestral y parte a recorrer los reinos.';log('Cada reino ajusta enemigos y jefes al nivel medio del tramo: 3, 8, 13…98. En la Dimensión Rainbow la dificultad sigue tu nivel actual. Apariciones: normal 69% · élite 23.5% · jefe violeta 6.5% (máx. 3 a la vez) · jefe supremo rojo 1%. El Carmesí tiene 1% de probabilidad de aparecer después de 3 minutos de juego activo; el contador se detiene en pausa, transiciones y menú inicial. Los demás NPC siguen apareciendo, pero solo puede existir un Carmesí activo. El daño recibido y la fuerza de cada fruta dependen del poder equipado. XP: normal 50 · élite 100 · jefe 500 · supremo 1000.');syncPauseButtonVisibility();applyFruitTheme();updateUI();}
+function reset(){activeGameElapsedMs=0;lastActiveUpdateAt=0;totalDamageDealt=0;totalDamageTaken=0;adminCodeIndex=0;adminOverrideActive=false;document.body.classList.remove('game-started','game-paused','game-transition','game-over','campaign-complete');started=false;paused=false;postGame=false;campaignCompleteShown=false;keys={};releaseMobileJoystick();transitionPending=false;$('islandTransition').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('invokerResultScreen').classList.add('hidden');$('adminScreen').classList.add('hidden');$('startScreen').classList.remove('hidden');$('pauseBtn').disabled=true;$('pauseBtn').style.display='none';$('pauseBtn').textContent='Ⅱ PAUSA';$('game').parentElement.classList.remove('paused');$('status').textContent='Pulsa DESPERTAR para jugar';player={x:W/2,y:H/2,r:14,hp:120,maxHp:120,speed:3.1,dx:1,dy:0,inv:0,soarFrames:0,regenPenaltyFrames:0};enemies=[];particles=[];level=1;xp=0;xpNeed=1000;island=0;islandKills=0;fury=0;furyPending=0;transformed=false;transformFrames=0;attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};frame=0;gameOver=false;shake=0;furyauraCD=0;spawnCounter=0;spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState=new Map();for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();$('log').textContent='Un joven descubre el poder de una fruta ancestral y parte a recorrer los reinos.';log('Cada reino ajusta enemigos y jefes al nivel medio del tramo: 3, 8, 13…98. En la Dimensión Rainbow la dificultad sigue tu nivel actual. Apariciones: normal 69% · élite 23.5% · jefe violeta 6.5% (máx. 3 a la vez) · jefe supremo rojo 1%. El Carmesí tiene 1% de probabilidad de aparecer después de 3 minutos de juego activo; el contador se detiene en pausa, transiciones y menú inicial. Los demás NPC siguen apareciendo, pero solo puede existir un Carmesí activo. El daño recibido y la fuerza de cada fruta dependen del poder equipado. XP: normal 50 · élite 100 · jefe 500 · supremo 1000.');syncPauseButtonVisibility();applyFruitTheme();updateUI();}
 function enemyBenchmarkLevel(){
  // Reinos de campaña: dificultad basada en el nivel medio del tramo (3, 8, 13...98).
  // Dimensión Rainbow: la dificultad sigue el nivel real del jugador.
  return (postGame||island>=20)?Math.max(1,level):island*5+3;
 }
-function spawnEnemy(forcedType=null,source='natural'){const invoked=source==='invoker';if(adminModes.enemyInvoker&&!invoked)return false;if(!invoked&&enemies.length>=activeEnemyLimit())return false;let x,y,tries=0;do{x=rand(35,W-35);y=rand(60,H-35);tries++;}while(Math.hypot(x-player.x,y-player.y)<150&&tries<100);spawnCounter++;const benchmarkLevel=enemyBenchmarkLevel();const rainbow=postGame||level>100||island>=20;const roll=Math.random()*100;
+function spawnEnemy(forcedType=null,source='natural'){const invoked=source==='invoker';if(adminModes.enemyInvoker&&!invoked)return false;if(!invoked&&enemies.length>=activeEnemyLimit())return false;let x,y,tries=0;if(invoked){const angle=rand(0,Math.PI*2),radius=rand(175,Math.min(285,Math.max(190,Math.min(W,H)*.42)));x=clamp(player.x+Math.cos(angle)*radius,35,W-35);y=clamp(player.y+Math.sin(angle)*radius,60,H-35);}else{do{x=rand(35,W-35);y=rand(60,H-35);tries++;}while(Math.hypot(x-player.x,y-player.y)<150&&tries<100);}spawnCounter++;const benchmarkLevel=enemyBenchmarkLevel();const rainbow=postGame||level>100||island>=20;const roll=Math.random()*100;
 const activeSuperBosses=enemies.filter(e=>e.superBoss).length;
 const activePurpleBosses=enemies.filter(e=>e.boss&&!e.superBoss).length;
 let superBoss=false,boss=false,elite=false;
@@ -1391,6 +1441,15 @@ function updateInvokerPanelStatus(){
  const status=$('invokerCounts');
  if(status)status.textContent='Normales + élites: '+counts.basic+'/100 · Jefes: '+counts.bosses+'/50 · Carmesí: '+counts.crimson+'/25 · Total: '+counts.total;
 }
+function getInvokerSpawnRoster(){
+ const summoned=(Array.isArray(enemies)?enemies:[]).filter(e=>e.invoked);
+ return {
+  normal:summoned.filter(e=>!e.boss&&!e.elite&&!e.superBoss).length,
+  elite:summoned.filter(e=>e.elite&&!e.boss&&!e.superBoss).length,
+  boss:summoned.filter(e=>e.boss&&!e.superBoss).length,
+  crimson:summoned.filter(e=>e.superBoss).length
+ };
+}
 function summonInvokerEnemies(){
  if(!adminModes.enemyInvoker){log('Activa primero el Invocador de enemigos.');return;}
  const type=$('invokerEnemyType')?.value||'normal';
@@ -1532,6 +1591,9 @@ function closeAdminPanel(){
 }
 function applyAdminTeleport(){
  getSfxAudioContext();
+ // Guarda las invocaciones hechas desde Admin antes de reconstruir el mundo.
+ // Antes se vaciaba enemies[] al teletransportar y se perdían los enemigos invocados.
+ const invokerRoster=adminModes.enemyInvoker?getInvokerSpawnRoster():null;
  if(!started){activeGameElapsedMs=0;lastActiveUpdateAt=0;}
  const chosenIsland=Math.max(0,Math.min(20,Math.floor(Number($('adminWorld').value)||0)));
  const chosenLevel=adminStartingLevel(chosenIsland);
@@ -1541,8 +1603,20 @@ function applyAdminTeleport(){
  player.speed=Math.min(4.6,3.1+(level-1)*.045);player.x=W/2;player.y=H/2;player.soarFrames=0;
  island=chosenIsland;postGame=chosenIsland===20;adminOverrideActive=false;campaignCompleteShown=false;
  islandKills=0;transitionPending=false;paused=false;gameOver=false;started=true;keys={};attackCD=0;cds={z:0,x:0,c:0,f:0,v:0};
- enemies=[];particles=[];spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState.clear();if(adminModes.enemyInvoker)trainingHadSummons=false;
- for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();updateInvokerPanelStatus();
+ enemies=[];particles=[];spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;propulsionHitState.clear();
+ if(adminModes.enemyInvoker){
+  // Restaura cada tipo en las coordenadas del mundo nuevo; el spawn natural continúa bloqueado.
+  let restored=0;
+  for(const type of ['normal','elite','boss','crimson']){
+   const amount=invokerRoster?.[type]||0;
+   for(let i=0;i<amount;i++)if(spawnEnemy(type,'invoker'))restored++;
+  }
+  trainingHadSummons=restored>0;
+ }else{
+  trainingHadSummons=false;
+  for(let i=0;i<MAX_ENEMIES_ON_SCREEN;i++)spawnEnemy();
+ }
+ updateInvokerPanelStatus();
  $('startScreen').classList.add('hidden');$('fruitSelectScreen').classList.add('hidden');$('pauseScreen').classList.add('hidden');$('islandTransition').classList.add('hidden');$('gameOverScreen').classList.add('hidden');$('campaignCompleteScreen').classList.add('hidden');$('adminScreen').classList.add('hidden');
  document.body.classList.remove('game-paused','game-transition','game-over','campaign-complete');document.body.classList.add('game-started');
  $('status').textContent='Modo admin · '+areaName();syncPauseButtonVisibility();
@@ -1566,7 +1640,7 @@ function updateUI(){
  document.querySelectorAll('[data-cd]').forEach(node=>{const key=node.dataset.cd;let label='LISTO',remaining=cdState[key]||0;if(key==='f'&&player.soarFrames>0)label='ACTIVA';else if(key==='v'&&transformed)label='ACTIVA';else if(key==='v'&&remaining>0)label=(Math.ceil(remaining/6)/10).toFixed(1)+' s';else if(key==='v'&&fury>=100)label='LISTA';else if(key==='v')label=Math.floor(fury)+'%';else if(remaining>0)label=Math.ceil(remaining/60)+' s';node.textContent=label;node.classList.toggle('cooling',remaining>0&&!(key==='v'&&transformed));});
 }
 function update(){if(!started||paused||gameOver||transitionPending){lastActiveUpdateAt=0;return;}const activeNow=performance.now();if(lastActiveUpdateAt>0){const activeDelta=activeNow-lastActiveUpdateAt;if(activeDelta>=0&&activeDelta<250)activeGameElapsedMs+=activeDelta;}lastActiveUpdateAt=activeNow;frame++;if(adminModes.infiniteFury||adminModes.vhMode){fury=100;furyPending=0;}else if(!transformed&&furyPending>0){const furyFrameGain=Math.min(furyPending,100/2700,100-fury);fury+=furyFrameGain;furyPending-=furyFrameGain;if(fury>=100)furyPending=0;}attackCD=Math.max(0,attackCD-1);for(let k of ['z','x','c','v'])cds[k]=Math.max(0,cds[k]-1);if(cds.f>0)cds.f=Math.max(0,cds.f-1);player.inv=Math.max(0,player.inv-1);const wasPropelling=player.soarFrames>0;player.soarFrames=Math.max(0,player.soarFrames-1);if(wasPropelling&&player.soarFrames===0){cds.f=cooldownFrames(240);propulsionHitState.clear();log(attackName('f')+' finalizado. Enfriamiento de 4 segundos.');$('status').textContent=attackName('f')+' en enfriamiento';}shake=Math.max(0,shake*.86);
-let dx=0,dy=0;if(keys.ArrowLeft||keys.a||keys.A)dx--;if(keys.ArrowRight||keys.d||keys.D)dx++;if(keys.ArrowUp||keys.w||keys.W)dy--;if(keys.ArrowDown||keys.s||keys.S)dy++;if(dx||dy){let l=Math.hypot(dx,dy);dx/=l;dy/=l;let boost=player.soarFrames>0?2.15:1;player.x+=dx*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost;player.y+=dy*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost;player.dx=dx;player.dy=dy;if(frame%5===0)particles.push({x:player.x,y:player.y+10,vx:rand(-1,1),vy:rand(-1,1),life:12,max:12,color:transformed?playerAttackSecondaryColor():playerAttackPrimaryColor(),r:2});}
+let dx=0,dy=0;if(keys.ArrowLeft||keys.a||keys.A)dx--;if(keys.ArrowRight||keys.d||keys.D)dx++;if(keys.ArrowUp||keys.w||keys.W)dy--;if(keys.ArrowDown||keys.s||keys.S)dy++;dx+=mobileJoystickVector.x;dy+=mobileJoystickVector.y;if(dx||dy){let l=Math.hypot(dx,dy);dx/=l;dy/=l;let boost=player.soarFrames>0?2.15:1;player.x+=dx*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost;player.y+=dy*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost;player.dx=dx;player.dy=dy;if(frame%5===0)particles.push({x:player.x,y:player.y+10,vx:rand(-1,1),vy:rand(-1,1),life:12,max:12,color:transformed?playerAttackSecondaryColor():playerAttackPrimaryColor(),r:2});}
 clampPlayerToStage();
 // Propulsión mantiene una hitbox moderada alrededor del personaje durante 1,5 s.
 // Se aplica un pulso como máximo cada 30 frames por objetivo y hasta tres veces.
@@ -1829,63 +1903,211 @@ function drawEnemySprite(e){
 }
 function drawFruitTransformation(ctx,id,f,frame){
  const pulse=.55+.45*Math.sin(frame*.11),p=f.primary,l=f.light,d=f.dark;
- const aura=ctx.createRadialGradient(0,0,5,0,0,id==='buddha'?100:78);
+ const aura=ctx.createRadialGradient(0,0,5,0,0,id==='buddha'?100:id==='lightning'?90:id==='kitsune'?145:78);
  aura.addColorStop(0,`rgba(${f.rgb},.28)`);aura.addColorStop(.52,`rgba(${f.rgb},.14)`);aura.addColorStop(1,`rgba(${f.rgb},0)`);
- ctx.fillStyle=aura;ctx.beginPath();ctx.ellipse(0,0,id==='buddha'?72:60,id==='buddha'?94:78,0,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle=aura;ctx.beginPath();ctx.ellipse(0,0,id==='buddha'?72:id==='lightning'?82:id==='kitsune'?132:60,id==='buddha'?94:id==='lightning'?74:id==='kitsune'?88:78,0,0,Math.PI*2);ctx.fill();
  ctx.save();ctx.lineCap='round';ctx.lineJoin='round';ctx.shadowColor=p;ctx.shadowBlur=15+9*pulse;
  if(id==='lightning'){
-  ctx.rotate(Math.atan2(player.dy,player.dx)+Math.PI/2);
-  // Avatar eléctrico: armadura humanoide, cresta de rayos y descargas que envuelven el cuerpo.
-  for(let i=0;i<8;i++){const a=i*Math.PI/4+frame*.012;ctx.save();ctx.rotate(a);ctx.strokeStyle=i%2?l:p;ctx.lineWidth=3.2;ctx.beginPath();ctx.moveTo(0,-35);ctx.lineTo(-8,-47);ctx.lineTo(3,-51);ctx.lineTo(-4,-67);ctx.stroke();ctx.restore();}
-  const body=ctx.createLinearGradient(-25,-28,25,53);body.addColorStop(0,l);body.addColorStop(.45,p);body.addColorStop(1,d);
-  ctx.fillStyle=d;ctx.beginPath();ctx.moveTo(-17,-2);ctx.lineTo(-27,10);ctx.lineTo(-20,25);ctx.lineTo(-13,20);ctx.lineTo(-15,50);ctx.lineTo(-5,57);ctx.lineTo(0,43);ctx.lineTo(7,57);ctx.lineTo(17,50);ctx.lineTo(15,20);ctx.lineTo(22,25);ctx.lineTo(28,9);ctx.lineTo(16,-2);ctx.closePath();ctx.fill();
-  ctx.fillStyle=body;ctx.beginPath();ctx.moveTo(-12,-7);ctx.lineTo(-21,5);ctx.lineTo(-13,17);ctx.lineTo(-10,43);ctx.lineTo(0,48);ctx.lineTo(10,43);ctx.lineTo(13,17);ctx.lineTo(21,5);ctx.lineTo(12,-7);ctx.closePath();ctx.fill();
-  ctx.fillStyle='#173a85';rr(-11,-8,22,18,7);ctx.fillStyle=l;ctx.beginPath();ctx.arc(0,-22,13,0,Math.PI*2);ctx.fill();ctx.fillStyle=d;ctx.beginPath();ctx.moveTo(-12,-26);ctx.lineTo(-8,-41);ctx.lineTo(0,-32);ctx.lineTo(9,-42);ctx.lineTo(13,-24);ctx.closePath();ctx.fill();
-  ctx.strokeStyle='#fff';ctx.lineWidth=2.4;ctx.beginPath();ctx.moveTo(-7,-23);ctx.lineTo(-2,-21);ctx.moveTo(2,-21);ctx.lineTo(7,-23);ctx.stroke();
-  ctx.fillStyle='#153b86';ctx.strokeStyle=l;ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(-12,2);ctx.lineTo(0,-4);ctx.lineTo(12,2);ctx.lineTo(8,17);ctx.lineTo(0,22);ctx.lineTo(-8,17);ctx.closePath();ctx.fill();ctx.stroke();
-  ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(0,1);ctx.lineTo(-5,10);ctx.lineTo(1,9);ctx.lineTo(-2,17);ctx.lineTo(7,7);ctx.lineTo(2,8);ctx.stroke();
-  ctx.strokeStyle=l;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-20,-1);ctx.lineTo(-34,-15);ctx.lineTo(-28,-20);ctx.moveTo(20,-1);ctx.lineTo(34,-15);ctx.lineTo(28,-20);ctx.stroke();
-  ctx.strokeStyle='#fff';ctx.lineWidth=1.7;for(let i=0;i<4;i++){const x=-30+i*20;ctx.beginPath();ctx.moveTo(x,34);ctx.lineTo(x+5,25);ctx.lineTo(x+1,18);ctx.stroke();}
- }else if(id==='kitsune'){
-  // Forma erguida como Dough: no se inclina al avanzar arriba/abajo; solo se refleja al mirar a izquierda/derecha.
-  if(player.dx<-.15)ctx.scale(-1,1);
-  // Nueve colas en abanico detrás del guardián. Cada una tiene borde oscuro, degradado y punta luminosa.
-  const tailTips=[[-62,-48],[-69,-31],[-72,-12],[-68,8],[-60,28],[-48,45],[-34,55],[-22,-57],[-43,-61]];
-  tailTips.forEach(([tx,ty],i)=>{
-   const sx=-8,sy=13+(i%3)*2;
-   ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
-   ctx.strokeStyle='#3b1a69';ctx.lineWidth=14;ctx.beginPath();ctx.moveTo(sx,sy);ctx.bezierCurveTo(tx*.22,-4,tx*.72,ty+22,tx,ty);ctx.stroke();
-   const tg=ctx.createLinearGradient(sx,sy,tx,ty);tg.addColorStop(0,i%2?'#8c55e9':'#c89aff');tg.addColorStop(.58,i%3?'#b77aff':'#f0d9ff');tg.addColorStop(1,'#fff8ff');
-   ctx.strokeStyle=tg;ctx.lineWidth=9;ctx.beginPath();ctx.moveTo(sx,sy);ctx.bezierCurveTo(tx*.22,-4,tx*.72,ty+22,tx,ty);ctx.stroke();
-   ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(sx,sy);ctx.quadraticCurveTo(tx*.63,ty+18,tx,ty+4);ctx.stroke();
-   // Motivo de llama en cada punta.
-   ctx.fillStyle=i%2?'#fff4ff':'#ffe7ae';ctx.beginPath();ctx.arc(tx,ty,2.3+(i%2)*.6,0,Math.PI*2);ctx.fill();ctx.restore();
+  // Nube de tormenta: sustituye al antiguo avatar humanoide por una cumulonimbo
+  // oscura, voluminosa y cargada de electricidad. La nube no gira al caminar.
+  const bob=Math.sin(frame*.065)*2.2;
+  const flash=.5+.5*Math.sin(frame*.19);
+  ctx.save();
+  ctx.translate(0,bob);
+
+  // Arcos eléctricos que rodean la nube y aparecen de forma intermitente.
+  for(let i=0;i<4;i++){
+   const a=frame*.018+i*Math.PI/2;
+   const x=Math.cos(a)*59,y=-2+Math.sin(a)*31;
+   ctx.save();ctx.translate(x,y);ctx.rotate(a+.45);
+   ctx.globalAlpha=.35+.45*Math.max(0,Math.sin(frame*.12+i*1.8));
+   ctx.strokeStyle=i%2?'#d9f8ff':'#62caff';ctx.lineWidth=2.4;ctx.shadowColor='#65caff';ctx.shadowBlur=12;
+   ctx.beginPath();ctx.moveTo(-7,-5);ctx.lineTo(-1,1);ctx.lineTo(-5,7);ctx.lineTo(5,3);ctx.stroke();
+   ctx.restore();
+  }
+
+  // Sombra inferior y silueta oscura, con varios abultamientos propios de una nube.
+  ctx.fillStyle='rgba(3,13,31,.45)';ctx.beginPath();ctx.ellipse(0,29,47,9,0,0,Math.PI*2);ctx.fill();
+  const cloudPath=()=>{
+   ctx.beginPath();ctx.moveTo(-49,17);
+   ctx.bezierCurveTo(-64,14,-64,-5,-51,-14);
+   ctx.bezierCurveTo(-49,-30,-31,-39,-15,-32);
+   ctx.bezierCurveTo(-7,-50,19,-51,30,-34);
+   ctx.bezierCurveTo(47,-38,62,-25,59,-8);
+   ctx.bezierCurveTo(72,4,63,23,46,27);
+   ctx.bezierCurveTo(32,34,-33,35,-47,27);
+   ctx.bezierCurveTo(-54,25,-56,20,-49,17);ctx.closePath();
+  };
+  ctx.save();ctx.shadowColor='#258edb';ctx.shadowBlur=22+12*flash;
+  ctx.fillStyle='#101d35';ctx.strokeStyle='#071326';ctx.lineWidth=7;cloudPath();ctx.fill();ctx.stroke();ctx.restore();
+
+  // Volumen de los lóbulos: azul pizarra arriba y casi negro en la base.
+  const cloud=ctx.createLinearGradient(0,-48,0,34);
+  cloud.addColorStop(0,'#a9d8ed');cloud.addColorStop(.16,'#617f9d');cloud.addColorStop(.48,'#354e6c');cloud.addColorStop(.82,'#1d2e49');cloud.addColorStop(1,'#101b31');
+  ctx.fillStyle=cloud;cloudPath();ctx.fill();
+  // Borde frío iluminado por la electricidad.
+  ctx.strokeStyle='rgba(188,237,255,.78)';ctx.lineWidth=2.2;ctx.shadowColor='#69d8ff';ctx.shadowBlur=13;
+  ctx.beginPath();ctx.moveTo(-48,6);ctx.bezierCurveTo(-59,-3,-51,-20,-37,-23);
+  ctx.bezierCurveTo(-30,-39,-12,-39,-2,-29);
+  ctx.bezierCurveTo(8,-45,26,-42,32,-28);
+  ctx.bezierCurveTo(48,-32,56,-19,53,-7);ctx.stroke();ctx.shadowBlur=0;
+
+  // Bultos superiores con reflejos suaves, para que la forma se lea como nube y no como esfera.
+  const lobes=[[-31,-13,17,18],[-9,-23,22,22],[17,-21,21,21],[39,-9,15,17]];
+  lobes.forEach(([x,y,rx,ry],i)=>{
+   const g=ctx.createRadialGradient(x-rx*.28,y-ry*.55,2,x,y,rx*1.25);
+   g.addColorStop(0,i%2?'rgba(211,242,255,.58)':'rgba(167,218,244,.52)');
+   g.addColorStop(.48,'rgba(101,148,184,.20)');g.addColorStop(1,'rgba(28,49,75,0)');
+   ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2);ctx.fill();
   });
-  // Silueta humanoide compacta y erguida, con capa corta y placas violetas.
-  const fur=ctx.createLinearGradient(-18,-43,22,48);fur.addColorStop(0,'#fff4ff');fur.addColorStop(.38,'#c99cff');fur.addColorStop(.75,p);fur.addColorStop(1,d);
-  ctx.fillStyle='#41206d';ctx.beginPath();ctx.moveTo(-12,-7);ctx.lineTo(-22,4);ctx.lineTo(-18,31);ctx.lineTo(-9,40);ctx.lineTo(0,35);ctx.lineTo(9,40);ctx.lineTo(18,31);ctx.lineTo(22,4);ctx.lineTo(12,-7);ctx.closePath();ctx.fill();
-  ctx.fillStyle=fur;ctx.beginPath();ctx.moveTo(-10,-8);ctx.lineTo(-16,5);ctx.lineTo(-12,28);ctx.lineTo(0,34);ctx.lineTo(12,28);ctx.lineTo(16,5);ctx.lineTo(10,-8);ctx.closePath();ctx.fill();
-  // Brazos y guantes de energía.
-  ctx.strokeStyle='#6335a5';ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(-12,-1);ctx.lineTo(-26,12);ctx.lineTo(-22,23);ctx.moveTo(12,-1);ctx.lineTo(24,10);ctx.lineTo(20,22);ctx.stroke();
-  ctx.strokeStyle='#f4ddff';ctx.lineWidth=2.2;ctx.beginPath();ctx.moveTo(-26,12);ctx.lineTo(-22,23);ctx.moveTo(24,10);ctx.lineTo(20,22);ctx.stroke();
-  // Piernas y botas.
-  ctx.fillStyle='#56308a';ctx.beginPath();ctx.moveTo(-11,27);ctx.lineTo(-13,46);ctx.lineTo(-2,47);ctx.lineTo(0,33);ctx.lineTo(5,47);ctx.lineTo(16,45);ctx.lineTo(11,26);ctx.closePath();ctx.fill();
-  ctx.strokeStyle='#e7ccff';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-13,43);ctx.lineTo(-3,43);ctx.moveTo(6,43);ctx.lineTo(16,42);ctx.stroke();
-  // Cabeza de zorro de perfil hacia la derecha; la reflexión permite mirar al lado contrario.
-  ctx.fillStyle='#51257e';ctx.beginPath();ctx.moveTo(-15,-31);ctx.lineTo(-23,-56);ctx.lineTo(-5,-45);ctx.lineTo(1,-52);ctx.lineTo(7,-43);ctx.lineTo(23,-51);ctx.lineTo(18,-27);ctx.quadraticCurveTo(13,-12,0,-13);ctx.quadraticCurveTo(-13,-15,-15,-31);ctx.closePath();ctx.fill();
-  ctx.fillStyle=fur;ctx.beginPath();ctx.moveTo(-12,-31);ctx.lineTo(-19,-51);ctx.lineTo(-5,-41);ctx.lineTo(1,-47);ctx.lineTo(7,-39);ctx.lineTo(19,-46);ctx.lineTo(15,-28);ctx.quadraticCurveTo(11,-16,0,-17);ctx.quadraticCurveTo(-11,-18,-12,-31);ctx.closePath();ctx.fill();
-  // Hocico, nariz y ojo expresivo lateral.
-  ctx.fillStyle='#fff7ff';ctx.beginPath();ctx.moveTo(5,-30);ctx.quadraticCurveTo(18,-32,25,-26);ctx.lineTo(20,-19);ctx.lineTo(7,-20);ctx.closePath();ctx.fill();
-  ctx.fillStyle='#48216f';ctx.beginPath();ctx.arc(24,-26,2.5,0,Math.PI*2);ctx.fill();
-  ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(7,-31,3.2,4,-.2,0,Math.PI*2);ctx.fill();ctx.fillStyle='#35114f';ctx.beginPath();ctx.ellipse(8,-31,1.5,3,0,0,Math.PI*2);ctx.fill();
-  ctx.strokeStyle='#4a1d73';ctx.lineWidth=2.8;ctx.beginPath();ctx.moveTo(3,-37);ctx.lineTo(12,-40);ctx.stroke();
-  // Diadema, gema frontal y marcas espirituales.
-  ctx.strokeStyle='#ffe4a8';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-11,-39);ctx.quadraticCurveTo(1,-47,15,-39);ctx.stroke();
-  ctx.fillStyle='#ffe6a8';ctx.beginPath();ctx.moveTo(1,-45);ctx.lineTo(6,-39);ctx.lineTo(1,-33);ctx.lineTo(-4,-39);ctx.closePath();ctx.fill();
-  ctx.strokeStyle='#fff0ff';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-7,-18);ctx.lineTo(-3,-12);ctx.moveTo(0,-17);ctx.lineTo(4,-11);ctx.stroke();
-  // Pequeñas llamas orbitan el cuerpo sin tapar la silueta.
-  for(let i=0;i<5;i++){const a=frame*.035+i*Math.PI*2/5;const x=27+Math.cos(a)*5,y=-7+Math.sin(a)*24;ctx.fillStyle=i%2?'#fff':'#f8dca4';ctx.globalAlpha=.65+.25*Math.sin(frame*.08+i);ctx.beginPath();ctx.arc(x,y,2.1,0,Math.PI*2);ctx.fill();}
-  ctx.globalAlpha=1;
+  // Franja de lluvia oscura debajo de la nube.
+  ctx.strokeStyle='rgba(120,177,211,.48)';ctx.lineWidth=2;ctx.lineCap='round';
+  for(let i=0;i<7;i++){
+   const x=-39+i*13,dropY=23+Math.sin(frame*.08+i)*2;
+   ctx.beginPath();ctx.moveTo(x,dropY);ctx.lineTo(x-3,dropY+7+(i%3)*2);ctx.stroke();
+  }
+
+  // Tres descargas irregulares; el rayo central es el más intenso.
+  const bolts=[
+   {x:-27,y:25,scale:.72,phase:0},
+   {x:0,y:27,scale:1.12,phase:1.7},
+   {x:28,y:24,scale:.78,phase:3.1}
+  ];
+  bolts.forEach((b,i)=>{
+   const active=.58+.42*Math.max(0,Math.sin(frame*.16+b.phase));
+   ctx.save();ctx.translate(b.x,b.y);ctx.scale(b.scale,1);
+   const points=i===1?[[0,0],[-5,10],[2,10],[-7,25],[3,20],[0,38]]:i===0?[[-1,0],[-7,9],[-1,10],[-9,23],[0,19],[2,31]]:[[0,0],[5,9],[-2,12],[7,23],[0,21],[-2,33]];
+   ctx.globalAlpha=active;ctx.lineJoin='round';ctx.lineCap='round';
+   ctx.strokeStyle='#1879c9';ctx.lineWidth=i===1?8:6;ctx.shadowColor='#43bfff';ctx.shadowBlur=19;
+   ctx.beginPath();points.forEach(([x,y],j)=>j?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.stroke();
+   ctx.strokeStyle=i===1?'#f4fdff':'#bdefff';ctx.lineWidth=i===1?4.2:3.1;ctx.shadowColor='#fff';ctx.shadowBlur=13;
+   ctx.beginPath();points.forEach(([x,y],j)=>j?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.stroke();
+   ctx.restore();
+  });
+
+  // Pequeños destellos recorren el contorno durante la carga de la tormenta.
+  for(let i=0;i<9;i++){
+   const a=frame*.027+i*Math.PI*2/9;
+   const x=Math.cos(a)* (48+Math.sin(frame*.05+i)*5),y=-5+Math.sin(a)*27;
+   ctx.globalAlpha=.45+.45*Math.max(0,Math.sin(frame*.14+i));
+   ctx.fillStyle=i%3?'#bcefff':'#fff';ctx.shadowColor='#53caff';ctx.shadowBlur=12;
+   ctx.beginPath();ctx.arc(x,y,1.5+(i%2)*.8,0,Math.PI*2);ctx.fill();
+  }
+  ctx.globalAlpha=1;ctx.shadowBlur=0;ctx.restore();
+ }else if(id==='kitsune'){
+  // Kitsune cuadrupeda: zorro espiritual de cuatro patas y nueve colas.
+  // Se mantiene de perfil y solo se refleja al mirar a izquierda/derecha.
+  if(player.dx<-.15)ctx.scale(-1,1);
+  const moving=!!(keys.ArrowLeft||keys.ArrowRight||keys.ArrowUp||keys.ArrowDown||keys.a||keys.A||keys.d||keys.D||keys.w||keys.W||keys.s||keys.S||Math.hypot(mobileJoystickVector.x,mobileJoystickVector.y)>.12);
+  const gait=moving?Math.sin(frame*.34):Math.sin(frame*.045)*.12;
+  const bob=Math.sin(frame*.10)*(moving?1.4:.8);
+  ctx.save();ctx.translate(0,bob);
+
+  // Nueve colas en abanico, naciendo de la grupa y con puntas claras como llamas.
+  const tailTips=[[-119,-48],[-124,-29],[-126,-9],[-120,12],[-108,32],[-91,48],[-82,-66],[-104,-76],[-126,43]];
+  tailTips.forEach(([tx,ty],i)=>{
+   const sx=-29,sy=-5+(i%3)*3,wiggle=Math.sin(frame*.055+i*.72)*3.2;
+   ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
+   ctx.beginPath();ctx.moveTo(sx,sy);
+   ctx.bezierCurveTo(-61+wiggle,-26+(i%4)*13,tx+36+wiggle,ty+17,tx,ty);
+   ctx.strokeStyle='#3b1a69';ctx.lineWidth=15;ctx.stroke();
+   const tg=ctx.createLinearGradient(sx,sy,tx,ty);
+   tg.addColorStop(0,'#7140b5');tg.addColorStop(.48,i%2?'#a879ef':'#c99bff');tg.addColorStop(.82,'#ead7ff');tg.addColorStop(1,'#fffaff');
+   ctx.strokeStyle=tg;ctx.lineWidth=10.5;ctx.stroke();
+   ctx.strokeStyle='rgba(255,255,255,.88)';ctx.lineWidth=1.8;
+   ctx.beginPath();ctx.moveTo(sx-1,sy-2);ctx.quadraticCurveTo(tx+27,ty+12,tx-1,ty+2);ctx.stroke();
+   // Brillo en la punta de cada cola.
+   ctx.fillStyle=i%2?'#fff7ff':'#ffe7b7';ctx.shadowColor='#e5baff';ctx.shadowBlur=10;
+   ctx.beginPath();ctx.ellipse(tx,ty,3.2,5.2,-.35,0,Math.PI*2);ctx.fill();ctx.restore();
+  });
+
+
+  // Cuerpo más compacto: se escala por separado; las nueve colas mantienen su tamaño original.
+  ctx.save();ctx.translate(4,1);ctx.scale(.82,.84);
+  const fur=ctx.createLinearGradient(-24,-44,36,42);
+  fur.addColorStop(0,'#fff6ff');fur.addColorStop(.32,'#dfc0ff');fur.addColorStop(.68,p);fur.addColorStop(1,d);
+  const furDark='#482276',furLight='#f8eaff';
+
+  // Patas traseras lejanas: dos extremidades separadas y articuladas.
+  ctx.lineCap='round';ctx.lineJoin='round';
+  for(const [x,phase] of [[-25,0],[18,Math.PI]]){
+   const swing=gait*Math.cos(phase)*5;
+   ctx.strokeStyle=furDark;ctx.lineWidth=10.5;ctx.beginPath();ctx.moveTo(x,5);ctx.lineTo(x-2+swing,19);ctx.lineTo(x-5+swing,33);ctx.stroke();
+   ctx.strokeStyle='#9a68d7';ctx.lineWidth=6.5;ctx.beginPath();ctx.moveTo(x,5);ctx.lineTo(x-2+swing,19);ctx.lineTo(x-5+swing,32);ctx.stroke();
+   ctx.fillStyle='#7546af';ctx.beginPath();ctx.ellipse(x-8+swing,34,8,4.2,-.12,0,Math.PI*2);ctx.fill();
+  }
+
+  // Tronco largo, musculoso y bajo, con grupa, lomo y pecho de zorro.
+  ctx.fillStyle=furDark;ctx.beginPath();
+  ctx.moveTo(-43,-11);ctx.quadraticCurveTo(-36,-27,-17,-25);
+  ctx.quadraticCurveTo(5,-29,23,-19);ctx.quadraticCurveTo(39,-13,42,1);
+  ctx.quadraticCurveTo(34,17,13,18);ctx.lineTo(-19,17);
+  ctx.quadraticCurveTo(-42,14,-47,1);ctx.closePath();ctx.fill();
+  ctx.fillStyle=fur;ctx.beginPath();
+  ctx.moveTo(-40,-12);ctx.quadraticCurveTo(-32,-23,-15,-21);
+  ctx.quadraticCurveTo(7,-25,22,-16);ctx.quadraticCurveTo(35,-10,37,1);
+  ctx.quadraticCurveTo(30,12,12,14);ctx.lineTo(-18,13);
+  ctx.quadraticCurveTo(-38,11,-43,0);ctx.closePath();ctx.fill();
+  // Lomo brillante y vientre claro.
+  ctx.strokeStyle='rgba(255,255,255,.72)';ctx.lineWidth=2.2;ctx.beginPath();ctx.moveTo(-27,-16);ctx.quadraticCurveTo(-3,-25,19,-14);ctx.stroke();
+  ctx.fillStyle='#fff1ff';ctx.beginPath();ctx.moveTo(-20,9);ctx.quadraticCurveTo(3,15,28,5);ctx.quadraticCurveTo(17,18,-11,14);ctx.closePath();ctx.fill();
+
+  // Cuello inclinado y pecho: conecta el cuerpo con una cabeza claramente animal.
+  ctx.fillStyle=furDark;ctx.beginPath();ctx.moveTo(18,-17);ctx.lineTo(30,-39);ctx.lineTo(46,-32);ctx.lineTo(43,-4);ctx.lineTo(31,12);ctx.lineTo(17,6);ctx.closePath();ctx.fill();
+  ctx.fillStyle=fur;ctx.beginPath();ctx.moveTo(21,-17);ctx.lineTo(32,-35);ctx.lineTo(43,-29);ctx.lineTo(40,-5);ctx.lineTo(30,8);ctx.lineTo(20,3);ctx.closePath();ctx.fill();
+  // Pecho blanco en forma de mechones.
+  ctx.fillStyle='#fff6ff';ctx.beginPath();ctx.moveTo(22,-2);ctx.quadraticCurveTo(29,1,35,-5);ctx.lineTo(31,11);ctx.lineTo(25,7);ctx.lineTo(22,13);ctx.closePath();ctx.fill();
+
+  // Cabeza de zorro: cráneo estrecho, dos orejas triangulares y hocico largo puntiagudo.
+  ctx.fillStyle=furDark;ctx.beginPath();
+  ctx.moveTo(29,-32);ctx.lineTo(27,-57);ctx.lineTo(42,-44);
+  ctx.lineTo(49,-61);ctx.lineTo(59,-37);ctx.quadraticCurveTo(66,-29,61,-20);
+  ctx.lineTo(72,-16);ctx.quadraticCurveTo(67,-7,53,-11);
+  ctx.lineTo(39,-17);ctx.quadraticCurveTo(27,-19,29,-32);ctx.closePath();ctx.fill();
+  ctx.fillStyle=fur;ctx.beginPath();
+  ctx.moveTo(32,-32);ctx.lineTo(30,-52);ctx.lineTo(42,-42);
+  ctx.lineTo(49,-55);ctx.lineTo(56,-36);ctx.quadraticCurveTo(62,-29,57,-21);
+  ctx.lineTo(69,-16);ctx.quadraticCurveTo(65,-11,53,-15);
+  ctx.lineTo(40,-20);ctx.quadraticCurveTo(31,-22,32,-32);ctx.closePath();ctx.fill();
+  // Interior de las orejas.
+  ctx.fillStyle='#a65de0';ctx.beginPath();ctx.moveTo(33,-47);ctx.lineTo(33,-37);ctx.lineTo(40,-39);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.moveTo(48,-49);ctx.lineTo(52,-37);ctx.lineTo(56,-34);ctx.closePath();ctx.fill();
+
+  // Máscara facial blanca, mejilla y hocico fino de zorro.
+  ctx.fillStyle='#fff8ff';ctx.beginPath();
+  ctx.moveTo(43,-29);ctx.quadraticCurveTo(56,-32,64,-22);
+  ctx.lineTo(70,-16);ctx.quadraticCurveTo(63,-9,51,-16);
+  ctx.quadraticCurveTo(43,-19,39,-23);ctx.closePath();ctx.fill();
+  ctx.fillStyle='#e8d6ff';ctx.beginPath();ctx.ellipse(48,-18,8,5,.25,0,Math.PI*2);ctx.fill();
+  // Ojo almendrado, pupila vertical y ceja marcada.
+  ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(46,-31,5.2,3.3,-.22,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#35134f';ctx.beginPath();ctx.ellipse(48,-31,1.8,3,0,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#53247f';ctx.lineWidth=2.6;ctx.beginPath();ctx.moveTo(41,-36);ctx.lineTo(50,-38);ctx.stroke();
+  // Nariz negra pequeña, boca y bigotes sutiles.
+  ctx.fillStyle='#24152f';ctx.beginPath();ctx.moveTo(69,-18);ctx.lineTo(74,-16);ctx.lineTo(69,-13);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#643b81';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(67,-13);ctx.quadraticCurveTo(61,-8,56,-13);ctx.stroke();
+  ctx.fillStyle='#8e64b8';for(const [x,y] of [[57,-19],[61,-17],[57,-14]]){ctx.beginPath();ctx.arc(x,y,1,0,Math.PI*2);ctx.fill();}
+  // Gema espiritual discreta en la frente.
+  ctx.fillStyle='#ffe5a8';ctx.strokeStyle='#fff5d5';ctx.lineWidth=1.2;
+  ctx.beginPath();ctx.moveTo(43,-43);ctx.lineTo(47,-38);ctx.lineTo(43,-33);ctx.lineTo(39,-38);ctx.closePath();ctx.fill();ctx.stroke();
+
+  // Patas delanteras cercanas para que se distingan las cuatro extremidades.
+  for(const [x,phase] of [[-19,Math.PI],[25,0]]){
+   const swing=gait*Math.cos(phase)*5;
+   ctx.strokeStyle=furDark;ctx.lineWidth=11;ctx.beginPath();ctx.moveTo(x,7);ctx.lineTo(x+2+swing,21);ctx.lineTo(x+4+swing,35);ctx.stroke();
+   ctx.strokeStyle=fur;ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(x,7);ctx.lineTo(x+2+swing,21);ctx.lineTo(x+4+swing,34);ctx.stroke();
+   ctx.fillStyle='#f4e4ff';ctx.beginPath();ctx.ellipse(x+8+swing,36,8.5,4.5,-.08,0,Math.PI*2);ctx.fill();
+   ctx.strokeStyle='#8a55c4';ctx.lineWidth=1.1;ctx.beginPath();ctx.moveTo(x+11+swing,34);ctx.lineTo(x+11+swing,38);ctx.stroke();
+  }
+
+  // Pequeños destellos espirituales alrededor del zorro, sin ocultar su silueta.
+  for(let i=0;i<6;i++){
+   const a=frame*.025+i*Math.PI/3,x=51+Math.cos(a)*7,y=-4+Math.sin(a)*20;
+   ctx.globalAlpha=.45+.35*Math.max(0,Math.sin(frame*.08+i));
+   ctx.fillStyle=i%2?'#fff':'#ffe7ad';ctx.shadowColor='#d5a4ff';ctx.shadowBlur=9;
+   ctx.beginPath();ctx.arc(x,y,1.6+(i%2)*.5,0,Math.PI*2);ctx.fill();
+  }
+  ctx.globalAlpha=1;ctx.shadowBlur=0;ctx.restore();ctx.restore(); // Cierra la escala del cuerpo y el movimiento flotante.
  }else if(id==='buddha'){
   if(player.dx<-.15)ctx.scale(-1,1);
   // Gran avatar dorado de perfil: la silueta permanece vertical y solo cambia de lado al girar horizontalmente.
@@ -2081,7 +2303,7 @@ for(const e of enemies){
 }
 for(const p of particles){ctx.globalAlpha=Math.max(0,p.life/p.max);if(p.text){ctx.save();ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='1000 '+p.fontSize+'px system-ui, sans-serif';ctx.lineJoin='round';ctx.lineWidth=3.2;ctx.strokeStyle='rgba(8,5,12,.92)';ctx.strokeText(p.textValue,p.x,p.y);ctx.shadowColor=p.color;ctx.shadowBlur=9;ctx.fillStyle=p.color;ctx.fillText(p.textValue,p.x,p.y);ctx.restore();}else if(p.ring){ctx.strokeStyle=p.color;ctx.lineWidth=5*(p.life/p.max)+1;ctx.shadowColor=p.color;ctx.shadowBlur=16;ctx.beginPath();ctx.arc(p.x,p.y,p.radius*(1-p.life/p.max*.22),0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;}else if(p.beam){ctx.strokeStyle=p.color;ctx.lineWidth=p.width*(p.life/p.max);ctx.lineCap='round';ctx.shadowColor=p.color;ctx.shadowBlur=18;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.ex,p.ey);ctx.stroke();ctx.shadowBlur=0;}else{ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();}}ctx.globalAlpha=1;
 ctx.save();ctx.translate(player.x,player.y);if(player.inv>0&&Math.floor(frame/4)%2===0)ctx.globalAlpha=.45;
-ctx.fillStyle='rgba(0,0,0,.2)';ctx.beginPath();ctx.ellipse(0,13,16,6,0,0,Math.PI*2);ctx.fill();
+ctx.fillStyle='rgba(0,0,0,.2)';ctx.beginPath();if(transformed&&selectedFruit==='kitsune')ctx.ellipse(3,32,41,7,0,0,Math.PI*2);else ctx.ellipse(0,13,16,6,0,0,Math.PI*2);ctx.fill();
 if(adminModes.vhMode){ctx.scale(1.12,1.12);drawPeruCountryball(ctx,frame);}
 else if(transformed&&selectedFruit!=='dragon'){
  drawFruitTransformation(ctx,selectedFruit,fruitInfo(),frame);
@@ -2143,6 +2365,23 @@ else if(transformed&&selectedFruit!=='dragon'){
 else{ctx.fillStyle='#273c77';rr(-10,-4,20,19,6);ctx.fillStyle='#ffd6a1';ctx.beginPath();ctx.arc(0,-8,10,0,Math.PI*2);ctx.fill();ctx.fillStyle='#f0f4ff';ctx.beginPath();ctx.moveTo(-10,-13);ctx.lineTo(0,-25);ctx.lineTo(10,-13);ctx.closePath();ctx.fill();ctx.fillStyle='#d34e62';ctx.fillRect(-10,-14,20,4);ctx.strokeStyle='#fff1b0';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(player.dx*8,player.dy*8);ctx.lineTo(player.dx*22,player.dy*22);ctx.stroke();}ctx.restore();
 ctx.restore();}
 function loop(){update();draw();requestAnimationFrame(loop);}
+// Joystick táctil: vector normalizado que se integra con el movimiento de teclado.
+const mobileJoystickVector={x:0,y:0,pointerId:null};
+const mobileJoystickEl=$('mobileJoystick'),joystickKnobEl=$('joystickKnob');
+function updateMobileJoystick(e){
+ const rect=mobileJoystickEl.querySelector('.joystickRing').getBoundingClientRect();
+ const cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;
+ const max=Math.max(1,rect.width*.31);let dx=e.clientX-cx,dy=e.clientY-cy;
+ const len=Math.hypot(dx,dy);if(len>max){dx=dx/len*max;dy=dy/len*max;}
+ mobileJoystickVector.x=dx/max;mobileJoystickVector.y=dy/max;
+ joystickKnobEl.style.transform=`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px))`;
+}
+function releaseMobileJoystick(e){if(mobileJoystickVector.pointerId===null)return;if(e&&e.pointerId!==undefined&&e.pointerId!==mobileJoystickVector.pointerId)return;mobileJoystickVector.x=0;mobileJoystickVector.y=0;mobileJoystickVector.pointerId=null;joystickKnobEl.style.transform='translate(-50%,-50%)';}
+mobileJoystickEl.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')return;e.preventDefault();mobileJoystickVector.pointerId=e.pointerId;try{mobileJoystickEl.setPointerCapture?.(e.pointerId);}catch(_){/* Algunos entornos de prueba no permiten capturar eventos sintéticos. */}updateMobileJoystick(e);});
+mobileJoystickEl.addEventListener('pointermove',e=>{if(e.pointerId===mobileJoystickVector.pointerId){e.preventDefault();updateMobileJoystick(e);}});
+mobileJoystickEl.addEventListener('pointerup',releaseMobileJoystick);mobileJoystickEl.addEventListener('pointercancel',releaseMobileJoystick);mobileJoystickEl.addEventListener('lostpointercapture',releaseMobileJoystick);
+window.addEventListener('blur',()=>releaseMobileJoystick());
+
 window.addEventListener('keydown',e=>{
  const k=e.key;
  const isSpace=e.code==='Space'||k===' ';
@@ -2234,7 +2473,7 @@ $('adminWorld').addEventListener('change',updateAdminLevelPreview);$('adminFruit
  syncAdminModeUI();
 $('confirmFruitBtn').onclick=startAdventure;
 $('goIslandBtn').onclick=()=>{transitionPending=false;document.body.classList.remove('game-transition','game-paused');paused=false;$('islandTransition').classList.add('hidden');document.body.classList.add('game-started');syncPauseButtonVisibility();$('status').textContent=postGame?'Dimensión Rainbow':(island>=20?'Dimensión Rainbow':'Explorando '+areaName());log('Rumbo a '+areaName()+'. La aventura continúa.');updateUI();};
-$('startBtn').onclick=()=>{getSfxAudioContext();if(!gameOver){$('startScreen').classList.add('hidden');$('fruitSelectScreen').classList.remove('hidden');renderFruitSelect();}};
+$('startBtn').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();if(gameOver)return;try{renderFruitSelect();$('fruitSelectScreen').classList.remove('hidden');$('startScreen').classList.add('hidden');getSfxAudioContext();}catch(err){console.error('No se pudo abrir la selección de fruta:',err);startAdventure();}});
 // Superposiciones de pausa y Game Over a nivel de página para que no se recorten en pantallas pequeñas.
 document.body.appendChild($('fruitSelectScreen'));document.body.appendChild($('pauseScreen'));document.body.appendChild($('gameOverScreen'));document.body.appendChild($('campaignCompleteScreen'));document.body.appendChild($('adminScreen'));document.body.appendChild($('invokerResultScreen'));
 $('continueInfiniteBtn').onclick=enterInfiniteWorld;
