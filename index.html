@@ -154,6 +154,10 @@ header button:disabled{opacity:.55;cursor:default;filter:none}
 .pauseScreen{z-index:9;background:rgba(2,8,20,.7)}
 .pauseScreen.hidden,.gameOverScreen.hidden{display:none!important}
 .pauseCard,.gameOverCard{width:min(440px,94%);padding:clamp(22px,4vw,36px);border:1px solid rgba(190,213,245,.42);border-radius:22px;background:linear-gradient(145deg,rgba(9,25,48,.98),rgba(34,23,48,.98));box-shadow:0 18px 70px rgba(0,0,0,.45),inset 0 0 34px rgba(160,190,245,.035);animation:panelPop .32s ease-out both}
+.pauseCard{position:relative}
+.pauseCard #soundToggleBtn{position:absolute;top:12px;right:12px;z-index:2;width:42px;min-width:42px;height:42px;min-height:42px;padding:0;border-radius:12px;border:1px solid rgba(255,209,102,.55);background:linear-gradient(145deg,#273c5c,#14253e);color:#fff;font-size:1.18rem;line-height:1;box-shadow:0 4px 15px rgba(0,0,0,.28);display:grid;place-items:center}
+.pauseCard #soundToggleBtn:hover{filter:brightness(1.18);transform:translateY(-1px)}
+.pauseCard #soundToggleBtn:focus-visible{outline:3px solid #ffd166;outline-offset:3px}
 .pauseIcon{display:grid;place-items:center;width:52px;height:52px;margin:0 auto 10px;border-radius:50%;background:#263955;color:#fff;font-size:1.5rem;border:1px solid #6681a5}
 .pauseCard h2,.gameOverCard h2{margin:8px 0 10px;font-size:clamp(2rem,6vw,3rem);letter-spacing:.1em;color:#fff;text-shadow:0 0 22px rgba(118,170,255,.28)}
 .pauseCard p,.gameOverCard p{color:#c7d7ec;margin:0 0 22px}
@@ -644,7 +648,7 @@ body.campaign-complete .gameStage #pauseBtn{display:none!important}
   <div class="stat hud-spacer" aria-hidden="true"></div>
   <div class="stat"><small>Vida</small><strong id="hpText">120 / 120</strong><div class="bar"><div class="fill hp" id="hpBar"></div></div></div>
   <div class="stat"><small id="furyLabel">Furia dracónica</small><strong id="furyText">0%</strong><div class="bar"><div class="fill fury" id="furyBar"></div></div></div>
- </div><div class="startScreen" id="startScreen"><div class="startCard"><h2>ÉTER: ASCENSIÓN</h2><p>Eres un joven que despierta el poder de una fruta ancestral y se embarca en una aventura por islas de todo tipo, enfrentando enemigos, élites y jefes. ¿Aceptas el desafío?</p><button id="startBtn">DESPERTAR</button></div></div><div id="fruitSelectScreen" class="fruitSelectScreen hidden" role="dialog" aria-modal="true" aria-labelledby="fruitSelectTitle"><div class="fruitSelectCard"><p class="fruitSelectEyebrow">ELIGE TU PODER ANCESTRAL</p><h2 id="fruitSelectTitle">SELECCIÓN DE FRUTA</h2><p class="fruitSelectIntro">Cada fruta tiene una forma de furia distinta. Escoge la que mejor se adapte a tu estilo.</p><div id="fruitGroups" class="fruitGroups"></div><div class="fruitSelectFooter"><button id="confirmFruitBtn" type="button">CONFIRMAR Y JUGAR</button></div></div></div><div class="islandTransition hidden" id="islandTransition" role="dialog" aria-modal="true" aria-labelledby="transitionTitle"><div class="islandTransitionCard"><div class="eyebrow" id="transitionEyebrow">NUEVO REINO DESCUBIERTO</div><h2 id="transitionTitle">Preparando el viaje...</h2><p id="transitionDescription">Una nueva aventura te espera.</p><button id="goIslandBtn">IR AL SIGUIENTE REINO</button></div></div><div id="pauseScreen" class="pauseScreen hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle"><div class="pauseCard"><div class="pauseIcon">Ⅱ</div><h2 id="pauseTitle">PAUSA</h2><p>La partida está detenida.</p><button id="resumeBtn" type="button">▶ CONTINUAR</button></div></div><div id="gameOverScreen" class="gameOverScreen hidden" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle"><div class="gameOverCard"><div class="gameOverMark">✦</div><p class="gameOverEyebrow">LA AVENTURA SE DETUVO</p><h2 id="gameOverTitle">GAME OVER</h2><p>Los reinos aún esperan tu regreso.</p><button id="reloadBtn" type="button">↻ VOLVER A EMPEZAR</button></div></div><div id="campaignCompleteScreen" class="campaignCompleteScreen hidden" role="dialog" aria-modal="true" aria-labelledby="campaignCompleteTitle"><div class="campaignCompleteCard"><p class="campaignEyebrow">HISTORIA PRINCIPAL COMPLETADA</p><h2 id="campaignCompleteTitle">¡FELICIDADES!</h2><p>Has alcanzado el nivel 100, conquistado los 20 mundos y demostrado que puedes dominar el poder de tu fruta.</p><div class="campaignDivider"></div><h3>Tu viaje todavía no termina.</h3><p>Continúa en la <strong>Dimensión Rainbow</strong>, un mundo de postgame donde los enemigos, los jefes y tu poder siguen creciendo sin límite.</p><button id="continueInfiniteBtn" type="button">CONTINUAR EN LA DIMENSIÓN RAINBOW</button></div></div><div id="adminScreen" class="adminScreen hidden" role="dialog" aria-modal="true" aria-labelledby="adminTitle"><div class="adminCard"><p class="adminEyebrow">ACCESO ESPECIAL · ÉTER: ASCENSIÓN</p><h2 id="adminTitle">MODO ADMIN</h2><p>Hola VH. Escoge tu mundo:</p><div class="adminField"><label for="adminWorld">Mundo de destino</label><select id="adminWorld"></select><small id="adminLevelPreview" class="adminLevelPreview">Nivel inicial: 1</small></div><div class="adminField adminFruitField"><label for="adminFruit">Poder / fruta equipada</label><select id="adminFruit"></select><small class="adminLevelPreview">El cambio de fruta se aplica al instante, sin reiniciar la partida.</small></div><div class="adminActions"><button id="adminTeleportBtn" type="button">TELETRANSPORTAR</button><button id="adminBackBtn" type="button">VOLVER</button></div></div></div></div><div class="foot"><span id="islandLabel">ISLA 1 · PUERTO ROCKET</span><span id="status" class="visuallyHidden">Pulsa DESPERTAR para jugar</span></div>
+ </div><div class="startScreen" id="startScreen"><div class="startCard"><h2>ÉTER: ASCENSIÓN</h2><p>Eres un joven que despierta el poder de una fruta ancestral y se embarca en una aventura por islas de todo tipo, enfrentando enemigos, élites y jefes. ¿Aceptas el desafío?</p><button id="startBtn">DESPERTAR</button></div></div><div id="fruitSelectScreen" class="fruitSelectScreen hidden" role="dialog" aria-modal="true" aria-labelledby="fruitSelectTitle"><div class="fruitSelectCard"><p class="fruitSelectEyebrow">ELIGE TU PODER ANCESTRAL</p><h2 id="fruitSelectTitle">SELECCIÓN DE FRUTA</h2><p class="fruitSelectIntro">Cada fruta destaca en un atributo, es equilibrada en otro y tiene una debilidad. Escoge tu estilo de combate.</p><div id="fruitGroups" class="fruitGroups"></div><div class="fruitSelectFooter"><button id="confirmFruitBtn" type="button">CONFIRMAR Y JUGAR</button></div></div></div><div class="islandTransition hidden" id="islandTransition" role="dialog" aria-modal="true" aria-labelledby="transitionTitle"><div class="islandTransitionCard"><div class="eyebrow" id="transitionEyebrow">NUEVO REINO DESCUBIERTO</div><h2 id="transitionTitle">Preparando el viaje...</h2><p id="transitionDescription">Una nueva aventura te espera.</p><button id="goIslandBtn">IR AL SIGUIENTE REINO</button></div></div><div id="pauseScreen" class="pauseScreen hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle"><div class="pauseCard"><button id="soundToggleBtn" class="soundToggleBtn" type="button" aria-label="Silenciar sonido" aria-pressed="false" title="Silenciar sonido">🔊</button><div class="pauseIcon">Ⅱ</div><h2 id="pauseTitle">PAUSA</h2><p>La partida está detenida.</p><button id="resumeBtn" type="button">▶ CONTINUAR</button></div></div><div id="gameOverScreen" class="gameOverScreen hidden" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle"><div class="gameOverCard"><div class="gameOverMark">✦</div><p class="gameOverEyebrow">LA AVENTURA SE DETUVO</p><h2 id="gameOverTitle">GAME OVER</h2><p>Los reinos aún esperan tu regreso.</p><button id="reloadBtn" type="button">↻ VOLVER A EMPEZAR</button></div></div><div id="campaignCompleteScreen" class="campaignCompleteScreen hidden" role="dialog" aria-modal="true" aria-labelledby="campaignCompleteTitle"><div class="campaignCompleteCard"><p class="campaignEyebrow">HISTORIA PRINCIPAL COMPLETADA</p><h2 id="campaignCompleteTitle">¡FELICIDADES!</h2><p>Has alcanzado el nivel 100, conquistado los 20 mundos y demostrado que puedes dominar el poder de tu fruta.</p><div class="campaignDivider"></div><h3>Tu viaje todavía no termina.</h3><p>Continúa en la <strong>Dimensión Rainbow</strong>, un mundo de postgame donde los enemigos, los jefes y tu poder siguen creciendo sin límite.</p><button id="continueInfiniteBtn" type="button">CONTINUAR EN LA DIMENSIÓN RAINBOW</button></div></div><div id="adminScreen" class="adminScreen hidden" role="dialog" aria-modal="true" aria-labelledby="adminTitle"><div class="adminCard"><p class="adminEyebrow">ACCESO ESPECIAL · ÉTER: ASCENSIÓN</p><h2 id="adminTitle">MODO ADMIN</h2><p>Hola VH. Escoge tu mundo:</p><div class="adminField"><label for="adminWorld">Mundo de destino</label><select id="adminWorld"></select><small id="adminLevelPreview" class="adminLevelPreview">Nivel inicial: 1</small></div><div class="adminField adminFruitField"><label for="adminFruit">Poder / fruta equipada</label><select id="adminFruit"></select><small class="adminLevelPreview">El cambio de fruta se aplica al instante, sin reiniciar la partida.</small></div><div class="adminActions"><button id="adminTeleportBtn" type="button">TELETRANSPORTAR</button><button id="adminBackBtn" type="button">VOLVER</button></div></div></div></div><div class="foot"><span id="islandLabel">ISLA 1 · PUERTO ROCKET</span><span id="status" class="visuallyHidden">Pulsa DESPERTAR para jugar</span></div>
  <div class="mobile"><div class="mobileActions">
  <button id="mobileSpace" type="button" aria-label="Rugido: tocar o pulsar espacio para atacar"><span class="controlKey">CLICK / ESPACIO</span><span class="attackName" data-attack-name="m1">Rugido Dracónico</span><small class="cooldownLabel" data-cd="m1">LISTO</small></button>
  <button type="button" data-ability="z"><span class="controlKey">Z</span><span class="attackName" data-attack-name="z">Aliento Ígneo</span><small class="cooldownLabel" data-cd="z">LISTO</small></button>
@@ -735,12 +739,13 @@ const themes=[
 const MAX_ENEMIES_ON_SCREEN=7, MAX_PURPLE_BOSSES_ON_SCREEN=3, RESPAWN_DELAY_FRAMES=180, EMPTY_SCREEN_REFILL_FRAMES=300, EMPTY_SCREEN_REFILL_STEP=EMPTY_SCREEN_REFILL_FRAMES/MAX_ENEMIES_ON_SCREEN; // 7 enemigos como máximo, incluidos hasta 3 jefes morados; reposición normal cada 3 s
 let keys={},player,enemies,particles,level,xp,xpNeed,island,islandKills,fury,transformed,transformFrames,attackCD,cds,frame,gameOver,shake,started=false,furyauraCD=0,spawnCounter=0,spawnClock=0,emptyRefillUntil=-1,emptyRefillNextFrame=0,transitionPending=false,paused=false,postGame=false,campaignCompleteShown=false;
 const FRUITS={
- lightning:{name:'Lightning',group:'speed',form:'Avatar del rayo ancestral',speed:1.24,damage:.98,normalTaken:.88,transformedTaken:.66,primary:'#38a8ff',light:'#c4f0ff',dark:'#1659bc',rgb:'56,168,255',speedText:'Alta'},
- kitsune:{name:'Kitsune',group:'speed',form:'Kitsune celestial · nueve colas',speed:1.31,damage:.92,normalTaken:.84,transformedTaken:.63,primary:'#a46bff',light:'#efd7ff',dark:'#6333bb',rgb:'164,107,255',speedText:'Muy alta'},
- dragon:{name:'Dragon',group:'defense',form:'Dragón oriental ancestral',speed:1.00,damage:1.16,normalTaken:.72,transformedTaken:.54,primary:'#39d98a',light:'#c3ffe1',dark:'#0c7453',rgb:'57,217,138',speedText:'Media'},
- buddha:{name:'Buddha',group:'defense',form:'Titán dorado de perfil',speed:.80,damage:1.04,normalTaken:.52,transformedTaken:.39,primary:'#f5c542',light:'#fff2a8',dark:'#aa7610',rgb:'245,197,66',speedText:'Baja'},
- dough:{name:'Dough',group:'attack',form:'Rueda de masa con púas',speed:.94,damage:1.25,normalTaken:.78,transformedTaken:.58,primary:'#f4f5ff',light:'#ffffff',dark:'#9eafd0',rgb:'244,245,255',speedText:'Media-baja'},
- pain:{name:'Pain',group:'attack',form:'Soberano de la gravedad',speed:.88,damage:1.34,normalTaken:.84,transformedTaken:.63,primary:'#f0445c',light:'#ffbbc5',dark:'#971c37',rgb:'240,68,92',speedText:'Baja'}
+ // Cada fruta destaca en un atributo, queda en un nivel intermedio en otro y tiene una debilidad clara.
+ lightning:{name:'Lightning',group:'speed',form:'Avatar del rayo ancestral',speed:1.32,damage:1.08,normalTaken:.92,transformedTaken:.69,primary:'#38a8ff',light:'#c4f0ff',dark:'#1659bc',rgb:'56,168,255',speedText:'Muy alta'},
+ kitsune:{name:'Kitsune',group:'speed',form:'Kitsune celestial · nueve colas',speed:1.42,damage:.88,normalTaken:.82,transformedTaken:.615,primary:'#a46bff',light:'#efd7ff',dark:'#6333bb',rgb:'164,107,255',speedText:'Extrema'},
+ dragon:{name:'Dragon',group:'defense',form:'Dragón oriental ancestral',speed:.88,damage:1.28,normalTaken:.70,transformedTaken:.525,primary:'#39d98a',light:'#c3ffe1',dark:'#0c7453',rgb:'57,217,138',speedText:'Baja'},
+ buddha:{name:'Buddha',group:'defense',form:'Titán dorado de perfil',speed:.68,damage:1.08,normalTaken:.38,transformedTaken:.285,primary:'#f5c542',light:'#fff2a8',dark:'#aa7610',rgb:'245,197,66',speedText:'Muy baja'},
+ dough:{name:'Dough',group:'attack',form:'Rueda de masa con púas',speed:1.05,damage:1.36,normalTaken:.88,transformedTaken:.66,primary:'#f4f5ff',light:'#ffffff',dark:'#9eafd0',rgb:'244,245,255',speedText:'Media'},
+ pain:{name:'Pain',group:'attack',form:'Soberano de la gravedad',speed:1.08,damage:1.45,normalTaken:1.08,transformedTaken:.81,primary:'#f0445c',light:'#ffbbc5',dark:'#971c37',rgb:'240,68,92',speedText:'Media'}
 };
 const FRUIT_ORDER={speed:['lightning','kitsune'],defense:['dragon','buddha'],attack:['dough','pain']};
 const FRUIT_ATTACK_NAMES={
@@ -809,7 +814,7 @@ function fruitSvg(id){
 function fruitStatText(f){
  const speed=Math.round((f.speed-1)*100),damage=Math.round((f.damage-1)*100),defense=Math.round((1-f.normalTaken)*100);
  const signed=value=>(value>0?'+':'')+value+'%';
- return `<span>Velocidad <b>${signed(speed)}</b></span><span>Daño <b>${signed(damage)}</b></span><span>Defensa <b>+${defense}%</b></span><span>Furia <b>30 s</b></span>`;
+ return `<span>Velocidad <b>${signed(speed)}</b></span><span>Daño <b>${signed(damage)}</b></span><span>Defensa <b>${signed(defense)}</b></span><span>Furia <b>30 s</b></span>`;
 }
 function renderFruitSelect(){
  const groups=[['speed','VELOCIDAD'],['defense','DEFENSA'],['attack','ATAQUE']];
@@ -847,15 +852,28 @@ let propulsionHitState=new Map(); // Por uso: máximo seis pulsos de daño por e
 let furyPending=0; // Carga pendiente liberada gradualmente durante el combate activo.
 const rand=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 // Audio procedural: sonidos originales generados con Web Audio, sin archivos externos.
-let sfxAudioContext=null;
+let sfxAudioContext=null,sfxMasterGain=null,sfxMuted=false;
 function getSfxAudioContext(){
  try{
   const AudioCtor=window.AudioContext||window.webkitAudioContext;
   if(!AudioCtor)return null;
   if(!sfxAudioContext)sfxAudioContext=new AudioCtor();
+  if(!sfxMasterGain){sfxMasterGain=sfxAudioContext.createGain();sfxMasterGain.gain.value=sfxMuted?0:1;sfxMasterGain.connect(sfxAudioContext.destination);}
   if(sfxAudioContext.state==='suspended')sfxAudioContext.resume().catch(()=>{});
   return sfxAudioContext;
  }catch(err){return null;}
+}
+function updateSoundToggleButton(){
+ const button=$('soundToggleBtn');if(!button)return;
+ button.textContent=sfxMuted?'🔇':'🔊';
+ const label=sfxMuted?'Activar sonido':'Silenciar sonido';
+ button.setAttribute('aria-label',label);button.setAttribute('title',label);button.setAttribute('aria-pressed',String(sfxMuted));
+}
+function toggleSound(){
+ sfxMuted=!sfxMuted;
+ const ac=getSfxAudioContext();
+ if(ac&&sfxMasterGain){const target=sfxMuted?0:1;try{sfxMasterGain.gain.setTargetAtTime(target,ac.currentTime,.015);}catch(err){sfxMasterGain.gain.value=target;}}
+ updateSoundToggleButton();
 }
 function sfxTone(startHz,endHz,duration,wave='sine',volume=.055,delay=0){
  const ac=getSfxAudioContext();if(!ac)return;
@@ -865,7 +883,7 @@ function sfxTone(startHz,endHz,duration,wave='sine',volume=.055,delay=0){
   osc.frequency.exponentialRampToValueAtTime(Math.max(1,endHz),t+duration);
   gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(Math.max(.0002,volume),t+.012);
   gain.gain.exponentialRampToValueAtTime(.0001,t+duration);
-  osc.connect(gain);gain.connect(ac.destination);osc.start(t);osc.stop(t+duration+.03);
+  osc.connect(gain);gain.connect(sfxMasterGain||ac.destination);osc.start(t);osc.stop(t+duration+.03);
  }catch(err){}
 }
 function playPlayerAttackSound(kind,isDragon=transformed){
@@ -965,18 +983,18 @@ function gainXP(n){
 }
 function hurtPlayer(rawDamage,source='enemigo'){if(player.inv>0||gameOver)return false;if(source&&source.startsWith('M1'))playEnemyAttackSound(source.includes('jefe')?'boss':source.includes('élite')?'elite':'normal','contact');const damage=Math.max(1,Math.round(rawDamage*(transformed?fruitInfo().transformedTaken:fruitInfo().normalTaken))); player.hp=Math.max(0,player.hp-damage);player.regenPenaltyFrames=180;player.inv=26;burst(player.x,player.y,'#ff637b',12,4);if(source)log('💥 '+source+' te hizo '+damage+' de daño.');if(player.hp<=0){playGameOverSound();gameOver=true;paused=false;document.body.classList.remove('game-paused','game-transition');document.body.classList.add('game-over');keys={};$('status').textContent='Derrotado';syncPauseButtonVisibility();$('pauseScreen').classList.add('hidden');$('gameOverScreen').classList.remove('hidden');log('¡Te vencieron! La aventura terminó.');}return true;}
 function playerDamage(base){/* Conserva el escalado por nivel y añade el multiplicador de daño propio de cada fruta. */return Math.round(base*fruitInfo().damage*1.21*(transformed?1.32:1.20)*(1+Math.max(0,level-1)*.035+Math.min(island,20)*.05));}
-function enemyAttackDamage(base,isBoss=false){const benchmarkLevel=enemyBenchmarkLevel();const scale=1+Math.max(0,benchmarkLevel-1)*.035+Math.min(island,20)*.05;return Math.round(base*.84*.90*scale*(postGame?1.08:1)*(isBoss?1.20:1.05));} // Todos los ataques especiales enemigos hacen un 10% menos de daño.
+function enemyAttackDamage(base,isBoss=false,isSuperBoss=false){const benchmarkLevel=enemyBenchmarkLevel();const scale=1+Math.max(0,benchmarkLevel-1)*.035+Math.min(island,20)*.05;return Math.round(base*.84*.90*scale*(postGame?1.08:1)*(isBoss?1.20:1.05)*(isSuperBoss?.65:1));} // Ataques especiales: -10% global; Sagrado Carmesí: -35% adicional respecto a su daño anterior.
 const FURY_CHARGE_MULTIPLIER=.30; // La carga se genera al acertar golpes y se acumula con los impactos y permite llenar el medidor en unos 45 segundos de combate activo.
 function addFury(amount){if(!transformed&&transformFrames<=0&&fury<100)furyPending=Math.min(100-fury,furyPending+Math.max(0,amount)*FURY_CHARGE_MULTIPLIER);}
 function enemyContactDamage(e){
  // M1 enemigo reducido un 20%: normal 12, élite 20, jefe 40 como base.
  // El daño sigue escalando con el nivel medio del reino; Rainbow usa el nivel real.
  const benchmarkLevel=enemyBenchmarkLevel();
- const baseDamage=(e.boss?50:e.elite?25:15)*.74*.90*(e.superBoss?1.4:1); // Contacto enemigo: -10% de daño global.
+ const baseDamage=(e.boss?50:e.elite?25:15)*.74*.90*(e.superBoss?1.4*.65:1); // Contacto enemigo: -10% global; Sagrado Carmesí: -35% adicional.
  const islandScale=1+Math.max(0,benchmarkLevel-3)*.0045;
  return Math.max(1,Math.round(baseDamage*islandScale));
 }
-function resolveBossAttack(e){if(!e.boss||gameOver)return;playEnemyAttackSound(e.superBoss?'carmesi':'boss',e.attackType);const rainbow=island>=20;const tx=e.targetX,ty=e.targetY;let dx=tx-e.x,dy=ty-e.y,dist=Math.hypot(dx,dy)||1,ux=dx/dist,uy=dy/dist;let raw=e.attackType==='z'?54:e.attackType==='x'?72:e.attackType==='c'?48:30;raw=enemyAttackDamage(raw*(e.superBoss?1.4:1),true);let hit=false;
+function resolveBossAttack(e){if(!e.boss||gameOver)return;playEnemyAttackSound(e.superBoss?'carmesi':'boss',e.attackType);const rainbow=island>=20;const tx=e.targetX,ty=e.targetY;let dx=tx-e.x,dy=ty-e.y,dist=Math.hypot(dx,dy)||1,ux=dx/dist,uy=dy/dist;let raw=e.attackType==='z'?54:e.attackType==='x'?72:e.attackType==='c'?48:30;raw=enemyAttackDamage(raw*(e.superBoss?1.4:1),true,!!e.superBoss);let hit=false;
  if(e.attackType==='z'){const range=(rainbow?620:470)*(e.superBoss?1.28:1),beamWidth=(rainbow?40:30)*(e.superBoss?1.2:1),ex=e.x+ux*range,ey=e.y+uy*range;particles.push({beam:true,x:e.x,y:e.y,ex,ey,width:beamWidth,color:e.superBoss?'#ff3038':'#bd74ff',life:20,max:20});const ax=player.x-e.x,ay=player.y-e.y,proj=ax*ux+ay*uy,perp=Math.abs(ax*uy-ay*ux),playerRadius=playerHitboxRadius();hit=proj+playerRadius>0&&proj-playerRadius<range&&perp< (rainbow?42:32)*(e.superBoss?1.2:1)+playerRadius;}
  else if(e.attackType==='x'||e.attackType==='f'){const oldX=e.x,oldY=e.y,travel=Math.min((e.attackType==='x'?(rainbow?230:180):(rainbow?180:130))*(e.superBoss?1.28:1),dist);e.x=clamp(e.x+ux*travel,20,W-20);e.y=clamp(e.y+uy*travel,35,H-20);particles.push({beam:true,x:oldX,y:oldY,ex:e.x,ey:e.y,width:(e.attackType==='x'?34:22)*(e.superBoss?1.25:1),color:e.superBoss?'#ff3038':'#bd74ff',life:18,max:18});const lineDx=e.x-oldX,lineDy=e.y-oldY,len2=lineDx*lineDx+lineDy*lineDy||1,t=clamp(((player.x-oldX)*lineDx+(player.y-oldY)*lineDy)/len2,0,1);const lineDistance=Math.hypot(player.x-(oldX+t*lineDx),player.y-(oldY+t*lineDy));hit=lineDistance<playerHitboxRadius()+(e.attackType==='x'?36:26)*(e.superBoss?1.25:1)||Math.hypot(player.x-e.x,player.y-e.y)<(rainbow?105:82)*(e.superBoss?1.25:1)+playerHitboxRadius();}
  else {const radius=(rainbow?225:170)*(e.superBoss?1.28:1);particles.push({ring:true,x:e.x,y:e.y,radius,color:e.superBoss?'#ff3038':'#bd74ff',life:24,max:24});hit=Math.hypot(player.x-e.x,player.y-e.y)<radius+playerHitboxRadius();}
@@ -1826,7 +1844,7 @@ window.addEventListener('keyup',e=>keys[e.key]=false);
 [['zBtn','z'],['xBtn','x'],['cBtn','c'],['vBtn','v'],['fBtn','f']].forEach(([id,k])=>$(id).onclick=()=>k==='f'?soar():ability(k));
 document.querySelectorAll('[data-ability]').forEach(b=>b.onclick=()=>ability(b.dataset.ability));
 document.querySelectorAll('[data-key]').forEach(b=>{let k=b.dataset.key;let down=e=>{e.preventDefault();keys[k]=true},up=e=>{e.preventDefault();keys[k]=false};b.addEventListener('pointerdown',down);b.addEventListener('pointerup',up);b.addEventListener('pointerleave',up);b.addEventListener('pointercancel',up);});
-$('mobileF').onclick=soar;$('mobileSpace').onclick=areaAttack;$('desktopM1').onclick=areaAttack;$('pauseBtn').onclick=()=>togglePause();$('resumeBtn').onclick=()=>togglePause(false);$('reloadBtn').onclick=()=>window.location.reload();
+$('mobileF').onclick=soar;$('mobileSpace').onclick=areaAttack;$('desktopM1').onclick=areaAttack;$('pauseBtn').onclick=()=>togglePause();$('resumeBtn').onclick=()=>togglePause(false);$('soundToggleBtn').onclick=toggleSound;updateSoundToggleButton();$('reloadBtn').onclick=()=>window.location.reload();
 islandNames.concat(['Dimensión Rainbow']).forEach((name,index)=>{const option=document.createElement('option');option.value=String(index);option.textContent=(index+1)+'. '+name;$('adminWorld').appendChild(option);});
 Object.entries(FRUITS).forEach(([id,fruit])=>{const option=document.createElement('option');option.value=id;option.textContent=fruit.name+' · '+({speed:'Velocidad',defense:'Defensa',attack:'Ataque'}[fruit.group]);$('adminFruit').appendChild(option);});
 renderFruitSelect();updateAttackLabels();
