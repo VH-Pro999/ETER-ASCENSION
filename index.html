@@ -736,6 +736,8 @@ body.youtuber-mode .gameOverCard button{display:inline-flex!important;align-item
  .mobile .cooldownLabel{font-size:clamp(.48rem,1.15vw,.62rem)!important}
  .mobile button:active{transform:scale(.96)!important;filter:brightness(1.22)!important}
  .gameStage{touch-action:none}
+ .mobile .mobileActions button{ -webkit-tap-highlight-color:transparent; user-select:none; -webkit-user-select:none }
+ canvas{ image-rendering:auto }
 }
 @media (pointer:coarse) and (max-width:600px){
  .mobile{padding:0 7px 3px!important;gap:5px!important}
@@ -757,6 +759,40 @@ body.youtuber-mode .gameOverCard button{display:inline-flex!important;align-item
 @media (pointer:fine){
  .joystickHint{display:none!important}
 }
+
+
+/* Pulido visual menor: conserva la paleta oscura y roja de ÉTER: ASCENSIÓN. */
+button,
+input,
+select{ -webkit-tap-highlight-color:transparent; }
+button{transition:transform .14s ease,filter .14s ease,border-color .14s ease,box-shadow .14s ease;}
+button:active:not(:disabled){transform:translateY(1px) scale(.985);filter:brightness(1.08);}
+button:focus-visible,
+input:focus-visible,
+select:focus-visible{outline:2px solid rgba(255,126,139,.96);outline-offset:3px;}
+.gameStage canvas{filter:saturate(1.025) contrast(1.012);}
+.adminCard{scrollbar-width:thin;scrollbar-color:rgba(255,93,112,.58) rgba(28,5,13,.35);}
+.adminModes{transition:border-color .16s ease,background-color .16s ease,box-shadow .16s ease;}
+.adminModeRow{padding-inline:7px;border-radius:8px;transition:background .14s ease,border-color .14s ease;}
+.adminModeRow:hover{background:rgba(255,64,88,.065);}
+.adminModeRow:has(input:checked){background:linear-gradient(90deg,rgba(255,54,78,.13),rgba(255,54,78,.025));}
+.adminModeRow:has(input:checked) strong{color:#fff4f5;}
+.adminModeRow input{width:22px;height:22px;accent-color:#ff3b55;filter:drop-shadow(0 1px 3px rgba(255,35,65,.16));}
+/* El Invocador adopta el mismo rojo oscuro del panel, sin perder contraste funcional. */
+.invokerToolsPanel{border-color:rgba(255,111,126,.42);background:linear-gradient(145deg,rgba(31,7,14,.72),rgba(15,7,13,.68));}
+.invokerToolsPanel label{color:#ffe1e4;}
+.invokerToolsPanel select,.invokerToolsPanel input{border-color:rgba(255,125,138,.48);background:#26080f;color:#fff;}
+.invokerToolsPanel select:focus,.invokerToolsPanel input:focus{border-color:#ff6577;box-shadow:0 0 0 3px rgba(255,70,88,.16);outline:none;}
+.invokerToolsPanel button{background:linear-gradient(100deg,#a91432,#e23a51);box-shadow:0 4px 15px rgba(210,18,52,.18);}
+.invokerToolsPanel button:hover{filter:brightness(1.12);}
+.invokerToolsPanel small{color:#e4c5ca;}
+.invokerCounts{background:rgba(0,0,0,.28);border:1px solid rgba(255,121,135,.2);}
+.abilityHotbar button:active{transform:translateY(1px) scale(.975);filter:brightness(1.16);}
+@media(prefers-reduced-motion:reduce){
+ button,.adminModes,.adminModeRow{transition:none!important;}
+ .gameStage canvas{filter:none;}
+}
+
 </style>
 <!-- ÉTER: ASCENSIÓN — Beta 7: hitboxes ajustadas y daño enemigo -10%. -->
 </head>
@@ -864,6 +900,7 @@ body.youtuber-mode .gameOverCard button{display:inline-flex!important;align-item
 <script>
 (()=>{
 const cv=document.getElementById('game'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height,$=id=>document.getElementById(id);
+const mobileDevice=window.matchMedia('(pointer:coarse) and (max-width:1200px)').matches;
 const islandNames=[
  'Puerto Rocket','Calderas Flame','Cordilleras Ice','Dunas Sand','Ciudad Diamond',
  'Templo Light','Volcán Magma','Santuario Buddha','Ciudadela Portal','Cañón Lightning',
@@ -1215,7 +1252,7 @@ hp=Math.max(1,Math.round(hp*1.10));
 let baseSpeed=superBoss?rand(.94,1.12):boss?rand(.72,.95):elite?rand(.96,1.25):rand(.82,1.12);let speed=baseSpeed+Math.min(benchmarkLevel*.006+island*.012,1.2);const variants=boss?['wyrm','titan','oracle']:elite?['sentinel','fang','specter','juggernaut','arcanist']:['slime','imp','moth','golem','brute','stinger','shaman','crawler','thornkin','ranger'];const variant=variants[Math.floor(rand(0,variants.length))];const enemyRadius=superBoss?(rainbow?36:31)*.80:boss?(rainbow?30:24):elite?18:14; /* Sagrado Carmesí: tamaño y hitbox reducidos un 20%. */ if(superBoss){const marginX=110,marginY=82;x=clamp(x,marginX,W-marginX);y=clamp(y,marginY,H-marginY);if(Math.hypot(x-player.x,y-player.y)<150){x=player.x<W/2?W-marginX:marginX;y=player.y<H/2?H-marginY:marginY;}}else if(boss){x=clamp(x,58,W-58);y=clamp(y,55,H-55);}enemies.push({x,y,r:enemyRadius,hp,maxHp:hp,speed,hit:0,cd:0,boss,superBoss,elite,variant,phase:rand(0,6),skillCd:superBoss?Math.floor(rand(80,145)):boss?Math.floor(rand(100,190)):elite?Math.floor(rand(240,360)):0,castFrames:0,attackType:'',targetX:player.x,targetY:player.y,invoked,regenLocked:adminModes.enemyInvoker});return true;}
 function playerAttackPrimaryColor(){return adminModes.vhMode?'#d71920':fruitInfo().primary;}
 function playerAttackSecondaryColor(){return adminModes.vhMode?'#ffffff':fruitInfo().light;}
-function burst(x,y,color,n=14,power=4){for(let i=0;i<n;i++){let a=rand(0,Math.PI*2),s=rand(.7,power);particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:rand(15,35),max:35,color,r:rand(2,5)});}}
+function burst(x,y,color,n=14,power=4){if(mobileDevice)n=Math.max(3,Math.ceil(n*.68));for(let i=0;i<n;i++){let a=rand(0,Math.PI*2),s=rand(.7,power);particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:rand(15,35),max:35,color,r:rand(2,5)});}if(mobileDevice&&particles.length>260)particles.splice(0,particles.length-260); }
 function changeIsland(nextIsland){
  island=nextIsland;islandKills=0;player.x=W/2;player.y=H/2;enemies=[];particles=[];spawnClock=0;emptyRefillUntil=-1;emptyRefillNextFrame=0;
  const count=MAX_ENEMIES_ON_SCREEN;for(let i=0;i<count;i++)spawnEnemy();
@@ -1349,7 +1386,7 @@ function propulsionHit(e){
  let state=propulsionHitState.get(e);
  if(!state)state={hits:0,lastFrame:-99999};
  if(state.hits>=3||frame-state.lastFrame<30)return false;
- const damage=playerDamage(transformed?45:27);
+ const damage=playerDamage((transformed?45:27)*1.5); // F: +50% de daño base para todas las frutas y VH mode.
  hurtEnemy(e,damage,transformed?10:7,playerAttackPrimaryColor());
  state.hits++;
  state.lastFrame=frame;
@@ -1365,7 +1402,7 @@ function soar(){
  player.soarFrames=90;
  propulsionHitState=new Map();
  const oldX=player.x,oldY=player.y;
- // Impulso inicial y estela: el daño continúa durante los tres segundos activos.
+ // Impulso inicial y estela: el daño continúa durante los 1,5 segundos activos.
  const dashDistance=72;
  player.x+=player.dx*dashDistance;
  player.y+=player.dy*dashDistance;
@@ -1640,7 +1677,7 @@ function updateUI(){
  document.querySelectorAll('[data-cd]').forEach(node=>{const key=node.dataset.cd;let label='LISTO',remaining=cdState[key]||0;if(key==='f'&&player.soarFrames>0)label='ACTIVA';else if(key==='v'&&transformed)label='ACTIVA';else if(key==='v'&&remaining>0)label=(Math.ceil(remaining/6)/10).toFixed(1)+' s';else if(key==='v'&&fury>=100)label='LISTA';else if(key==='v')label=Math.floor(fury)+'%';else if(remaining>0)label=Math.ceil(remaining/60)+' s';node.textContent=label;node.classList.toggle('cooling',remaining>0&&!(key==='v'&&transformed));});
 }
 function update(){if(!started||paused||gameOver||transitionPending){lastActiveUpdateAt=0;return;}const activeNow=performance.now();if(lastActiveUpdateAt>0){const activeDelta=activeNow-lastActiveUpdateAt;if(activeDelta>=0&&activeDelta<250)activeGameElapsedMs+=activeDelta;}lastActiveUpdateAt=activeNow;frame++;if(adminModes.infiniteFury||adminModes.vhMode){fury=100;furyPending=0;}else if(!transformed&&furyPending>0){const furyFrameGain=Math.min(furyPending,100/2700,100-fury);fury+=furyFrameGain;furyPending-=furyFrameGain;if(fury>=100)furyPending=0;}attackCD=Math.max(0,attackCD-1);for(let k of ['z','x','c','v'])cds[k]=Math.max(0,cds[k]-1);if(cds.f>0)cds.f=Math.max(0,cds.f-1);player.inv=Math.max(0,player.inv-1);const wasPropelling=player.soarFrames>0;player.soarFrames=Math.max(0,player.soarFrames-1);if(wasPropelling&&player.soarFrames===0){cds.f=cooldownFrames(240);propulsionHitState.clear();log(attackName('f')+' finalizado. Enfriamiento de 4 segundos.');$('status').textContent=attackName('f')+' en enfriamiento';}shake=Math.max(0,shake*.86);
-let dx=0,dy=0;if(keys.ArrowLeft||keys.a||keys.A)dx--;if(keys.ArrowRight||keys.d||keys.D)dx++;if(keys.ArrowUp||keys.w||keys.W)dy--;if(keys.ArrowDown||keys.s||keys.S)dy++;dx+=mobileJoystickVector.x;dy+=mobileJoystickVector.y;if(dx||dy){let l=Math.hypot(dx,dy);dx/=l;dy/=l;let boost=player.soarFrames>0?2.15:1;player.x+=dx*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost;player.y+=dy*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost;player.dx=dx;player.dy=dy;if(frame%5===0)particles.push({x:player.x,y:player.y+10,vx:rand(-1,1),vy:rand(-1,1),life:12,max:12,color:transformed?playerAttackSecondaryColor():playerAttackPrimaryColor(),r:2});}
+let dx=0,dy=0;if(keys.ArrowLeft||keys.a||keys.A)dx--;if(keys.ArrowRight||keys.d||keys.D)dx++;if(keys.ArrowUp||keys.w||keys.W)dy--;if(keys.ArrowDown||keys.s||keys.S)dy++;dx+=mobileJoystickVector.x;dy+=mobileJoystickVector.y;if(dx||dy){let l=Math.hypot(dx,dy);dx/=l;dy/=l;let boost=player.soarFrames>0?2.15:1;const mobileMoveBoost=1;player.x+=dx*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost*mobileMoveBoost;player.y+=dy*player.speed*fruitInfo().speed*(transformed?1.26:1)*boost*mobileMoveBoost;player.dx=dx;player.dy=dy;if(frame%5===0)particles.push({x:player.x,y:player.y+10,vx:rand(-1,1),vy:rand(-1,1),life:12,max:12,color:transformed?playerAttackSecondaryColor():playerAttackPrimaryColor(),r:2});}
 clampPlayerToStage();
 // Propulsión mantiene una hitbox moderada alrededor del personaje durante 1,5 s.
 // Se aplica un pulso como máximo cada 30 frames por objetivo y hasta tres veces.
@@ -1672,7 +1709,7 @@ else if(emptyRefillUntil>=0){
  if(spawnClock>0)spawnClock--;
  if(spawnClock<=0&&enemies.length<activeEnemyLimit()&&!gameOver){spawnEnemy();if(enemies.length<activeEnemyLimit())spawnClock=RESPAWN_DELAY_FRAMES;}
 }
-for(const p of particles){if(p.beam||p.ring){p.life--;continue;}p.x+=p.vx;p.y+=p.vy;p.vx*=.97;p.vy*=.97;p.life--;}particles=particles.filter(p=>p.life>0);updateUI();}
+for(const p of particles){if(p.beam||p.ring){p.life--;continue;}p.x+=p.vx;p.y+=p.vy;p.vx*=.97;p.vy*=.97;p.life--;}particles=particles.filter(p=>p.life>0);if(mobileDevice&&particles.length>300)particles.splice(0,particles.length-300);updateUI();}
 function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();if(typeof ctx.roundRect==='function'){ctx.roundRect(x,y,w,h,r);}else{ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();}ctx.fill();}
 function drawEnemySprite(e){
  ctx.save();ctx.translate(e.x,e.y);
@@ -2456,9 +2493,9 @@ gameStageEl.addEventListener('pointerdown',e=>{
 },{passive:false});
 window.addEventListener('keyup',e=>keys[e.key]=false);
 [['zBtn','z'],['xBtn','x'],['cBtn','c'],['vBtn','v'],['fBtn','f']].forEach(([id,k])=>$(id).onclick=()=>k==='f'?soar():ability(k));
-document.querySelectorAll('[data-ability]').forEach(b=>b.onclick=()=>ability(b.dataset.ability));
+document.querySelectorAll('[data-ability]').forEach(b=>{b.onclick=()=>{if(!mobileDevice)ability(b.dataset.ability);};if(mobileDevice)b.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')return;e.preventDefault();ability(b.dataset.ability);},{passive:false});});
 document.querySelectorAll('[data-key]').forEach(b=>{let k=b.dataset.key;let down=e=>{e.preventDefault();keys[k]=true},up=e=>{e.preventDefault();keys[k]=false};b.addEventListener('pointerdown',down);b.addEventListener('pointerup',up);b.addEventListener('pointerleave',up);b.addEventListener('pointercancel',up);});
-$('mobileF').onclick=soar;$('mobileSpace').onclick=areaAttack;$('desktopM1').onclick=areaAttack;$('pauseBtn').onclick=()=>togglePause();$('resumeBtn').onclick=()=>togglePause(false);$('soundToggleBtn').onclick=toggleSound;updateSoundToggleButton();$('reloadBtn').onclick=()=>window.location.reload();
+$('mobileF').onclick=()=>{if(!mobileDevice)soar();};$('mobileSpace').onclick=()=>{if(!mobileDevice)areaAttack();};if(mobileDevice){$('mobileF').addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')return;e.preventDefault();soar();},{passive:false});$('mobileSpace').addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')return;e.preventDefault();areaAttack();},{passive:false});}$('desktopM1').onclick=areaAttack;$('pauseBtn').onclick=()=>togglePause();$('resumeBtn').onclick=()=>togglePause(false);$('soundToggleBtn').onclick=toggleSound;updateSoundToggleButton();$('reloadBtn').onclick=()=>window.location.reload();
 islandNames.concat(['Dimensión Rainbow']).forEach((name,index)=>{const option=document.createElement('option');option.value=String(index);option.textContent=(index+1)+'. '+name;$('adminWorld').appendChild(option);});
 Object.entries(FRUITS).forEach(([id,fruit])=>{const option=document.createElement('option');option.value=id;option.textContent=fruit.name+' · '+({speed:'Velocidad',defense:'Defensa',attack:'Ataque'}[fruit.group]);$('adminFruit').appendChild(option);});
 renderFruitSelect();updateAttackLabels();
